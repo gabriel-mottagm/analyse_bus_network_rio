@@ -72,9 +72,16 @@ main.app{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:14px;
 .mapbox{position:relative;border-radius:14px;overflow:hidden;background:var(--map-out);border:1px solid var(--rule);min-height:360px}
 #map{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;display:block}
 #basemap{position:absolute;inset:0;pointer-events:none}
+.mapbox[data-fundo="simples"] #basemap{display:none}
+/* cores das linhas acompanham o fundo escolhido (fundo escuro com página clara e vice-versa) */
+.mapbox[data-fundo="claro"]{--nd:#bdb9af; --g1:#184f95; --g2:#3987e5; --g3:#7aaeea; --b1:#ec8a6f; --b2:#e34948; --b3:#a3262a; --n1:#d5cff5; --n2:#ada2ec; --n3:#8676df; --n4:#6250d6; --n5:#46379f; --n6:#2c2268;}
+.mapbox[data-fundo="escuro"]{--nd:#55554f; --g1:#8fbcf2; --g2:#5598e7; --g3:#2f6fc4; --b1:#c4473f; --b2:#e8655a; --b3:#f2a091; --n1:#3a2f86; --n2:#4f40b0; --n3:#6a59d6; --n4:#8b7de6; --n5:#ab9fef; --n6:#cbc3f6;}
+.fundosel{position:absolute;left:10px;top:10px;z-index:3;font-size:13px;box-shadow:0 1px 6px rgba(0,0,0,.08)}
+.fundosel button{padding:4px 10px}
+.fundosel button:disabled{opacity:.45;cursor:not-allowed}
 .attrib{position:absolute;right:8px;bottom:6px;z-index:2;font-size:10.5px;line-height:1.4;color:var(--muted);background:color-mix(in srgb,var(--surface) 82%,transparent);padding:1px 6px;border-radius:6px;max-width:calc(100% - 16px)}
 .attrib a{color:inherit}
-@media (max-width:700px){.attrib{bottom:auto;top:8px;left:8px;right:auto;max-width:calc(100% - 70px)}}
+@media (max-width:700px){.attrib{bottom:auto;top:48px;left:10px;right:auto;max-width:calc(100% - 70px)}}
 #map.dragging{cursor:grabbing}
 #map.hovering{cursor:pointer}
 .zoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
@@ -257,6 +264,7 @@ table.tt{border-collapse:separate;border-spacing:0;font-size:13px;min-width:100%
   <div class="mapbox" id="mapbox">
     <div id="basemap" aria-hidden="true"></div>
     <div class="attrib" id="attrib"></div>
+    <div class="seg fundosel" id="fundoSel" role="group" aria-label="Fundo do mapa" hidden></div>
     <canvas id="map" aria-label="Mapa das linhas de ônibus do Rio de Janeiro, coloridas pelo indicador escolhido. A mesma informação está na lista ao lado."></canvas>
     <div class="zoom">
       <button id="zin" type="button" aria-label="Aproximar">+</button>
@@ -355,9 +363,10 @@ function classe(ind,v){
   if(ind.neutral) return i;
   return ind.dir==='asc'? i : 5-i;     // asc: menor é melhor; desc: maior é melhor
 }
-function palColor(ind,cls){
-  if(cls<0) return cssv('--nd');
-  return cssv(ind.pal[cls]);
+const mcss=n=>getComputedStyle($('#mapbox')).getPropertyValue(n).trim();   // cor no contexto do mapa (segue o fundo)
+function palColor(ind,cls,noMapa){const f=noMapa?mcss:cssv;
+  if(cls<0) return f('--nd');
+  return f(ind.pal[cls]);
 }
 
 /* ---------- Estado ---------- */
@@ -442,8 +451,8 @@ function renderLegend(){
   const sub=ind.usaFaixa?`${FX_LABEL[S.faixa]} · ${['dia útil','sábado','domingo/feriado'][S.dia]}`:(['viagens','horas'].includes(ind.k)?['Dia útil','Sábado','Domingo/feriado'][S.dia]:'');
   const lg=$('#legend'); lg.classList.toggle('closed',!S.legOpen);
   let h=`<button class="lgt" id="lgToggle" type="button" aria-expanded="${S.legOpen}"><h3>${ind.titulo}</h3><span class="car">${S.legOpen?'ocultar':'legenda'}</span></button><div class="sub">${sub?sub+' · ':''}${ind.neutral?'sem juízo de valor':'azul = melhor · vermelho = pior'}</div><ul>`;
-  ind.labels.forEach((t,i)=>{h+=`<li><span class="sw" style="background:${cssv(ind.pal[i])}"></span><span>${t}</span><span class="ct num">${cnt[i]}</span></li>`});
-  if(nd) h+=`<li><span class="sw" style="background:${cssv('--nd')}"></span><span>${ind.nd}</span><span class="ct num">${nd}</span></li>`;
+  ind.labels.forEach((t,i)=>{h+=`<li><span class="sw" style="background:${mcss(ind.pal[i])}"></span><span>${t}</span><span class="ct num">${cnt[i]}</span></li>`});
+  if(nd) h+=`<li><span class="sw" style="background:${mcss('--nd')}"></span><span>${ind.nd}</span><span class="ct num">${nd}</span></li>`;
   h+='</ul>'; lg.innerHTML=h;
   $('#lgToggle').addEventListener('click',()=>{S.legOpen=!S.legOpen; renderLegend(); if(!userView&&S.sel==null){fitBox(CITYB);draw()}});
 }
@@ -528,7 +537,7 @@ function renderAbout(){
    <li><b>CSV:</b> separador vírgula, decimal com ponto, codificação UTF-8. Traz todas as colunas para as linhas que passam nos filtros, com o tempo de espera de todos os períodos do dia escolhido.</li>
   </ul>
   <h3>Mapa</h3>
-  <p>O mapa de fundo é do <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>, com dados do OpenStreetMap. Quando ele não carrega (por exemplo, sem internet ou dentro do Claude), aparece um fundo simplificado, desenhado a partir dos setores do Censo 2022 (limites de bairro aproximados) e das vias e trilhos do OpenStreetMap.</p>`;
+  <p>O mapa de fundo é do <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>, com dados do OpenStreetMap. No canto do mapa dá para escolher o fundo: Claro, Escuro ou Simples (a escolha fica guardada neste navegador; sem escolha, o fundo segue o tema claro ou escuro do aparelho). Quando o mapa de fundo não carrega (por exemplo, sem internet ou dentro do Claude), aparece o fundo Simples, desenhado a partir dos setores do Censo 2022 (limites de bairro aproximados) e das vias e trilhos do OpenStreetMap.</p>`;
 }
 
 /* ---------- Projeção ----------
@@ -550,17 +559,24 @@ function lonLat(X,Y){const {lon0,c0,m0}=PJ; return [X/(RT*c0)/RAD+lon0, (2*Math.
 /* ---------- Mapa de fundo: OpenFreeMap (vetorial) desenhado pelo MapLibre embaixo do canvas ----------
    O canvas continua dono da câmera e das interações; o MapLibre só acompanha. Se o fundo não carregar
    (páginas do Claude bloqueiam mapas externos, sem WebGL, sem rede), fica o fundo próprio do canvas. */
-const BASE={map:null,ok:false,tema:null,pendente:false};
+const BASE={map:null,ok:false,tema:null,pendente:false,possivel:false,falhou:false,carregando:false};
+let FUNDO=null; try{const f=localStorage.getItem('rxo-fundo'); if(['claro','escuro','simples'].includes(f)) FUNDO=f}catch(e){}
+const fundoAtual=()=>BASE.falhou||!BASE.possivel?'simples':(FUNDO||(temaEscuro()?'escuro':'claro'));   // sem escolha: segue o tema do aparelho
+const estiloAtual=()=>fundoAtual()==='escuro'?'escuro':'claro';
 const ESTILOS={claro:'https://tiles.openfreemap.org/styles/positron',escuro:'https://tiles.openfreemap.org/styles/dark'};
 const ML_DIR='vendor/maplibre-gl-4.7.1/';
 const temaEscuro=()=>{const t=document.documentElement.getAttribute('data-theme'); return t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches};
 const centroML=()=>lonLat((W/2-T.x)/T.k,-(H/2-T.y)/T.k);
 const zoomML=()=>Math.log2(T.k*PJ.c0*2*Math.PI*RT/512);
+function podeFundo(){
+  if(/claude/i.test(location.hostname)) return false;
+  try{const t=document.createElement('canvas'); return !!(t.getContext('webgl2')||t.getContext('webgl'))}catch(e){return false}
+}
 function carregarFundo(){
-  if(/claude/i.test(location.hostname)) return;
-  try{const t=document.createElement('canvas'); if(!(t.getContext('webgl2')||t.getContext('webgl'))) return}catch(e){return}
+  if(!BASE.possivel||BASE.falhou||BASE.carregando||fundoAtual()==='simples') return;
+  BASE.carregando=true;
   const css=document.createElement('link'); css.rel='stylesheet'; css.href=ML_DIR+'maplibre-gl.css'; document.head.appendChild(css);
-  const s=document.createElement('script'); s.src=ML_DIR+'maplibre-gl.js'; s.onload=iniciarFundo; document.head.appendChild(s);
+  const s=document.createElement('script'); s.src=ML_DIR+'maplibre-gl.js'; s.onload=iniciarFundo; s.onerror=desligarFundo; document.head.appendChild(s);
 }
 function iniciarFundo(){
   if(!window.maplibregl||BASE.map) return;
@@ -568,7 +584,7 @@ function iniciarFundo(){
   if(!c0||!c0.every(Number.isFinite)||!Number.isFinite(zoomML())){BASE.pendente=true; return}   // mapa ainda sem tamanho (aba oculta etc.): tenta de novo no próximo resize
   BASE.pendente=false;
   try{
-    BASE.tema=temaEscuro()?'escuro':'claro'; let carregados=0, erros=0;
+    BASE.tema=estiloAtual(); let carregados=0, erros=0;
     const m=new maplibregl.Map({container:$('#basemap'),style:ESTILOS[BASE.tema],interactive:false,attributionControl:false,
       fadeDuration:0,center:c0,zoom:zoomML(),minZoom:0,maxZoom:22,trackResize:false,pitchWithRotate:false});
     BASE.map=m;
@@ -579,10 +595,22 @@ function iniciarFundo(){
       if(m.isStyleLoaded()&&(carregados>0||erros===0)){clearTimeout(desiste); BASE.ok=true; $('#mapbox').classList.add('comfundo'); atribuicao(); draw()}});
   }catch(e){console.warn('Mapa de fundo indisponível:',e); desligarFundo()}
 }
-function desligarFundo(){try{BASE.map&&BASE.map.remove()}catch(e){} BASE.map=null; BASE.ok=false; $('#mapbox').classList.remove('comfundo'); atribuicao(); draw()}
-function temaFundo(){if(!BASE.map) return; const t=temaEscuro()?'escuro':'claro'; if(t!==BASE.tema){BASE.tema=t; try{BASE.map.setStyle(ESTILOS[t])}catch(e){}}}
+function desligarFundo(){try{BASE.map&&BASE.map.remove()}catch(e){} BASE.map=null; BASE.ok=false; BASE.falhou=true; $('#mapbox').classList.remove('comfundo'); aplicarFundo()}
+function temaFundo(){if(!BASE.map||fundoAtual()==='simples') return; const t=estiloAtual(); if(t!==BASE.tema){BASE.tema=t; try{BASE.map.setStyle(ESTILOS[t])}catch(e){}}}
+function aplicarFundo(){   // reflete a escolha no mapa, nas cores, no seletor e no crédito
+  const f=fundoAtual(); $('#mapbox').dataset.fundo=f;
+  const sel=$('#fundoSel'); sel.hidden=!BASE.possivel;
+  sel.querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.f===f); const ext=b.dataset.f!=='simples'; b.disabled=ext&&BASE.falhou; b.title=ext&&BASE.falhou?'Mapa de fundo indisponível agora':''});
+  if(f!=='simples'){carregarFundo(); temaFundo()}
+  readColors(); atribuicao(); if(D){buildBins(); renderLegend(); draw()}
+}
+function montarSeletorFundo(){
+  BASE.possivel=podeFundo(); const sel=$('#fundoSel');
+  [['claro','Claro'],['escuro','Escuro'],['simples','Simples']].forEach(([f,t])=>{const b=document.createElement('button'); b.type='button'; b.dataset.f=f; b.textContent=t;
+    b.addEventListener('click',()=>{FUNDO=f; try{localStorage.setItem('rxo-fundo',f)}catch(e){} aplicarFundo()}); sel.appendChild(b)});
+}
 function atribuicao(){
-  $('#attrib').innerHTML=BASE.ok
+  $('#attrib').innerHTML=BASE.ok&&fundoAtual()!=='simples'
     ?'<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>'
     :'Fundo: Censo 2022 (IBGE) e <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>';
 }
@@ -614,7 +642,7 @@ function fitBox(b,pad=0.06){
   T.k=k; T.x=W/2-k*(b[0]+b[2])/2; T.y=Hu/2+k*(b[1]+b[3])/2;   // y invertido
 }
 let colorsCache=null;
-function readColors(){const n=['--map-out','--map-city','--map-bairro','--map-road1','--map-road2','--map-road3','--map-rail','--map-label','--map-halo','--nd','--accent','--ink','--surface'];colorsCache={};n.forEach(k=>colorsCache[k]=cssv(k));}
+function readColors(){const n=['--map-out','--map-city','--map-bairro','--map-road1','--map-road2','--map-road3','--map-rail','--map-label','--map-halo','--nd','--accent','--ink','--surface'];colorsCache={};n.forEach(k=>colorsCache[k]=mcss(k));}
 let binPaths=null;
 function buildBins(){
   const ind=IND[S.ind]; binPaths={nd:new Path2D(),out:new Path2D(),b:[0,1,2,3,4,5].map(()=>new Path2D())};
@@ -622,8 +650,8 @@ function buildBins(){
 }
 let raf=0; function draw(){if(!raf) raf=requestAnimationFrame(()=>{raf=0;render()})}
 function render(){
-  if(!D) return; const C=colorsCache, ind=IND[S.ind], fundo=BASE.ok;
-  if(BASE.map){try{BASE.map.jumpTo({center:centroML(),zoom:zoomML()}); if(fundo) BASE.map.redraw()}catch(e){}}
+  if(!D) return; const C=colorsCache, ind=IND[S.ind], fundo=BASE.ok&&fundoAtual()!=='simples';
+  if(BASE.map&&fundo){try{BASE.map.jumpTo({center:centroML(),zoom:zoomML()}); if(fundo) BASE.map.redraw()}catch(e){}}
   ctx.setTransform(DPR,0,0,DPR,0,0);
   if(fundo) ctx.clearRect(0,0,W,H); else {ctx.fillStyle=C['--map-out']; ctx.fillRect(0,0,W,H)}
   const k=T.k; ctx.setTransform(DPR*k,0,0,DPR*k,DPR*T.x,DPR*T.y);
@@ -643,9 +671,9 @@ function render(){
   if(S.tec&&S.filters.length){const ga=ctx.globalAlpha; ctx.globalAlpha=ga*0.35; ctx.lineWidth=Math.max(1,lw*0.6)*px; ctx.strokeStyle=C['--nd']; ctx.stroke(binPaths.out); ctx.globalAlpha=ga}
   ctx.lineWidth=lw*px*0.8; ctx.strokeStyle=C['--nd']; ctx.stroke(binPaths.nd);
   const order=ind.neutral?[0,1,2,3,4,5]:[5,4,3,2,1,0];   // melhor serviço por cima
-  order.forEach(i=>{ctx.lineWidth=lw*px; ctx.strokeStyle=cssv(ind.pal[i]); ctx.stroke(binPaths.b[i])});
+  order.forEach(i=>{ctx.lineWidth=lw*px; ctx.strokeStyle=mcss(ind.pal[i]); ctx.stroke(binPaths.b[i])});
   ctx.globalAlpha=1;
-  const hl=(id,w)=>{const l=D.linhas[id]; const c=palColor(ind,classe(ind,val(l)));
+  const hl=(id,w)=>{const l=D.linhas[id]; const c=palColor(ind,classe(ind,val(l)),true);
     ctx.lineWidth=(w+3)*px; ctx.strokeStyle=C['--surface']; ctx.stroke(linePaths[id]); ctx.lineWidth=w*px; ctx.strokeStyle=c; ctx.stroke(linePaths[id])};
   if(S.hover!=null && S.hover!==S.sel) hl(S.hover,lw+1.5);
   if(S.sel!=null){hl(S.sel,lw+2.5);
@@ -806,11 +834,11 @@ function update(){
 function init(){
   buildControls(); renderAbout(); readColors(); prepMap();
   new ResizeObserver(()=>{resize(); if(!userView&&S.sel==null){fitBox(CITYB); draw()}}).observe($('#mapbox'));
-  const mq=window.matchMedia('(prefers-color-scheme: dark)'); const re=()=>{readColors(); renderLegend(); renderList(); temaFundo(); draw()};
+  const mq=window.matchMedia('(prefers-color-scheme: dark)'); const re=()=>{renderList(); aplicarFundo()};
   mq.addEventListener?.('change',re); new MutationObserver(re).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   document.fonts?.ready.then(()=>draw());
-  showView('list'); update(); atribuicao(); carregarFundo();
-  if(/[?&]teste\b/.test(location.search)) window.__rxo={T,BASE,D,lonLat,centroML,zoomML,get W(){return W},get H(){return H}};
+  montarSeletorFundo(); aplicarFundo(); showView('list'); update();
+  if(/[?&]teste\b/.test(location.search)) window.__rxo={T,BASE,D,lonLat,centroML,zoomML,fundoAtual,get W(){return W},get H(){return H}};
 }
 })();
 </script>
