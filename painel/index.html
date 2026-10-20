@@ -102,6 +102,17 @@ main.app{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:14px;
 .tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:7px 10px;font-size:13px;box-shadow:0 4px 18px rgba(0,0,0,.12);max-width:260px;z-index:5}
 .tip b{font-family:var(--font-disp);font-size:16px;margin-right:4px}
 .tip .v{display:block;color:var(--ink-2)}
+/* Ônibus ao vivo (ficha da linha) */
+.aovivo{border:1px solid var(--rule);border-radius:12px;padding:10px 12px;background:var(--surface-2)}
+.aovivo h4{display:flex;align-items:center;gap:8px}
+.aov-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--b2)}
+.aov-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;animation:aovPulso 1.6s ease-in-out infinite}
+@keyframes aovPulso{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.aov-badge::before{animation:none}}
+.aovivo p{margin:4px 0}
+.aov-n{font-size:15px}.aov-n strong{font-size:20px}
+.aov-sub,.aov-prog{color:var(--ink-2)}
+.aov-msg{color:var(--muted)}
 
 /* Letreiro (placa de destino do ônibus) */
 .sign{display:inline-flex;align-items:center;gap:10px;background:var(--sign-bg);color:var(--sign-fg);border-radius:6px;padding:4px 10px;font-family:var(--font-disp);font-weight:700;letter-spacing:.03em;min-width:0}
@@ -464,11 +475,11 @@ function showView(v){
   $('#aboutBtn').textContent=v==='about'?'Voltar':'Sobre os dados';
 }
 function select(id,fit){
-  S.sel=id; const l=D.linhas[id]; renderFicha(l); showView('ficha');
+  S.sel=id; const l=D.linhas[id]; if(AO.linha!==id) aoVivoIniciar(id); renderFicha(l); showView('ficha');
   if(fit) fitBox(l.bb,0.15); draw();
   if(window.matchMedia('(max-width:900px)').matches) $('#mapbox').scrollIntoView({behavior:'smooth',block:'start'});
 }
-function deselect(){S.sel=null;showView('list');draw()}
+function deselect(){S.sel=null;aoVivoParar(true);showView('list');draw()}
 function renderFicha(l){
   const dias=['Dia útil','Sábado','Dom./feriado'], fx=[1,2,3,4,0];
   const ivPico=l.iv[0][1];
@@ -489,6 +500,7 @@ function renderFicha(l){
      <div class="tags"><span class="tag">${esc(modo)}</span><span class="tag">${esc(l.op)}</span>${l.tar!=null?`<span class="tag num">R$ ${fmt(l.tar,2)}</span>`:''}${l.circ?'<span class="tag">circular</span>':''}</div>
      <p class="lead">${lead}</p>
    </div>
+   <div class="sec aovivo" id="aoVivo" hidden></div>
    <div class="sec"><h4>Tempo de espera no ponto</h4>${tw}<div class="foot" style="margin-top:6px">Média dos dois sentidos, conforme a tabela de horários.</div></div>
    <div class="sec chart"><h4>Partidas por hora · <span id="chDia">${['dia útil','sábado','domingo/feriado'][S.dia]}</span></h4>${barChart(l.h[S.dia])}</div>
    <div class="sec"><h4>Primeiro e último ônibus</h4><table class="tw num"><thead><tr><th>Dia</th><th>Primeiro</th><th>Último</th></tr></thead><tbody>${fl}</tbody></table></div>
@@ -503,6 +515,7 @@ function renderFicha(l){
    ${S.tec?tecFicha(l):''}
    <p class="foot">Valores da programação oficial (GTFS da SMTR, jun/2026). Atrasos, lotação e viagens não realizadas não aparecem aqui.</p>`;
   $('#backBtn').addEventListener('click',deselect);
+  renderAoVivo();
 }
 function barChart(h){
   const W=360,H=120,pl=26,pb=18,pt=8,mx=Math.max(1,...h),bw=(W-pl)/24;
@@ -537,6 +550,7 @@ function renderAbout(){
    <li><b>CSV:</b> separador vírgula, decimal com ponto, codificação UTF-8. Traz todas as colunas para as linhas que passam nos filtros, com o tempo de espera de todos os períodos do dia escolhido.</li>
   </ul>
   <h3>Mapa</h3>
+  <p>Ao abrir uma linha, a seção "Agora na rua" mostra no mapa os ônibus dela que estão transmitindo posição, com uma seta na direção em que andam. Os dados vêm da API de geolocalização da frota da SMTR (em teste, licença CC BY 4.0), passam por um intermediário que guarda a resposta por 30 s e chegam com 1 a 2 min de atraso. A contagem mostra quantos ônibus estão enviando sinal, que pode não ser o mesmo que estão em operação; a comparação com a programação usa o tipo de dia pela data e não considera feriados.</p>
   <p>O mapa de fundo é do <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>, com dados do OpenStreetMap. No canto do mapa dá para escolher o fundo: Claro, Escuro ou Simples (a escolha fica guardada neste navegador; sem escolha, o fundo segue o tema claro ou escuro do aparelho). Quando o mapa de fundo não carrega (por exemplo, sem internet ou dentro do Claude), aparece o fundo Simples, desenhado a partir dos setores do Censo 2022 (limites de bairro aproximados) e das vias e trilhos do OpenStreetMap.</p>`;
 }
 
@@ -623,6 +637,60 @@ function atribuicao(){
     :'Fundo: Censo 2022 (IBGE) e <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>';
 }
 
+/* ---------- Ônibus ao vivo: GPS da SMTR via intermediário na Cloudflare (cloudflare/worker.js) ---------- */
+const AOVIVO_URL='';   // endereço do Worker; vazio = recurso desligado
+const AOVIVO_ON=!!AOVIVO_URL&&!/claude/i.test(location.hostname);
+const AO={linha:null,dados:null,erro:false,timer:null,pedido:0};
+const projLL=(lon,lat)=>[RT*(lon-PJ.lon0)*RAD*PJ.c0, RT*(mercY(lat)-PJ.m0)*PJ.c0];
+function aoVivoIniciar(id){if(!AOVIVO_ON) return; aoVivoParar(true); AO.linha=id; buscarAoVivo(); AO.timer=setInterval(()=>{if(!document.hidden) buscarAoVivo()},30000)}
+function aoVivoParar(silencioso){clearInterval(AO.timer); AO.timer=null; AO.linha=null; AO.dados=null; AO.erro=false; AO.pedido++; if(!silencioso) draw()}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&AO.linha!=null) buscarAoVivo()});
+async function buscarAoVivo(){
+  const id=AO.linha; if(id==null) return; const l=D.linhas[id], pedido=++AO.pedido;
+  try{
+    const r=await fetch(AOVIVO_URL.replace(/\/+$/,'')+'/?servico='+encodeURIComponent(l.n),{cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status); const j=await r.json();
+    if(pedido!==AO.pedido) return;
+    const agora=Date.now();
+    const vs=(j.veiculos||[]).filter(v=>Number.isFinite(v.lat)&&Number.isFinite(v.lon)&&(!v.rota||v.rota===l.r)).map(v=>{const [x,y]=projLL(v.lon,v.lat), t=Date.parse(v.t);
+      return {...v,x,y,idade:Number.isFinite(t)?Math.max(0,(agora-t)/1000):null}}).filter(v=>v.idade==null||v.idade<600);
+    AO.dados={vs,em:agora}; AO.erro=false;
+  }catch(e){if(pedido!==AO.pedido) return; AO.erro=true}
+  if(AO.linha===id){renderAoVivo(); draw()}
+}
+function agoraRio(){const p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',weekday:'short',hour:'numeric',hourCycle:'h23'}).formatToParts(new Date());
+  const wd=p.find(x=>x.type==='weekday').value, h=(+p.find(x=>x.type==='hour').value)%24; return {dia:wd==='Sun'?2:wd==='Sat'?1:0,hora:h}}
+const idadeTxt=s=>s==null?'horário desconhecido':s<90?'há 1 min':`há ${Math.round(s/60)} min`;
+const hms=t=>new Date(t).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:'America/Sao_Paulo'});   // horário do Rio
+function renderAoVivo(){
+  const el=$('#aoVivo'); if(!el) return;
+  if(!AOVIVO_ON||AO.linha==null||AO.linha!==S.sel){el.hidden=true; return}
+  el.hidden=false; const l=D.linhas[AO.linha], d=AO.dados;
+  let corpo;
+  if(!d&&!AO.erro) corpo='<p class="aov-msg">Buscando a posição dos ônibus…</p>';
+  else if(!d) corpo='<p class="aov-msg">Não foi possível obter as posições agora. Tentando de novo em 30 s.</p>';
+  else{
+    const n=d.vs.length, ida=d.vs.filter(v=>v.sentido==='ida').length, volta=d.vs.filter(v=>v.sentido==='volta').length;
+    corpo=n?`<p class="aov-n"><strong class="num">${n}</strong> ${n===1?'ônibus desta linha transmitindo':'ônibus desta linha transmitindo'} posição${ida&&volta?` <span class="aov-sub">(${ida} na ida, ${volta} na volta)</span>`:''}.</p>`
+           :'<p class="aov-n">Nenhum ônibus desta linha transmitindo posição agora.</p>';
+    const {dia,hora}=agoraRio(), prog=l.h[dia][hora]||0;
+    corpo+=`<p class="aov-prog">Programado para esta hora (${['dia útil','sábado','domingo'][dia]}, ${hora}h): <strong class="num">${fmt(prog)}</strong> partida${prog===1?'':'s'}.</p>`;
+    corpo+=`<p class="foot">${AO.erro?'A última tentativa falhou; mostrando os dados de ':'Atualizado às '}${hms(d.em)} (horário do Rio). Posições com 1 a 2 min de atraso, enviadas pelos equipamentos dos ônibus (API da SMTR, em teste). Atualiza a cada 30 s.</p>`;
+  }
+  el.innerHTML=`<h4>Agora na rua <span class="aov-badge">ao vivo</span></h4>${corpo}`;
+}
+function pickVeiculo(mx,my){
+  if(!AO.dados||AO.linha==null||AO.linha!==S.sel) return null; let best=null,bd=12*12;
+  for(const v of AO.dados.vs){const dx=v.x*T.k+T.x-mx, dy=-v.y*T.k+T.y-my, d2=dx*dx+dy*dy; if(d2<bd){bd=d2;best=v}}
+  return best;
+}
+function showTipVeiculo(v,mx,my){
+  const l=D.linhas[AO.linha];
+  tip.innerHTML=`<b>${esc(l.n)}</b>Ônibus ${esc(v.id)}<span class="v">${v.sentido?'Sentido '+esc(v.sentido)+' · ':''}${v.vel!=null?fmt(v.vel)+' km/h · ':''}posição ${idadeTxt(v.idade)}</span>`;
+  tip.hidden=false; const r=tip.getBoundingClientRect(); let x=mx+14,y=my+14; if(x+r.width>W-6) x=mx-r.width-14; if(y+r.height>H-6) y=my-r.height-14;
+  tip.style.left=Math.max(6,x)+'px'; tip.style.top=Math.max(6,y)+'px';
+}
+
 /* ---------- Mapa (canvas) ---------- */
 const cv=$('#map'), ctx=cv.getContext('2d'); let W=0,H=0,DPR=1;
 const T={k:1,x:0,y:0};    // tela = mundo*k + (x,y); mundo: Web Mercator × cos(lat0) (≈ metros), y para cima
@@ -650,7 +718,7 @@ function fitBox(b,pad=0.06){
   T.k=k; T.x=W/2-k*(b[0]+b[2])/2; T.y=Hu/2+k*(b[1]+b[3])/2;   // y invertido
 }
 let colorsCache=null;
-function readColors(){const n=['--map-out','--map-city','--map-bairro','--map-road1','--map-road2','--map-road3','--map-rail','--map-label','--map-halo','--nd','--accent','--ink','--surface'];colorsCache={};n.forEach(k=>colorsCache[k]=mcss(k));}
+function readColors(){const n=['--map-out','--map-city','--map-bairro','--map-road1','--map-road2','--map-road3','--map-rail','--map-label','--map-halo','--nd','--accent','--ink','--surface','--sign-bg','--sign-fg'];colorsCache={};n.forEach(k=>colorsCache[k]=mcss(k));}
 let binPaths=null;
 function buildBins(){
   const ind=IND[S.ind]; binPaths={nd:new Path2D(),out:new Path2D(),b:[0,1,2,3,4,5].map(()=>new Path2D())};
@@ -688,8 +756,18 @@ function render(){
     const l=D.linhas[S.sel], r=Math.max(2.2,Math.min(4,lw))*px; ctx.fillStyle=C['--surface']; ctx.strokeStyle=C['--ink']; ctx.lineWidth=1.3*px;
     l.st.forEach(si=>{const s=D.paradas[si]; ctx.beginPath(); ctx.arc(s[0],-s[1],r,0,Math.PI*2); ctx.fill(); ctx.stroke()});
   }
-  // rótulos de bairro (tela) — o mapa de fundo já traz os seus
+  // ônibus ao vivo da linha selecionada (tela)
   ctx.setTransform(DPR,0,0,DPR,0,0);
+  if(AO.dados&&AO.linha!=null&&AO.linha===S.sel){
+    for(const v of AO.dados.vs){const sx=v.x*k+T.x, sy=-v.y*k+T.y; if(sx<-20||sy<-20||sx>W+20||sy>H+20) continue;
+      ctx.globalAlpha=v.idade!=null&&v.idade>240?0.45:1; ctx.save(); ctx.translate(sx,sy);
+      ctx.beginPath(); ctx.arc(0,0,8,0,Math.PI*2); ctx.fillStyle=C['--sign-bg']; ctx.fill(); ctx.lineWidth=2; ctx.strokeStyle=C['--surface']; ctx.stroke();
+      ctx.fillStyle=C['--sign-fg'];
+      if(v.dir!=null&&(v.vel==null||v.vel>2)){ctx.rotate(v.dir*RAD); ctx.beginPath(); ctx.moveTo(0,-5.5); ctx.lineTo(4,3.5); ctx.lineTo(0,1.5); ctx.lineTo(-4,3.5); ctx.closePath(); ctx.fill()}
+      else{ctx.beginPath(); ctx.arc(0,0,2.6,0,Math.PI*2); ctx.fill()}
+      ctx.restore()}
+    ctx.globalAlpha=1}
+  // rótulos de bairro (tela) — o mapa de fundo já traz os seus
   if(fundo) return;
   const nmax=k<0.012?10:k<0.02?22:k<0.04?50:k<0.08?110:170;
   ctx.font=`500 ${k<0.02?11:12}px ${getComputedStyle(document.body).getPropertyValue('--font-ui')||'sans-serif'}`; ctx.textAlign='center'; ctx.textBaseline='middle';
@@ -733,7 +811,8 @@ cv.addEventListener('pointermove',e=>{
   if(pinch&&ptrs.size===2){const [a,b]=[...ptrs.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y); const k2=Math.max(0.004,Math.min(1.2,pinch.k*d/pinch.d)); const f=k2/pinch.k;
     const cx=pinch.cx-r.left, cy=pinch.cy-r.top; T.k=k2; T.x=cx-(cx-pinch.tx)*f+((a.x+b.x)/2-pinch.cx); T.y=cy-(cy-pinch.ty)*f+((a.y+b.y)/2-pinch.cy); moved=true; draw(); return}
   if(drag){const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3){moved=true; userView=true; cv.classList.add('dragging')} T.x=drag.tx+dx; T.y=drag.ty+dy; if(moved){tip.hidden=true; draw()} return}
-  if(e.pointerType==='mouse'){const id=pick(mx,my); if(id!==S.hover){S.hover=id; draw(); document.querySelectorAll('.row.hl').forEach(x=>x.classList.remove('hl'))} cv.classList.toggle('hovering',id!=null); showTip(id,mx,my)}
+  if(e.pointerType==='mouse'){const vh=pickVeiculo(mx,my); if(vh){if(S.hover!=null){S.hover=null;draw()} cv.classList.add('hovering'); showTipVeiculo(vh,mx,my); return}
+    const id=pick(mx,my); if(id!==S.hover){S.hover=id; draw(); document.querySelectorAll('.row.hl').forEach(x=>x.classList.remove('hl'))} cv.classList.toggle('hovering',id!=null); showTip(id,mx,my)}
 });
 const endPtr=e=>{const r=cv.getBoundingClientRect(); ptrs.delete(e.pointerId); cv.classList.remove('dragging');
   if(ptrs.size<2) pinch=null;
@@ -846,7 +925,7 @@ function init(){
   mq.addEventListener?.('change',re); new MutationObserver(re).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   document.fonts?.ready.then(()=>draw());
   montarSeletorFundo(); aplicarFundo(); showView('list'); update();
-  if(/[?&]teste\b/.test(location.search)) window.__rxo={T,BASE,D,lonLat,centroML,zoomML,fundoAtual,get W(){return W},get H(){return H}};
+  if(/[?&]teste\b/.test(location.search)) window.__rxo={T,BASE,D,AO,lonLat,centroML,zoomML,fundoAtual,get W(){return W},get H(){return H}};
 }
 })();
 </script>

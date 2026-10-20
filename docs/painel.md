@@ -43,6 +43,13 @@ Versões: v1 (19/10/2026) núcleo · v2 (20/10/2026) moradores por ponto de para
 - Arquivos em `reserva_secao_territorial/`: página v3 (camadas + Bairros), página v5 (com os indicadores de perfil), territorio.json, PNGs das camadas, painel_territorio.py (gera esses dados: `python3 painel_territorio.py censo osm ape <destino>`) e patch_v3.py.
 - Técnica das camadas: grade de 100 m codificada em PNG e colorida na página com as cores do tema; índice de bairro por quadrícula.
 
+## Ônibus ao vivo (20/10/2026)
+- Seção "Agora na rua" na ficha da linha e ônibus no mapa: círculo escuro com seta âmbar na direção do movimento; esmaecido se a posição tem mais de 4 min; some com mais de 10 min. Passando o mouse aparecem o número do ônibus, o sentido, a velocidade e a idade da posição.
+- Fonte: API de geolocalização da frota da SMTR (`its.mobilidade.rio`, beta, CC BY 4.0). Atraso de 1 a 2 min; cerca de 10 ônibus e 20 KB por minuto na linha 474. `route_id` no mesmo formato do GTFS.
+- Sem CORS na API: intermediário Cloudflare Worker (`cloudflare/worker.js`) com cache de 30 s; o painel consulta a cada 30 s só a linha aberta e para ao fechar a ficha ou com a aba oculta.
+- Compara com as partidas programadas para a hora atual (tipo de dia pela data no fuso do Rio, sem feriados).
+- Desligado dentro do Claude e enquanto `AOVIVO_URL` estiver vazio.
+
 ## Arquitetura técnica
 - Página HTML única, mapa em Canvas com código próprio (câmera, linhas, hover, clique, paradas).
 - Mapa de fundo (20/10/2026): OpenFreeMap (Positron no tema claro, Dark no escuro; grátis, sem chave, uso comercial permitido), desenhado pelo MapLibre GL JS 4.7.1 (cópia em `painel/vendor/`) embaixo do canvas. O canvas continua dono da câmera; o MapLibre só acompanha (erro de alinhamento medido ≈ 0,1 px). Os dados são convertidos para Web Mercator na carga da página. Crédito no canto do mapa: OpenFreeMap © OpenMapTiles © OpenStreetMap.

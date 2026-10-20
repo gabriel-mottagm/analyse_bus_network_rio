@@ -23,3 +23,11 @@ node tests/teste_tec2.js
 - a escolha guardada ao recarregar a página;
 - os botões desativados quando o fundo falha;
 - o layout no celular.
+
+`teste_aovivo.js` testa a camada de ônibus ao vivo com o Worker simulado. Ele confere:
+- a contagem e a posição no mapa (erro ≈ 0,1 px);
+- os filtros de rota e de posição antiga;
+- o tooltip;
+- que as consultas param ao sair da ficha;
+- a mensagem de falha;
+- o layout no celular.
