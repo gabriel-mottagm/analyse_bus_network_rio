@@ -564,12 +564,13 @@ function carregarFundo(){
 }
 function iniciarFundo(){
   if(!window.maplibregl||BASE.map) return;
-  if(!W||!H){BASE.pendente=true; return}   // mapa ainda sem tamanho (aba oculta etc.): tenta de novo no próximo resize
+  const c0=W&&H&&T.k>0?centroML():null;
+  if(!c0||!c0.every(Number.isFinite)||!Number.isFinite(zoomML())){BASE.pendente=true; return}   // mapa ainda sem tamanho (aba oculta etc.): tenta de novo no próximo resize
   BASE.pendente=false;
   try{
     BASE.tema=temaEscuro()?'escuro':'claro'; let carregados=0, erros=0;
     const m=new maplibregl.Map({container:$('#basemap'),style:ESTILOS[BASE.tema],interactive:false,attributionControl:false,
-      fadeDuration:0,center:centroML(),zoom:zoomML(),minZoom:0,maxZoom:22,trackResize:false,pitchWithRotate:false});
+      fadeDuration:0,center:c0,zoom:zoomML(),minZoom:0,maxZoom:22,trackResize:false,pitchWithRotate:false});
     BASE.map=m;
     const desiste=setTimeout(()=>{if(!BASE.ok){console.warn('Mapa de fundo não carregou a tempo; usando o fundo próprio.'); desligarFundo()}},12000);
     m.on('error',()=>{erros++});
@@ -604,7 +605,7 @@ function prepMap(){
     const cx0=Math.floor(Math.min(ax,bx)/GS),cx1=Math.floor(Math.max(ax,bx)/GS),cy0=Math.floor(Math.min(ay,by)/GS),cy1=Math.floor(Math.max(ay,by)/GS);
     for(let cx=cx0;cx<=cx1;cx++)for(let cy=cy0;cy<=cy1;cy++){const key=cx+','+cy; let a=grid.get(key); if(!a){a=[];grid.set(key,a)} a.push(l.id,ax,ay,bx,by)}}}));
 }
-function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); try{BASE.map&&BASE.map.resize()}catch(e){} if(BASE.pendente) iniciarFundo(); draw()}
+function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); try{BASE.map&&BASE.map.resize()}catch(e){} if(BASE.pendente) setTimeout(iniciarFundo,0); draw()}
 function fitBox(b,pad=0.06){
   const bw=Math.max(800,b[2]-b[0]), bh=Math.max(800,b[3]-b[1]);
   const lg=$('#legend'), narrow=W<700; const lb=narrow? (lg.offsetHeight+16):0;   // no celular, desconta a legenda embaixo
