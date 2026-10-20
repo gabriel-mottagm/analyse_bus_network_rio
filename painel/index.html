@@ -704,8 +704,12 @@ function csvText(rows){
 async function exportCSV(rows){
   const msg=$('#tmsg'); msg.textContent='';
   let dl=null; try{dl=await window.claude?.use?.('downloads')}catch(e){dl=null}
-  if(!dl){msg.textContent='Download indisponível aqui. Use "Copiar tabela".';return}
-  try{await dl.save({filename:`raio-x-onibus-rio_${['dia-util','sabado','domingo'][S.dia]}.csv`,data:csvText(rows)}); msg.textContent='Arquivo salvo.'}
+  const fname=`raio-x-onibus-rio_${['dia-util','sabado','domingo'][S.dia]}.csv`;
+  if(!dl){ // fora do Claude (ex.: GitHub Pages): download comum do navegador
+    try{const u=URL.createObjectURL(new Blob([csvText(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=u;a.download=fname;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);msg.textContent='Arquivo baixado.'}
+    catch(e){msg.textContent='Download indisponível aqui. Use "Copiar tabela".'}
+    return}
+  try{await dl.save({filename:fname,data:csvText(rows)}); msg.textContent='Arquivo salvo.'}
   catch(e){const c=e&&e.code; msg.textContent=c==='declined'?'Download cancelado.':c==='rate_limited'?'Aguarde um instante e tente de novo.':'Não foi possível baixar aqui. Use "Copiar tabela".'}
 }
 function copyTable(rows,cols){

@@ -2,6 +2,8 @@
 
 Análise da rede de ônibus do município do Rio de Janeiro a partir do GTFS da SMTR (programação de junho de 2026), cruzada com a população do Censo 2022 e a rede de ruas do OpenStreetMap, e um painel interativo para consultar as 494 linhas.
 
+**Painel online: https://gabriel-mottagm.github.io/analyse_bus_network_rio/**
+
 ![Painel](docs/imagens/painel.png)
 
 ## O que tem aqui
@@ -48,7 +50,13 @@ cd painel && python3 -m http.server 8000
 # abrir http://localhost:8000
 ```
 
-O botão "Baixar CSV" usa a capability `downloads` dos Artifacts do Claude; fora do Claude, use "Copiar tabela". Decisões de produto e histórico de versões: [docs/painel.md](docs/painel.md).
+`painel/index.html` é a fonte única do painel. Ele é publicado de dois jeitos:
+- como Artifact no Claude, onde "Baixar CSV" usa a capability `downloads`;
+- no GitHub Pages, onde o download é o comum do navegador.
+
+A cada push no `main` que mexe em `painel/`, o workflow `.github/workflows/pages.yml` roda `scripts/05_painel/montar_site.sh`. Esse script acrescenta o cabeçalho HTML completo e publica o resultado na branch `gh-pages`.
+
+Decisões de produto e histórico de versões: [docs/painel.md](docs/painel.md).
 
 ## Como reproduzir
 

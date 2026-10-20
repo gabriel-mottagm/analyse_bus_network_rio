@@ -1,0 +1,38 @@
+# Publica o painel no GitHub Pages (branch gh-pages) sempre que o painel muda no main.
+name: Publicar painel
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'painel/**'
+      - 'scripts/05_painel/montar_site.sh'
+      - 'docs/imagens/painel.png'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Montar o site
+        run: bash scripts/05_painel/montar_site.sh _site
+      - name: Enviar para a branch gh-pages
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd _site
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "Painel publicado a partir de ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
