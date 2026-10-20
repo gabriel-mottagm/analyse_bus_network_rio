@@ -59,6 +59,20 @@ const clicar = async (p, t) => { await p.click(`#fundoSel button:has-text("${t}"
   ({ ctx, p } = await nova({ colorScheme: 'light' }, true));
   await p.goto(URL); await p.waitForTimeout(14000);
   console.log('8 sem OpenFreeMap    ', JSON.stringify(await estado(p)));
+  await clicar(p, 'Claro');
+  console.log('8b tenta de novo     ', JSON.stringify(await estado(p)), '| falhou=', await p.evaluate(() => __rxo.BASE.falhou));
+  await ctx.close();
+  // 10) aba em segundo plano: o prazo de 12 s só conta com a página visível
+  ({ ctx, p } = await nova({ colorScheme: 'light' }));
+  await p.unroute('https://tiles.openfreemap.org/**'); await p.route('https://tiles.openfreemap.org/**', () => {});   // nunca responde
+  await p.addInitScript(() => { let h = true; Object.defineProperty(document, 'hidden', { get: () => h }); Object.defineProperty(document, 'visibilityState', { get: () => h ? 'hidden' : 'visible' });
+    window.__mostrar = () => { h = false; document.dispatchEvent(new Event('visibilitychange')) } });
+  await p.goto(URL); await p.waitForTimeout(16000);
+  console.log('10 oculta por 16 s   ', 'falhou=', await p.evaluate(() => __rxo.BASE.falhou), 'mapa=', await p.evaluate(() => !!__rxo.BASE.map));
+  await p.evaluate(() => __mostrar()); await p.waitForTimeout(6000);
+  console.log('10 visível há 6 s    ', 'falhou=', await p.evaluate(() => __rxo.BASE.falhou));
+  await p.waitForTimeout(10000);
+  console.log('10 visível há 16 s   ', 'falhou=', await p.evaluate(() => __rxo.BASE.falhou), JSON.stringify(await estado(p)));
   await ctx.close();
   // 9) celular
   ({ ctx, p } = await nova({ viewport: { width: 390, height: 844 }, colorScheme: 'light' }));

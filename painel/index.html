@@ -559,6 +559,8 @@ function lonLat(X,Y){const {lon0,c0,m0}=PJ; return [X/(RT*c0)/RAD+lon0, (2*Math.
 /* ---------- Mapa de fundo: OpenFreeMap (vetorial) desenhado pelo MapLibre embaixo do canvas ----------
    O canvas continua dono da câmera e das interações; o MapLibre só acompanha. Se o fundo não carregar
    (páginas do Claude bloqueiam mapas externos, sem WebGL, sem rede), fica o fundo próprio do canvas. */
+let VISIVEL_DESDE=document.hidden?Infinity:0;
+document.addEventListener('visibilitychange',()=>{if(document.hidden) VISIVEL_DESDE=Infinity; else if(VISIVEL_DESDE===Infinity) VISIVEL_DESDE=performance.now()});
 const BASE={map:null,ok:false,tema:null,pendente:false,possivel:false,falhou:false,carregando:false};
 let FUNDO=null; try{const f=localStorage.getItem('rxo-fundo'); if(['claro','escuro','simples'].includes(f)) FUNDO=f}catch(e){}
 const fundoAtual=()=>BASE.falhou||!BASE.possivel?'simples':(FUNDO||(temaEscuro()?'escuro':'claro'));   // sem escolha: segue o tema do aparelho
@@ -575,6 +577,7 @@ function podeFundo(){
 function carregarFundo(){
   if(!BASE.possivel||BASE.falhou||BASE.carregando||fundoAtual()==='simples') return;
   BASE.carregando=true;
+  if(window.maplibregl){iniciarFundo(); return}
   const css=document.createElement('link'); css.rel='stylesheet'; css.href=ML_DIR+'maplibre-gl.css'; document.head.appendChild(css);
   const s=document.createElement('script'); s.src=ML_DIR+'maplibre-gl.js'; s.onload=iniciarFundo; s.onerror=desligarFundo; document.head.appendChild(s);
 }
@@ -588,26 +591,31 @@ function iniciarFundo(){
     const m=new maplibregl.Map({container:$('#basemap'),style:ESTILOS[BASE.tema],interactive:false,attributionControl:false,
       fadeDuration:0,center:c0,zoom:zoomML(),minZoom:0,maxZoom:22,trackResize:false,pitchWithRotate:false});
     BASE.map=m;
-    const desiste=setTimeout(()=>{if(!BASE.ok){console.warn('Mapa de fundo não carregou a tempo; usando o fundo próprio.'); desligarFundo()}},12000);
+    // desiste após 12 s com a página visível (aba em segundo plano não desenha e não conta)
+    const verificar=()=>{if(BASE.ok||BASE.map!==m) return; if(document.hidden||performance.now()-VISIVEL_DESDE<12000){desiste=setTimeout(verificar,4000); return}
+      console.warn('Mapa de fundo não carregou a tempo; usando o fundo próprio.'); desligarFundo()};
+    let desiste=setTimeout(verificar,12000);
     m.on('error',()=>{erros++});
     m.on('sourcedata',e=>{if(e.tile) carregados++});
     m.on('idle',()=>{if(BASE.ok||!BASE.map) return;
       if(m.isStyleLoaded()&&(carregados>0||erros===0)){clearTimeout(desiste); BASE.ok=true; $('#mapbox').classList.add('comfundo'); atribuicao(); draw()}});
   }catch(e){console.warn('Mapa de fundo indisponível:',e); desligarFundo()}
 }
-function desligarFundo(){try{BASE.map&&BASE.map.remove()}catch(e){} BASE.map=null; BASE.ok=false; BASE.falhou=true; $('#mapbox').classList.remove('comfundo'); aplicarFundo()}
+function desligarFundo(){try{BASE.map&&BASE.map.remove()}catch(e){} BASE.map=null; BASE.ok=false; BASE.falhou=true; BASE.carregando=false; $('#mapbox').classList.remove('comfundo'); aplicarFundo()}
 function temaFundo(){if(!BASE.map||fundoAtual()==='simples') return; const t=estiloAtual(); if(t!==BASE.tema){BASE.tema=t; try{BASE.map.setStyle(ESTILOS[t])}catch(e){}}}
 function aplicarFundo(){   // reflete a escolha no mapa, nas cores, no seletor e no crédito
   const f=fundoAtual(); $('#mapbox').dataset.fundo=f;
   const sel=$('#fundoSel'); sel.hidden=!BASE.possivel;
-  sel.querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.f===f); const ext=b.dataset.f!=='simples'; b.disabled=ext&&BASE.falhou; b.title=ext&&BASE.falhou?'Mapa de fundo indisponível agora':''});
+  sel.querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.f===f); const ext=b.dataset.f!=='simples'; b.title=ext&&BASE.falhou?'O mapa de fundo não carregou. Clique para tentar de novo.':''});
   if(f!=='simples'){carregarFundo(); temaFundo()}
   readColors(); atribuicao(); if(D){buildBins(); renderLegend(); draw()}
 }
 function montarSeletorFundo(){
   BASE.possivel=podeFundo(); const sel=$('#fundoSel');
   [['claro','Claro'],['escuro','Escuro'],['simples','Simples']].forEach(([f,t])=>{const b=document.createElement('button'); b.type='button'; b.dataset.f=f; b.textContent=t;
-    b.addEventListener('click',()=>{FUNDO=f; try{localStorage.setItem('rxo-fundo',f)}catch(e){} aplicarFundo()}); sel.appendChild(b)});
+    b.addEventListener('click',()=>{FUNDO=f; try{localStorage.setItem('rxo-fundo',f)}catch(e){}
+      if(f!=='simples'&&BASE.falhou){BASE.falhou=false; BASE.carregando=false}   // tenta de novo
+      aplicarFundo()}); sel.appendChild(b)});
 }
 function atribuicao(){
   $('#attrib').innerHTML=BASE.ok&&fundoAtual()!=='simples'
