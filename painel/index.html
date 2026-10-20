@@ -1,0 +1,744 @@
+<title>Raio-X dos Ônibus do Rio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: aplicativo de tela cheia — cabeçalho com controles, mapa à esquerda, painel lateral (lista ↔ ficha) à direita; no celular, mapa em cima e painel embaixo. */
+:root{
+  --bg:#f3f1ec; --surface:#fbfaf7; --surface-2:#eeebe4; --ink:#1c1d1a; --ink-2:#55544e; --muted:#85837b;
+  --rule:#dcd8ce; --accent:#c98a0c; --accent-ink:#1c1d1a; --focus:#2a78d6;
+  --sign-bg:#1d1e1b; --sign-fg:#ffb21a;
+  --map-out:#e6e3dc; --map-city:#faf9f6; --map-bairro:#e3dfd5; --map-road1:#d3cec2; --map-road2:#e0dcd2; --map-road3:#e9e6de; --map-rail:#a9a397; --map-label:#7d7a71; --map-halo:#faf9f6;
+  --nd:#bdb9af;
+  --g1:#184f95; --g2:#3987e5; --g3:#7aaeea; --b1:#ec8a6f; --b2:#e34948; --b3:#a3262a;
+  --n1:#d5cff5; --n2:#ada2ec; --n3:#8676df; --n4:#6250d6; --n5:#46379f; --n6:#2c2268;
+  --font-ui:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-disp:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141513; --surface:#1d1e1b; --surface-2:#262723; --ink:#ecebe6; --ink-2:#bdbbb3; --muted:#8e8c84;
+  --rule:#34352f; --accent:#f0a920; --accent-ink:#141513; --focus:#6aa6ee;
+  --sign-bg:#0b0b0a; --sign-fg:#ffb21a;
+  --map-out:#1a1b18; --map-city:#22231f; --map-bairro:#2d2e29; --map-road1:#3d3e38; --map-road2:#33342f; --map-road3:#2c2d29; --map-rail:#55564f; --map-label:#8f8d85; --map-halo:#22231f;
+  --nd:#55554f;
+  --g1:#8fbcf2; --g2:#5598e7; --g3:#2f6fc4; --b1:#c4473f; --b2:#e8655a; --b3:#f2a091;
+  --n1:#3a2f86; --n2:#4f40b0; --n3:#6a59d6; --n4:#8b7de6; --n5:#ab9fef; --n6:#cbc3f6;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141513; --surface:#1d1e1b; --surface-2:#262723; --ink:#ecebe6; --ink-2:#bdbbb3; --muted:#8e8c84;
+  --rule:#34352f; --accent:#f0a920; --accent-ink:#141513; --focus:#6aa6ee;
+  --sign-bg:#0b0b0a; --sign-fg:#ffb21a;
+  --map-out:#1a1b18; --map-city:#22231f; --map-bairro:#2d2e29; --map-road1:#3d3e38; --map-road2:#33342f; --map-road3:#2c2d29; --map-rail:#55564f; --map-label:#8f8d85; --map-halo:#22231f;
+  --nd:#55554f;
+  --g1:#8fbcf2; --g2:#5598e7; --g3:#2f6fc4; --b1:#c4473f; --b2:#e8655a; --b3:#f2a091;
+  --n1:#3a2f86; --n2:#4f40b0; --n3:#6a59d6; --n4:#8b7de6; --n5:#ab9fef; --n6:#cbc3f6;
+  color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* Cabeçalho */
+header.top{display:flex;flex-direction:column;gap:10px;padding-block:14px 12px}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;justify-content:space-between}
+.brand h1{font-family:var(--font-disp);font-weight:700;font-size:clamp(24px,3.2vw,32px);letter-spacing:.01em;margin:0;line-height:1;text-wrap:balance}
+.brand h1 .dot{color:var(--accent)}
+.brand p{margin:0;color:var(--ink-2);max-width:62ch}
+.brand .aboutbtn{background:none;border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;color:var(--ink-2);white-space:nowrap}
+.brand .aboutbtn:hover{border-color:var(--ink-2);color:var(--ink)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end}
+.ctl{display:flex;flex-direction:column;gap:5px;min-width:0}
+.ctl > .lbl{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--rule);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s}
+.chip:hover{border-color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;padding:6px 11px;cursor:pointer;white-space:nowrap}
+.seg button + button{border-left:1px solid var(--rule)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+select.sel{border:1px solid var(--rule);background:var(--surface);border-radius:10px;padding:6px 10px}
+select.sel:disabled{opacity:.45}
+.search{position:relative}
+.search input{width:min(260px,100%);border:1px solid var(--rule);background:var(--surface);border-radius:10px;padding:6px 10px}
+
+/* Área principal */
+main.app{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:14px;min-height:0;padding-bottom:max(14px,env(safe-area-inset-bottom,0px))}
+.mapbox{position:relative;border-radius:14px;overflow:hidden;background:var(--map-out);border:1px solid var(--rule);min-height:360px}
+#map{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;display:block}
+#map.dragging{cursor:grabbing}
+#map.hovering{cursor:pointer}
+.zoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+.zoom button{width:34px;height:34px;border-radius:9px;border:1px solid var(--rule);background:var(--surface);cursor:pointer;font-size:18px;line-height:1;display:grid;place-items:center}
+.zoom button:hover{border-color:var(--ink-2)}
+.legend{position:absolute;left:10px;bottom:10px;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;max-width:min(300px,calc(100% - 20px));backdrop-filter:blur(4px)}
+.legend h3{margin:0 0 2px;font-size:13px;font-weight:600}
+.lgt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.lgt .car{color:var(--muted);font-size:12px}
+.legend.closed ul,.legend.closed .sub,.legend.closed .note{display:none}
+.legend.closed h3{margin:0}
+.legend .sub{font-size:12px;color:var(--muted);margin-bottom:6px}
+.legend ul{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.legend li{display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:8px;font-size:13px}
+.legend .sw{height:4px;border-radius:2px}
+.legend .ct{color:var(--muted);font-size:12px}
+.legend .note{font-size:12px;color:var(--muted);margin-top:6px}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:7px 10px;font-size:13px;box-shadow:0 4px 18px rgba(0,0,0,.12);max-width:260px;z-index:5}
+.tip b{font-family:var(--font-disp);font-size:16px;margin-right:4px}
+.tip .v{display:block;color:var(--ink-2)}
+
+/* Letreiro (placa de destino do ônibus) */
+.sign{display:inline-flex;align-items:center;gap:10px;background:var(--sign-bg);color:var(--sign-fg);border-radius:6px;padding:4px 10px;font-family:var(--font-disp);font-weight:700;letter-spacing:.03em;min-width:0}
+.sign .no{font-size:20px;line-height:1}
+.sign .dest{font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;line-height:1.2}
+.pill{display:inline-block;font-family:var(--font-disp);font-weight:700;font-size:15px;line-height:1;padding:5px 7px;border-radius:5px;background:var(--sign-bg);color:var(--sign-fg);min-width:44px;text-align:center;letter-spacing:.02em}
+
+/* Painel lateral */
+aside.panel{background:var(--surface);border:1px solid var(--rule);border-radius:14px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.phead{padding:12px 14px 10px;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:6px}
+.phead h2{margin:0;font-size:16px;font-weight:600}
+.phead .meta{font-size:13px;color:var(--muted)}
+.sortbtn{align-self:flex-start;border:1px solid var(--rule);background:none;border-radius:999px;padding:3px 10px;font-size:13px;cursor:pointer;color:var(--ink-2)}
+.list{overflow-y:auto;flex:1;min-height:0}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--rule);padding:8px 14px;cursor:pointer}
+.row:hover,.row.hl{background:var(--surface-2)}
+.row .nm{font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.row .md{font-size:12px;color:var(--muted)}
+.row .val{display:flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
+.row .val i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.empty{padding:24px 14px;color:var(--muted)}
+.more{display:block;width:calc(100% - 28px);margin:12px 14px;padding:8px;border:1px solid var(--rule);border-radius:10px;background:none;cursor:pointer;color:var(--ink-2)}
+.more:hover{border-color:var(--ink-2);color:var(--ink)}
+
+/* Ficha */
+.ficha{overflow-y:auto;flex:1;min-height:0;padding:12px 14px 18px;display:flex;flex-direction:column;gap:16px}
+.back{align-self:flex-start;background:none;border:0;padding:0;color:var(--ink-2);cursor:pointer;font-size:14px}
+.back:hover{color:var(--ink)}
+.fhead{display:flex;flex-direction:column;gap:8px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12px;border:1px solid var(--rule);border-radius:999px;padding:2px 9px;color:var(--ink-2)}
+.lead{font-size:17px;line-height:1.35;margin:0;text-wrap:pretty}
+.lead strong{font-family:var(--font-disp);font-size:24px;font-weight:700}
+.sec h4{margin:0 0 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+table.tw{width:100%;border-collapse:collapse;font-size:13px}
+table.tw th,table.tw td{padding:5px 6px;text-align:right;border-bottom:1px solid var(--rule)}
+table.tw th:first-child,table.tw td:first-child{text-align:left;color:var(--ink-2);font-weight:400}
+table.tw thead th{font-weight:600;color:var(--muted);font-size:12px}
+table.tw td.cur{font-weight:700;background:var(--surface-2)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fact{border:1px solid var(--rule);border-radius:10px;padding:9px 10px}
+.fact .k{font-size:12px;color:var(--muted)}
+.fact .v{font-family:var(--font-disp);font-size:22px;font-weight:700;line-height:1.1}
+.fact .s{font-size:12px;color:var(--ink-2)}
+.chart svg{width:100%;height:auto;display:block}
+.chart .ax{fill:var(--muted);font-size:10px;font-family:var(--font-ui)}
+.chart .bar{fill:var(--accent)}
+.chart .bar.dim{fill:var(--rule)}
+.chart .base{stroke:var(--rule)}
+.foot{font-size:12px;color:var(--muted)}
+
+/* Modo técnico */
+.brand .techbtn{background:none;border:1px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer;color:var(--ink-2);white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.brand .techbtn .sw{width:28px;height:16px;border-radius:999px;background:var(--rule);position:relative;transition:background .15s}
+.brand .techbtn .sw::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--surface);transition:transform .15s}
+.brand .techbtn[aria-pressed="true"]{border-color:var(--ink);color:var(--ink)}
+.brand .techbtn[aria-pressed="true"] .sw{background:var(--accent)}
+.brand .techbtn[aria-pressed="true"] .sw::after{transform:translateX(12px)}
+.brandbtns{display:flex;gap:8px;flex-wrap:wrap}
+.chips.tec .chip{border-style:dashed}
+.chips.tec .chip[aria-pressed="true"]{border-style:solid}
+main.app.tec{grid-template-columns:minmax(0,1fr) min(600px,46vw)}
+.tbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tbtn{border:1px solid var(--rule);background:none;border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer;color:var(--ink-2)}
+.tbtn:hover{border-color:var(--ink-2);color:var(--ink)}
+.cols{position:relative}
+.cols summary{list-style:none;cursor:pointer}
+.cols summary::-webkit-details-marker{display:none}
+.colsbox{position:absolute;z-index:6;top:calc(100% + 4px);left:0;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:8px 10px;display:grid;gap:4px;min-width:250px;max-height:320px;overflow:auto;box-shadow:0 6px 24px rgba(0,0,0,.14);font-size:13px}
+.colsbox label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.filt{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13px}
+.filt select,.filt input{border:1px solid var(--rule);background:var(--surface);border-radius:8px;padding:3px 6px;font-size:13px}
+.filt input{width:84px}
+.fchips{display:flex;gap:6px;flex-wrap:wrap}
+.fchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--ink-2);border-radius:999px;padding:2px 4px 2px 10px;font-size:12px}
+.fchip button{border:0;background:none;cursor:pointer;color:var(--ink-2);font-size:14px;line-height:1;padding:0 4px}
+.tmsg{font-size:12px;color:var(--ink-2)}
+.tbl{overflow:auto;flex:1;min-height:0}
+table.tt{border-collapse:separate;border-spacing:0;font-size:13px;min-width:100%}
+.tt th{position:sticky;top:0;background:var(--surface);z-index:1;text-align:right;padding:8px;border-bottom:1px solid var(--rule);font-weight:600;color:var(--ink-2);white-space:nowrap;cursor:pointer;user-select:none;vertical-align:bottom}
+.tt th[aria-sort="ascending"]::after{content:" ↑"}
+.tt th[aria-sort="descending"]::after{content:" ↓"}
+.tt td{padding:6px 8px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tt th:first-child,.tt td:first-child{text-align:left;position:sticky;left:0;background:var(--surface);z-index:2}
+.tt th:first-child{z-index:3}
+.tt tbody tr{cursor:pointer}
+.tt tbody tr:hover td{background:var(--surface-2)}
+.tt th.cur{color:var(--ink)}
+.tt td.cur{font-weight:700}
+.tt td .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:0}
+.tt td.nm{text-align:left;max-width:220px;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+.tecsec table.tw td{white-space:nowrap}
+
+/* Sobre */
+.about{overflow-y:auto;flex:1;min-height:0;padding:12px 16px 18px;display:flex;flex-direction:column;gap:12px;font-size:14px}
+.about h3{margin:4px 0 0;font-size:15px}
+.about p{margin:0;max-width:65ch;color:var(--ink-2)}
+.about ul{margin:0;padding-left:18px;color:var(--ink-2);display:grid;gap:4px}
+
+@media (max-width: 900px){
+  main.app.tec{grid-template-columns:1fr}
+  .tbl{max-height:70vh;overflow:auto}
+  html,body{height:auto}
+  main.app{grid-template-columns:1fr}
+  .mapbox{height:clamp(320px,48vh,460px);min-height:0}
+  aside.panel{max-height:none}
+  .list,.ficha,.about{overflow:visible}
+  .legend{max-width:calc(100% - 64px)}
+  .search input{width:100%}
+  .ctl.grow{flex:1 1 100%}
+  .brand p{font-size:14px}
+  .brand h1{font-size:24px}
+  header.top{gap:8px;padding-block:10px 10px}
+  .controls{gap:8px 12px}
+  #indChips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  #indChips::-webkit-scrollbar{display:none}
+  .chip{padding:5px 11px}
+  .seg button{padding:5px 9px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="brand">
+    <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
+      <h1>Raio-X dos Ônibus do Rio<span class="dot">.</span></h1>
+      <p>Veja como cada linha de ônibus, BRT e frescão da cidade funciona: de quanto em quanto tempo passa, quantas viagens faz e quem mora perto.</p>
+    </div>
+    <div class="brandbtns"><button class="techbtn" id="tecBtn" type="button" aria-pressed="false"><span class="sw" aria-hidden="true"></span>Modo técnico</button><button class="aboutbtn" id="aboutBtn" type="button">Sobre os dados</button></div>
+  </div>
+  <div class="controls">
+    <div class="ctl grow">
+      <span class="lbl" id="lblInd">O que você quer ver</span>
+      <div class="chips" id="indChips" role="group" aria-labelledby="lblInd"></div>
+    </div>
+    <div class="ctl grow" id="tecCtl" hidden>
+      <span class="lbl" id="lblTec">Indicadores técnicos</span>
+      <div class="chips tec" id="tecChips" role="group" aria-labelledby="lblTec"></div>
+    </div>
+    <div class="ctl">
+      <span class="lbl" id="lblDia">Dia</span>
+      <div class="seg" id="diaSeg" role="group" aria-labelledby="lblDia"></div>
+    </div>
+    <div class="ctl">
+      <label class="lbl" for="faixaSel">Horário</label>
+      <select class="sel" id="faixaSel"></select>
+    </div>
+    <div class="ctl">
+      <span class="lbl" id="lblModo">Tipo</span>
+      <div class="seg" id="modoSeg" role="group" aria-labelledby="lblModo"></div>
+    </div>
+    <div class="ctl search grow" style="flex:1 1 200px">
+      <label class="lbl" for="busca">Buscar linha</label>
+      <input id="busca" type="search" placeholder="Número ou bairro, ex.: 474, Penha" autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<main class="app">
+  <div class="mapbox" id="mapbox">
+    <canvas id="map" aria-label="Mapa das linhas de ônibus do Rio de Janeiro, coloridas pelo indicador escolhido. A mesma informação está na lista ao lado."></canvas>
+    <div class="zoom">
+      <button id="zin" type="button" aria-label="Aproximar">+</button>
+      <button id="zout" type="button" aria-label="Afastar">−</button>
+      <button id="zfit" type="button" aria-label="Ver a cidade inteira" title="Ver a cidade inteira" style="font-size:14px">⤢</button>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="tip" id="tip" hidden></div>
+  </div>
+  <aside class="panel" id="panel">
+    <div id="listView" style="display:flex;flex-direction:column;min-height:0;flex:1">
+      <div class="phead">
+        <h2 id="listTitle">Linhas</h2>
+        <div class="meta" id="listMeta"></div>
+        <button class="sortbtn" id="sortBtn" type="button"></button>
+      </div>
+      <div class="list" id="list" role="list"></div>
+    </div>
+    <div id="fichaView" class="ficha" hidden></div>
+    <div id="aboutView" class="about" hidden></div>
+  </aside>
+</main>
+
+<script>
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s);
+const fmt=(v,d=0)=>v==null?'—':Number(v).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const norm=s=>(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const cssv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+/* ---------- Indicadores ---------- */
+const GOOD=['--g1','--g2','--g3','--b1','--b2','--b3'];      // melhor → pior
+const NEUT=['--n1','--n2','--n3','--n4','--n5','--n6'];      // menos → mais (sem juízo de valor)
+const FX_LABEL=['Madrugada (0h–5h)','Pico da manhã (6h–9h)','Meio do dia (9h–16h)','Pico da tarde (16h–19h)','Noite (19h–24h)','Dia todo'];
+const IND=[
+ {k:'espera',chip:'Tempo de espera',titulo:'Tempo de espera no ponto',unid:'min',usaFaixa:true,
+  desc:'De quanto em quanto tempo passa um ônibus da linha, em média, em cada sentido.',
+  get:(l,d,f)=>l.iv[d][f], cuts:[5,10,15,20,30], dir:'asc', pal:GOOD,
+  labels:['até 5 min','5 a 10 min','10 a 15 min','15 a 20 min','20 a 30 min','mais de 30 min'],
+  show:v=>`passa a cada ${fmt(v, v<10?1:0)} min`, short:v=>`${fmt(v, v<10?1:0)} min`, nd:'não passa nesse horário'},
+ {k:'viagens',chip:'Ônibus por dia',titulo:'Ônibus por dia',unid:'',usaFaixa:false,
+  desc:'Quantas partidas a linha faz no dia, somando os dois sentidos.',
+  get:(l,d)=>l.pt[d][5]||null, cuts:[20,40,80,150,300], dir:'desc', pal:GOOD,
+  labels:['300 ou mais','150 a 299','80 a 149','40 a 79','20 a 39','menos de 20'],
+  show:v=>`${fmt(v)} partidas no dia`, short:v=>fmt(v), nd:'não roda nesse dia'},
+ {k:'vel',chip:'Velocidade',titulo:'Velocidade média',unid:'km/h',usaFaixa:false,
+  desc:'Velocidade média prevista na tabela de horários, do ponto inicial ao final.',
+  get:l=>l.vel, cuts:[17,20,23,26,30], dir:'desc', pal:GOOD,
+  labels:['30 km/h ou mais','26 a 30 km/h','23 a 26 km/h','20 a 23 km/h','17 a 20 km/h','menos de 17 km/h'],
+  show:v=>`${fmt(v,1)} km/h em média`, short:v=>`${fmt(v,1)} km/h`, nd:'sem dado'},
+ {k:'horas',chip:'Horário de funcionamento',titulo:'Horas de funcionamento',unid:'h',usaFaixa:false,
+  desc:'Quantas horas a linha fica em operação no dia, da primeira à última partida.',
+  get:(l,d)=>l.amp[d], cuts:[12,15,17,19,22], dir:'desc', pal:GOOD,
+  labels:['22 h ou mais','19 a 22 h','17 a 19 h','15 a 17 h','12 a 15 h','menos de 12 h'],
+  show:v=>`funciona ${fmt(v,1)} h por dia`, short:v=>`${fmt(v,1)} h`, nd:'não roda nesse dia'},
+ {k:'pop',chip:'Moradores perto',titulo:'Moradores a até 5 min a pé',unid:'',usaFaixa:false,neutral:true,
+  desc:'Quantas pessoas moram a até 400 m de caminhada (cerca de 5 minutos) de alguma parada da linha.',
+  get:l=>l.p4, cuts:[30000,60000,100000,150000,200000], dir:'desc', pal:NEUT,
+  labels:['menos de 30 mil','30 a 60 mil','60 a 100 mil','100 a 150 mil','150 a 200 mil','200 mil ou mais'],
+  show:v=>`${fmt(v)} moradores perto`, short:v=>v>=1000?`${fmt(v/1000)} mil`:fmt(v), nd:'sem dado'},
+ {k:'ext',chip:'Tamanho do trajeto',titulo:'Tamanho do trajeto',unid:'km',usaFaixa:false,neutral:true,
+  desc:'Extensão média do percurso de cada sentido.',
+  get:l=>l.ext, cuts:[10,15,20,30,40], dir:'desc', pal:NEUT,
+  labels:['menos de 10 km','10 a 15 km','15 a 20 km','20 a 30 km','30 a 40 km','40 km ou mais'],
+  show:v=>`trajeto de ${fmt(v,1)} km`, short:v=>`${fmt(v,1)} km`, nd:'sem dado'},
+ {k:'frota',tec:1,chip:'Frota estimada',titulo:'Frota mínima estimada no pico',unid:'veículos',usaFaixa:false,neutral:true,
+  desc:'Ônibus necessários para cumprir a tabela no pico da manhã de dia útil: soma, nos dois sentidos, de partidas por hora × duração da viagem. Não inclui tempo parado no terminal nem reserva.',
+  get:l=>l.tec.fr||null, cuts:[3,6,10,15,25], dir:'desc', pal:NEUT,
+  labels:['menos de 3','3 a 5','6 a 9','10 a 14','15 a 24','25 ou mais'], show:v=>`${fmt(v)} veículos no pico (mínimo)`, short:v=>fmt(v), nd:'não roda no pico'},
+ {k:'vkm',tec:1,chip:'Quilometragem',titulo:'Quilômetros rodados por dia útil',unid:'km',usaFaixa:false,neutral:true,
+  desc:'Soma da extensão de todas as partidas programadas em dia útil.',
+  get:l=>l.tec.vkm||null, cuts:[500,1000,2000,4000,7000], dir:'desc', pal:NEUT,
+  labels:['menos de 500 km','500 a 1.000','1.000 a 2.000','2.000 a 4.000','4.000 a 7.000','7.000 km ou mais'], show:v=>`${fmt(v)} km por dia útil`, short:v=>`${fmt(v)} km`, nd:'não roda em dia útil'},
+ {k:'tort',tec:1,chip:'Tortuosidade',titulo:'Tortuosidade do trajeto',unid:'',usaFaixa:false,
+  desc:'Extensão do trajeto dividida pela distância em linha reta entre os pontos finais (média dos sentidos). 1,0 = reta.',
+  get:l=>l.tec.tort, cuts:[1.3,1.6,2,2.5,3.5], dir:'asc', pal:GOOD,
+  labels:['menos de 1,3','1,3 a 1,6','1,6 a 2,0','2,0 a 2,5','2,5 a 3,5','3,5 ou mais'], show:v=>`tortuosidade ${fmt(v,1)}`, short:v=>fmt(v,1), nd:'linha circular'},
+ {k:'div',tec:1,chip:'Ida ≠ volta',titulo:'Trajeto diferente na ida e na volta',unid:'%',usaFaixa:false,neutral:true,
+  desc:'Parcela da extensão percorrida por só um dos sentidos (tolerância de 40 m).',
+  get:l=>l.tec.div, cuts:[10,25,40,55,70], dir:'desc', pal:NEUT,
+  labels:['menos de 10%','10% a 25%','25% a 40%','40% a 55%','55% a 70%','70% ou mais'], show:v=>`${fmt(v)}% do trajeto só em um sentido`, short:v=>`${fmt(v)}%`, nd:'um sentido só'},
+ {k:'p8',tec:1,chip:'Moradores a 10 min',titulo:'Moradores a até 10 min a pé',unid:'',usaFaixa:false,neutral:true,
+  desc:'População a até 800 m de caminhada de alguma parada da linha.',
+  get:l=>l.p8, cuts:[60000,120000,180000,250000,350000], dir:'desc', pal:NEUT,
+  labels:['menos de 60 mil','60 a 120 mil','120 a 180 mil','180 a 250 mil','250 a 350 mil','350 mil ou mais'], show:v=>`${fmt(v)} moradores a até 10 min a pé`, short:v=>`${fmt(v/1000)} mil`, nd:'sem dado'},
+ {k:'ppp',tec:1,chip:'Moradores por partida',titulo:'Moradores perto por partida',unid:'',usaFaixa:false,neutral:true,
+  desc:'Moradores a até 400 m a pé divididos pelas partidas de dia útil. Mede pressão potencial, não demanda.',
+  get:l=>l.tec.ppp, cuts:[500,1000,2000,4000,8000], dir:'desc', pal:NEUT,
+  labels:['menos de 500','500 a 1.000','1.000 a 2.000','2.000 a 4.000','4.000 a 8.000','8.000 ou mais'], show:v=>`${fmt(v)} moradores por partida`, short:v=>fmt(v), nd:'não roda em dia útil'},
+];
+/* classe 0..5 na ordem das legendas (do "melhor"/menor para o "pior"/maior) */
+function classe(ind,v){
+  if(v==null) return -1;
+  const c=ind.cuts; let i=0; while(i<c.length && v>=c[i]) i++;   // i: 0 (menor) .. 5 (maior)
+  if(ind.neutral) return i;
+  return ind.dir==='asc'? i : 5-i;     // asc: menor é melhor; desc: maior é melhor
+}
+function palColor(ind,cls){
+  if(cls<0) return cssv('--nd');
+  return cssv(ind.pal[cls]);
+}
+
+/* ---------- Estado ---------- */
+const S={ind:0,dia:0,faixa:1,modo:'Todas',busca:'',sel:null,hover:null,sortGood:true,view:'list',lim:40,legOpen:!window.matchMedia('(max-width:900px)').matches};
+try{const s=JSON.parse(localStorage.getItem('rxo-estado')||'{}'); if(s&&typeof s==='object'){['ind','dia','faixa','modo'].forEach(k=>{if(s[k]!=null)S[k]=s[k]})}}catch(e){}
+S.tec=S.tec||false; S.filters=[]; S.tsort=null; S.tcols=null;
+try{const t=JSON.parse(localStorage.getItem('rxo-tec')||'{}'); if(t&&typeof t==='object'){S.tec=!!t.tec; if(Array.isArray(t.cols)) S.tcols=t.cols}}catch(e){}
+if(!S.tec&&IND[S.ind]&&IND[S.ind].tec) S.ind=0; if(!IND[S.ind]) S.ind=0;
+const save=()=>{try{localStorage.setItem('rxo-estado',JSON.stringify({ind:S.ind,dia:S.dia,faixa:S.faixa,modo:S.modo}));localStorage.setItem('rxo-tec',JSON.stringify({tec:S.tec,cols:S.tcols}))}catch(e){}};
+
+let D=null,CTX=null;
+Promise.all([fetch('data/linhas.json').then(r=>r.json()),fetch('data/contexto.json').then(r=>r.json())]).then(([d,c])=>{D=d;CTX=c;init()}).catch(err=>{
+  $('#list').innerHTML='<div class="empty">Não foi possível carregar os dados do mapa. Recarregue a página.</div>';console.error(err)});
+
+/* ---------- Controles ---------- */
+function buildControls(){
+  const chips=$('#indChips');
+  IND.forEach((ind,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=ind.chip;b.id='ind-'+ind.k;
+    b.addEventListener('click',()=>{S.ind=i;update()});(ind.tec?$('#tecChips'):chips).appendChild(b)});
+  $('#tecBtn').addEventListener('click',()=>{S.tec=!S.tec; if(!S.tec&&IND[S.ind].tec) S.ind=0; update(); requestAnimationFrame(()=>{resize();draw()})});
+  const ds=$('#diaSeg');['Dia útil','Sábado','Domingo'].forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.id='dia-'+i;
+    b.addEventListener('click',()=>{S.dia=i;update()});ds.appendChild(b)});
+  const fs=$('#faixaSel');FX_LABEL.forEach((t,i)=>{const o=document.createElement('option');o.value=i;o.textContent=t;fs.appendChild(o)});
+  fs.addEventListener('change',()=>{S.faixa=+fs.value;update()});
+  const ms=$('#modoSeg');['Todas','Ônibus','BRT','Executivo'].forEach(t=>{const b=document.createElement('button');b.type='button';b.textContent=t==='Executivo'?'Frescão':t;b.dataset.m=t;b.id='modo-'+norm(t);
+    b.addEventListener('click',()=>{S.modo=t;update()});ms.appendChild(b)});
+  $('#busca').addEventListener('input',e=>{S.busca=norm(e.target.value.trim());S.lim=40;renderList()});
+  $('#busca').addEventListener('keydown',e=>{if(e.key==='Enter'){const f=visibleSorted()[0];if(f)select(f.id,true)}});
+  $('#sortBtn').addEventListener('click',()=>{S.sortGood=!S.sortGood;S.lim=40;renderList()});
+  $('#aboutBtn').addEventListener('click',()=>showView(S.view==='about'?(S.sel!=null?'ficha':'list'):'about'));
+}
+function syncControls(){
+  $('#tecBtn').setAttribute('aria-pressed',S.tec); $('#tecCtl').hidden=!S.tec; $('main.app').classList.toggle('tec',S.tec);
+  IND.forEach((ind,i)=>$('#ind-'+ind.k).setAttribute('aria-pressed',i===S.ind));
+  [0,1,2].forEach(i=>$('#dia-'+i).setAttribute('aria-pressed',i===S.dia));
+  document.querySelectorAll('#modoSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===S.modo));
+  const fs=$('#faixaSel'); fs.value=S.faixa; fs.disabled=!IND[S.ind].usaFaixa;
+  fs.title=IND[S.ind].usaFaixa?'':'Este indicador vale para o dia todo';
+}
+
+/* ---------- Dados derivados ---------- */
+function val(l){return IND[S.ind].get(l,S.dia,S.faixa)}
+function inModo(l){return S.modo==='Todas'||l.modo===S.modo}
+function matches(l){if(!S.busca) return true; return norm(l.n).startsWith(S.busca)||norm(l.nome).includes(S.busca)}
+function visibleSorted(){
+  const ind=IND[S.ind];
+  const arr=D.linhas.filter(l=>inModo(l)&&matches(l)&&passF(l));
+  const better=ind.neutral? -1 : (ind.dir==='asc'?1:-1);   // multiplicador p/ "melhores primeiro"
+  arr.sort((a,b)=>{const va=val(a),vb=val(b); if(va==null&&vb==null) return a.n.localeCompare(b.n,'pt',{numeric:true}); if(va==null) return 1; if(vb==null) return -1;
+    const s=(va-vb)*(ind.neutral? -1:(ind.dir==='asc'?1:-1)); return S.sortGood? s : -s});
+  return arr;
+}
+
+/* ---------- Lista ---------- */
+function renderList(){
+  $('#listView').classList.toggle('tecmode',S.tec);
+  if(S.tec){renderTable();return}
+  $('#tblBox')&&$('#tblBox').remove(); $('#tecHead')&&$('#tecHead').remove(); $('#list').hidden=false; document.querySelector('#listView .phead').hidden=false;
+  const ind=IND[S.ind], arr=visibleSorted();
+  const quando=ind.usaFaixa?`${FX_LABEL[S.faixa].toLowerCase()}, ${['dia útil','sábado','domingo ou feriado'][S.dia]}`:(!['viagens','horas'].includes(ind.k)?'':['dia útil','sábado','domingo ou feriado'][S.dia]);
+  $('#listTitle').textContent=(ind.titulo+(quando?` · ${quando}`:'')).replace(/–/g,'–\u2060');
+  const semServ=arr.filter(l=>val(l)==null).length;
+  $('#listMeta').textContent=`${arr.length} linha${arr.length===1?'':'s'}${S.busca?' encontradas':''}${semServ?` · ${semServ} sem serviço nesse ${ind.usaFaixa?'horário':'dia'}`:''}`;
+  $('#sortBtn').textContent=ind.neutral?(S.sortGood?'Maiores primeiro':'Menores primeiro'):(S.sortGood?'Melhores primeiro':'Piores primeiro');
+  const frag=document.createDocumentFragment();
+  arr.slice(0,S.lim).forEach(l=>{
+    const v=val(l), c=palColor(ind,classe(ind,v));
+    const b=document.createElement('button'); b.type='button'; b.className='row'; b.setAttribute('role','listitem'); b.dataset.id=l.id;
+    b.innerHTML=`<span class="pill">${esc(l.n)}</span><span style="min-width:0"><span class="nm">${esc(l.nome)}</span><span class="md">${l.modo==='Executivo'?'Frescão':esc(l.modo)} · ${esc(l.op)}</span></span><span class="val num"><i style="background:${c}"></i>${v==null?'<span style="color:var(--muted);font-weight:400">—</span>':ind.short(v)}</span>`;
+    b.addEventListener('click',()=>select(l.id,true));
+    b.addEventListener('mouseenter',()=>{S.hover=l.id;draw()}); b.addEventListener('mouseleave',()=>{S.hover=null;draw()});
+    frag.appendChild(b)});
+  if(arr.length>S.lim){const m=document.createElement('button');m.type='button';m.className='more';m.id='maisBtn';m.textContent=`Mostrar mais ${Math.min(40,arr.length-S.lim)} de ${arr.length-S.lim} restantes`;m.addEventListener('click',()=>{S.lim+=40;renderList()});frag.appendChild(m)}
+  const list=$('#list'); list.innerHTML=''; if(arr.length) list.appendChild(frag); else list.innerHTML='<div class="empty">Nenhuma linha encontrada. Tente outro número ou nome de bairro.</div>';
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- Legenda ---------- */
+function renderLegend(){
+  const ind=IND[S.ind], vis=D.linhas.filter(l=>inModo(l)&&passF(l));
+  const cnt=[0,0,0,0,0,0]; let nd=0; vis.forEach(l=>{const c=classe(ind,val(l)); if(c<0) nd++; else cnt[c]++});
+  const sub=ind.usaFaixa?`${FX_LABEL[S.faixa]} · ${['dia útil','sábado','domingo/feriado'][S.dia]}`:(['viagens','horas'].includes(ind.k)?['Dia útil','Sábado','Domingo/feriado'][S.dia]:'');
+  const lg=$('#legend'); lg.classList.toggle('closed',!S.legOpen);
+  let h=`<button class="lgt" id="lgToggle" type="button" aria-expanded="${S.legOpen}"><h3>${ind.titulo}</h3><span class="car">${S.legOpen?'ocultar':'legenda'}</span></button><div class="sub">${sub?sub+' · ':''}${ind.neutral?'sem juízo de valor':'azul = melhor · vermelho = pior'}</div><ul>`;
+  ind.labels.forEach((t,i)=>{h+=`<li><span class="sw" style="background:${cssv(ind.pal[i])}"></span><span>${t}</span><span class="ct num">${cnt[i]}</span></li>`});
+  if(nd) h+=`<li><span class="sw" style="background:${cssv('--nd')}"></span><span>${ind.nd}</span><span class="ct num">${nd}</span></li>`;
+  h+='</ul>'; lg.innerHTML=h;
+  $('#lgToggle').addEventListener('click',()=>{S.legOpen=!S.legOpen; renderLegend(); if(!userView&&S.sel==null){fitBox(CITYB);draw()}});
+}
+
+/* ---------- Ficha ---------- */
+function showView(v){
+  S.view=v; $('#listView').hidden=v!=='list'; $('#fichaView').hidden=v!=='ficha'; $('#aboutView').hidden=v!=='about';
+  $('#listView').style.display=v==='list'?'flex':'none';
+  $('#aboutBtn').textContent=v==='about'?'Voltar':'Sobre os dados';
+}
+function select(id,fit){
+  S.sel=id; const l=D.linhas[id]; renderFicha(l); showView('ficha');
+  if(fit) fitBox(l.bb,0.15); draw();
+  if(window.matchMedia('(max-width:900px)').matches) $('#mapbox').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function deselect(){S.sel=null;showView('list');draw()}
+function renderFicha(l){
+  const dias=['Dia útil','Sábado','Dom./feriado'], fx=[1,2,3,4,0];
+  const ivPico=l.iv[0][1];
+  let lead;
+  if(ivPico!=null) lead=`No pico da manhã de dia útil, passa a cada <strong class="num">${fmt(ivPico,ivPico<10?1:0)} min</strong>.`;
+  else if(l.pt[0][5]) lead=`Não roda no pico da manhã. Em dia útil faz <strong class="num">${fmt(l.pt[0][5])}</strong> partidas.`;
+  else lead='Esta linha não roda em dia útil.';
+  let tw=`<table class="tw num"><thead><tr><th>Horário</th>${dias.map((d,i)=>`<th>${d}</th>`).join('')}</tr></thead><tbody>`;
+  fx.forEach(f=>{tw+=`<tr><td>${FX_LABEL[f].replace(/ \(.*\)/,'')}<br><span style="font-size:11px;color:var(--muted)">${FX_LABEL[f].match(/\((.*)\)/)[1]}</span></td>${[0,1,2].map(d=>{const v=l.iv[d][f];const cur=(S.ind===0&&d===S.dia&&f===S.faixa)?' class="cur"':'';return `<td${cur}>${v==null?'<span style="color:var(--muted)">não passa</span>':fmt(v,v<10?1:0)+' min'}</td>`}).join('')}</tr>`});
+  tw+='</tbody></table>';
+  const hhmm=t=>{const m=Math.round(t/60)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
+  const fl=l.fl.map((x,i)=>x?`<tr><td>${dias[i]}</td><td>${hhmm(x[0])}</td><td>${hhmm(x[1])}${x[1]>=86400?'<br><span style="font-size:11px;color:var(--muted)">da madrugada seguinte</span>':''}</td></tr>`:`<tr><td>${dias[i]}</td><td colspan="2" style="color:var(--muted)">não roda</td></tr>`).join('');
+  const modo=l.modo==='Executivo'?'Frescão (executivo)':l.modo;
+  $('#fichaView').innerHTML=`
+   <button class="back" id="backBtn" type="button">← Todas as linhas</button>
+   <div class="fhead">
+     <div class="sign"><span class="no">${esc(l.n)}</span><span class="dest">${esc(l.nome)}</span></div>
+     <div class="tags"><span class="tag">${esc(modo)}</span><span class="tag">${esc(l.op)}</span>${l.tar!=null?`<span class="tag num">R$ ${fmt(l.tar,2)}</span>`:''}${l.circ?'<span class="tag">circular</span>':''}</div>
+     <p class="lead">${lead}</p>
+   </div>
+   <div class="sec"><h4>Tempo de espera no ponto</h4>${tw}<div class="foot" style="margin-top:6px">Média dos dois sentidos, conforme a tabela de horários.</div></div>
+   <div class="sec chart"><h4>Partidas por hora · <span id="chDia">${['dia útil','sábado','domingo/feriado'][S.dia]}</span></h4>${barChart(l.h[S.dia])}</div>
+   <div class="sec"><h4>Primeiro e último ônibus</h4><table class="tw num"><thead><tr><th>Dia</th><th>Primeiro</th><th>Último</th></tr></thead><tbody>${fl}</tbody></table></div>
+   <div class="facts">
+     <div class="fact"><div class="k">Moradores a até 5 min a pé</div><div class="v num">${l.p4>=1000?fmt(l.p4/1000)+' mil':fmt(l.p4)}</div><div class="s">400 m de alguma parada</div></div>
+     <div class="fact"><div class="k">Até 10 min a pé</div><div class="v num">${l.p8>=1000?fmt(l.p8/1000)+' mil':fmt(l.p8)}</div><div class="s">800 m de alguma parada</div></div>
+     <div class="fact"><div class="k">Moradores por ponto de parada</div><div class="v num">${l.np?fmt(l.p4/l.np):'—'}</div><div class="s">mediana da rede: 1.140</div></div>
+     <div class="fact"><div class="k">Pontos de parada</div><div class="v num">${fmt(l.np)}</div><div class="s">${l.st.length} paradas contando ida, volta e plataformas</div></div>
+     <div class="fact"><div class="k">Velocidade média</div><div class="v num">${fmt(l.vel,1)} km/h</div><div class="s">média da rede: 23 km/h</div></div>
+     <div class="fact"><div class="k">Tamanho do trajeto</div><div class="v num">${fmt(l.ext,1)} km</div><div class="s">média dos sentidos</div></div>
+   </div>
+   ${S.tec?tecFicha(l):''}
+   <p class="foot">Valores da programação oficial (GTFS da SMTR, jun/2026). Atrasos, lotação e viagens não realizadas não aparecem aqui.</p>`;
+  $('#backBtn').addEventListener('click',deselect);
+}
+function barChart(h){
+  const W=360,H=120,pl=26,pb=18,pt=8,mx=Math.max(1,...h),bw=(W-pl)/24;
+  const nice=mx<=4?mx:Math.ceil(mx/ (mx>40?10:5))*(mx>40?10:5);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Partidas por hora ao longo do dia">`;
+  [0,nice/2,nice].forEach(t=>{const y=H-pb-(H-pb-pt)*t/nice; s+=`<line class="base" x1="${pl}" x2="${W}" y1="${y}" y2="${y}" stroke-width="${t===0?1:0.5}"/><text class="ax" x="${pl-4}" y="${y+3}" text-anchor="end">${fmt(t)}</text>`});
+  h.forEach((v,i)=>{const bh=(H-pb-pt)*v/nice; if(v>0) s+=`<rect class="bar" x="${pl+i*bw+1}" y="${H-pb-bh}" width="${bw-2}" height="${bh}" rx="1.5"><title>${String(i).padStart(2,'0')}h: ${v} partida${v===1?'':'s'}</title></rect>`});
+  [0,6,12,18,23].forEach(i=>{s+=`<text class="ax" x="${pl+i*bw+bw/2}" y="${H-4}" text-anchor="middle">${i}h</text>`});
+  return s+'</svg>';
+}
+function renderAbout(){
+  $('#aboutView').innerHTML=`
+  <h3>De onde vêm os dados</h3>
+  <p>Os horários, trajetos e paradas são da programação oficial das linhas municipais, publicada pela Secretaria Municipal de Transportes (arquivo GTFS, versão de junho de 2026). Isso inclui os ônibus dos quatro consórcios, o BRT e os frescões.</p>
+  <h3>O que o mapa não mostra</h3>
+  <ul><li>Atrasos, lotação e viagens que deixaram de ser feitas: os números são do que está <b>programado</b>, não do que aconteceu na rua.</li>
+  <li>Vans, trem, metrô, VLT e barcas.</li></ul>
+  <h3>Como cada número foi calculado</h3>
+  <ul>
+   <li><b>Tempo de espera:</b> em cada sentido, minutos do período com ônibus divididos pelo número de partidas; depois a média dos dois sentidos.</li>
+   <li><b>Ônibus por dia:</b> partidas no dia, somando ida e volta.</li>
+   <li><b>Velocidade média:</b> extensão do trajeto dividida pelo tempo de viagem previsto.</li>
+   <li><b>Horário de funcionamento:</b> horas entre a primeira e a última partida.</li>
+   <li><b>Moradores perto:</b> população do Censo 2022 (IBGE) que mora a até 400 m de caminhada de alguma parada da linha, medida pelas ruas e caminhos do OpenStreetMap.</li>
+   <li><b>Moradores por parada:</b> moradores perto da linha divididos pelo número de pontos de parada. Paradas a menos de 100 m umas das outras na mesma linha (os dois lados da rua, as plataformas de uma estação de BRT) contam como um só ponto. Valores altos indicam pontos que atendem muita gente: bairros densos ou paradas espaçadas.</li>
+  </ul>
+  <h3>Indicadores do modo técnico</h3>
+  <ul>${IND.filter(i=>i.tec).map(i=>`<li><b>${i.titulo}:</b> ${i.desc}</li>`).join('')}
+   <li><b>Tempo de espera (método):</b> por sentido, 60 × horas do período com ao menos uma partida ÷ número de partidas; média dos sentidos que operam (mesmo método do busmadrid.org).</li>
+   <li><b>Moradores por ponto de parada:</b> moradores a até 400 m a pé ÷ pontos de parada (paradas a menos de 100 m umas das outras contam como um ponto).</li>
+   <li><b>Filtros:</b> combinam-se (todas as condições precisam valer). Linhas sem valor no indicador filtrado não passam. As que não passam ficam apagadas no mapa e somem da tabela.</li>
+   <li><b>CSV:</b> separador vírgula, decimal com ponto, codificação UTF-8. Traz todas as colunas para as linhas que passam nos filtros, com o tempo de espera de todos os períodos do dia escolhido.</li>
+  </ul>
+  <h3>Mapa</h3>
+  <p>O fundo foi desenhado a partir dos setores do Censo 2022 (limites de bairro aproximados) e das vias e trilhos do OpenStreetMap.</p>`;
+}
+
+/* ---------- Mapa (canvas) ---------- */
+const cv=$('#map'), ctx=cv.getContext('2d'); let W=0,H=0,DPR=1;
+const T={k:1,x:0,y:0};    // tela = mundo*k + (x,y); mundo: metros, y para cima
+let CITYB=null, linePaths=[], ctxPaths={}, grid=null, GS=500;
+function toPath(flat,closed){const p=new Path2D(); p.moveTo(flat[0],-flat[1]); for(let i=2;i<flat.length;i+=2) p.lineTo(flat[i],-flat[i+1]); if(closed) p.closePath(); return p}
+function prepMap(){
+  const city=new Path2D(); let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+  CTX.cidade.forEach(r=>{city.addPath(toPath(r,true)); for(let i=0;i<r.length;i+=2){x0=Math.min(x0,r[i]);x1=Math.max(x1,r[i]);y0=Math.min(y0,r[i+1]);y1=Math.max(y1,r[i+1])}});
+  CITYB=[x0,y0,x1,y1]; ctxPaths.city=city;
+  const mk=a=>{const p=new Path2D(); a.forEach(s=>p.addPath(toPath(s,false))); return p};
+  ctxPaths.bairros=mk(CTX.bairros); ctxPaths.r1=mk(CTX.vias.expressas); ctxPaths.r2=mk(CTX.vias.principais); ctxPaths.r3=mk(CTX.vias.secundarias); ctxPaths.rail=mk(CTX.vias.trilhos);
+  linePaths=D.linhas.map(l=>{const p=new Path2D(); l.g.forEach(g=>p.addPath(toPath(g,false))); return p});
+  // índice espacial de segmentos para o hover
+  grid=new Map();
+  D.linhas.forEach(l=>l.g.forEach(g=>{for(let i=0;i+3<g.length;i+=2){const ax=g[i],ay=g[i+1],bx=g[i+2],by=g[i+3];
+    const cx0=Math.floor(Math.min(ax,bx)/GS),cx1=Math.floor(Math.max(ax,bx)/GS),cy0=Math.floor(Math.min(ay,by)/GS),cy1=Math.floor(Math.max(ay,by)/GS);
+    for(let cx=cx0;cx<=cx1;cx++)for(let cy=cy0;cy<=cy1;cy++){const key=cx+','+cy; let a=grid.get(key); if(!a){a=[];grid.set(key,a)} a.push(l.id,ax,ay,bx,by)}}}));
+}
+function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); draw()}
+function fitBox(b,pad=0.06){
+  const bw=Math.max(800,b[2]-b[0]), bh=Math.max(800,b[3]-b[1]);
+  const lg=$('#legend'), narrow=W<700; const lb=narrow? (lg.offsetHeight+16):0;   // no celular, desconta a legenda embaixo
+  const Hu=Math.max(120,H-lb);
+  const k=Math.min(W/(bw*(1+2*pad)),Hu/(bh*(1+2*pad)));
+  T.k=k; T.x=W/2-k*(b[0]+b[2])/2; T.y=Hu/2+k*(b[1]+b[3])/2;   // y invertido
+}
+let colorsCache=null;
+function readColors(){const n=['--map-out','--map-city','--map-bairro','--map-road1','--map-road2','--map-road3','--map-rail','--map-label','--map-halo','--nd','--accent','--ink','--surface'];colorsCache={};n.forEach(k=>colorsCache[k]=cssv(k));}
+let binPaths=null;
+function buildBins(){
+  const ind=IND[S.ind]; binPaths={nd:new Path2D(),out:new Path2D(),b:[0,1,2,3,4,5].map(()=>new Path2D())};
+  D.linhas.forEach(l=>{if(!inModo(l)) return; if(!passF(l)){binPaths.out.addPath(linePaths[l.id]);return} const c=classe(ind,val(l)); if(c<0) binPaths.nd.addPath(linePaths[l.id]); else binPaths.b[c].addPath(linePaths[l.id])});
+}
+let raf=0; function draw(){if(!raf) raf=requestAnimationFrame(()=>{raf=0;render()})}
+function render(){
+  if(!D) return; const C=colorsCache, ind=IND[S.ind];
+  ctx.setTransform(DPR,0,0,DPR,0,0); ctx.fillStyle=C['--map-out']; ctx.fillRect(0,0,W,H);
+  const k=T.k; ctx.setTransform(DPR*k,0,0,DPR*k,DPR*T.x,DPR*T.y);
+  ctx.lineJoin='round'; ctx.lineCap='round';
+  ctx.fillStyle=C['--map-city']; ctx.fill(ctxPaths.city,'evenodd');
+  const px=1/k;
+  ctx.strokeStyle=C['--map-bairro']; ctx.lineWidth=1*px; ctx.stroke(ctxPaths.bairros);
+  if(k>0.02){ctx.strokeStyle=C['--map-road3']; ctx.lineWidth=1*px; ctx.stroke(ctxPaths.r3)}
+  ctx.strokeStyle=C['--map-road2']; ctx.lineWidth=(k>0.02?1.6:1)*px; ctx.stroke(ctxPaths.r2);
+  ctx.strokeStyle=C['--map-road1']; ctx.lineWidth=(k>0.02?2.4:1.5)*px; ctx.stroke(ctxPaths.r1);
+  ctx.setLineDash([4*px,3*px]); ctx.strokeStyle=C['--map-rail']; ctx.lineWidth=1.2*px; ctx.stroke(ctxPaths.rail); ctx.setLineDash([]);
+  const lw=Math.min(4,1.3+Math.max(0,Math.log2(k/0.012))*0.55);
+  const dim=S.sel!=null;
+  ctx.globalAlpha=dim?0.18:1;
+  if(S.tec&&S.filters.length){const ga=ctx.globalAlpha; ctx.globalAlpha=ga*0.35; ctx.lineWidth=Math.max(1,lw*0.6)*px; ctx.strokeStyle=C['--nd']; ctx.stroke(binPaths.out); ctx.globalAlpha=ga}
+  ctx.lineWidth=lw*px*0.8; ctx.strokeStyle=C['--nd']; ctx.stroke(binPaths.nd);
+  const order=ind.neutral?[0,1,2,3,4,5]:[5,4,3,2,1,0];   // melhor serviço por cima
+  order.forEach(i=>{ctx.lineWidth=lw*px; ctx.strokeStyle=cssv(ind.pal[i]); ctx.stroke(binPaths.b[i])});
+  ctx.globalAlpha=1;
+  const hl=(id,w)=>{const l=D.linhas[id]; const c=palColor(ind,classe(ind,val(l)));
+    ctx.lineWidth=(w+3)*px; ctx.strokeStyle=C['--surface']; ctx.stroke(linePaths[id]); ctx.lineWidth=w*px; ctx.strokeStyle=c; ctx.stroke(linePaths[id])};
+  if(S.hover!=null && S.hover!==S.sel) hl(S.hover,lw+1.5);
+  if(S.sel!=null){hl(S.sel,lw+2.5);
+    const l=D.linhas[S.sel], r=Math.max(2.2,Math.min(4,lw))*px; ctx.fillStyle=C['--surface']; ctx.strokeStyle=C['--ink']; ctx.lineWidth=1.3*px;
+    l.st.forEach(si=>{const s=D.paradas[si]; ctx.beginPath(); ctx.arc(s[0],-s[1],r,0,Math.PI*2); ctx.fill(); ctx.stroke()});
+  }
+  // rótulos de bairro (tela)
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  const nmax=k<0.012?10:k<0.02?22:k<0.04?50:k<0.08?110:170;
+  ctx.font=`500 ${k<0.02?11:12}px ${getComputedStyle(document.body).getPropertyValue('--font-ui')||'sans-serif'}`; ctx.textAlign='center'; ctx.textBaseline='middle';
+  const boxes=[]; let shown=0;
+  for(const [nm,x,y] of CTX.rotulos){ if(shown>=nmax) break;
+    const sx=x*k+T.x, sy=-y*k+T.y; if(sx<-50||sy<-20||sx>W+50||sy>H+20) continue;
+    const w=ctx.measureText(nm).width+6, bx=[sx-w/2,sy-8,sx+w/2,sy+8];
+    if(boxes.some(b=>!(bx[2]<b[0]||bx[0]>b[2]||bx[3]<b[1]||bx[1]>b[3]))) continue;
+    boxes.push(bx); shown++;
+    ctx.lineWidth=3; ctx.strokeStyle=C['--map-halo']; ctx.strokeText(nm,sx,sy); ctx.fillStyle=C['--map-label']; ctx.fillText(nm,sx,sy);
+  }
+}
+/* Hover / clique */
+function pick(mx,my){
+  const wx=(mx-T.x)/T.k, wy=-(my-T.y)/T.k, tol=7/T.k; let best=null,bd=tol*tol;
+  const cx=Math.floor(wx/GS), cy=Math.floor(wy/GS), rr=Math.ceil(tol/GS);
+  for(let i=cx-rr;i<=cx+rr;i++)for(let j=cy-rr;j<=cy+rr;j++){const a=grid.get(i+','+j); if(!a) continue;
+    for(let q=0;q<a.length;q+=5){const id=a[q]; const l=D.linhas[id]; if(!inModo(l)||!passF(l)) continue; if(S.sel!=null && id!==S.sel && false) continue;
+      const ax=a[q+1],ay=a[q+2],bx=a[q+3],by=a[q+4], dx=bx-ax,dy=by-ay, L=dx*dx+dy*dy; let t=L?((wx-ax)*dx+(wy-ay)*dy)/L:0; t=Math.max(0,Math.min(1,t));
+      const ex=ax+t*dx-wx, ey=ay+t*dy-wy, d2=ex*ex+ey*ey; if(d2<bd||(d2===bd&&id===S.sel)){bd=d2;best=id}}}
+  return best;
+}
+const tip=$('#tip');
+function showTip(id,mx,my){
+  if(id==null){tip.hidden=true;return}
+  const l=D.linhas[id], ind=IND[S.ind], v=val(l);
+  tip.innerHTML=`<b>${esc(l.n)}</b>${esc(l.nome)}<span class="v">${v==null?ind.nd:ind.show(v)}</span>`;
+  tip.hidden=false; const r=tip.getBoundingClientRect(); let x=mx+14,y=my+14; if(x+r.width>W-6) x=mx-r.width-14; if(y+r.height>H-6) y=my-r.height-14;
+  tip.style.left=Math.max(6,x)+'px'; tip.style.top=Math.max(6,y)+'px';
+}
+/* Pan e zoom com ponteiro */
+const ptrs=new Map(); let drag=null, moved=false, pinch=null, userView=false;
+function zoomAt(f,mx,my){userView=true;const k2=Math.max(0.004,Math.min(1.2,T.k*f)); f=k2/T.k; T.x=mx-(mx-T.x)*f; T.y=my-(my-T.y)*f; T.k=k2; draw()}
+cv.addEventListener('wheel',e=>{e.preventDefault(); const r=cv.getBoundingClientRect(); zoomAt(Math.exp(-e.deltaY*0.0015),e.clientX-r.left,e.clientY-r.top)},{passive:false});
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY}); moved=false;
+  if(ptrs.size===1) drag={x:e.clientX,y:e.clientY,tx:T.x,ty:T.y};
+  if(ptrs.size===2){const [a,b]=[...ptrs.values()]; pinch={d:Math.hypot(a.x-b.x,a.y-b.y),k:T.k,tx:T.x,ty:T.y,cx:(a.x+b.x)/2,cy:(a.y+b.y)/2}; drag=null}});
+cv.addEventListener('pointermove',e=>{
+  const r=cv.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top;
+  if(ptrs.has(e.pointerId)) ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pinch&&ptrs.size===2){const [a,b]=[...ptrs.values()]; const d=Math.hypot(a.x-b.x,a.y-b.y); const k2=Math.max(0.004,Math.min(1.2,pinch.k*d/pinch.d)); const f=k2/pinch.k;
+    const cx=pinch.cx-r.left, cy=pinch.cy-r.top; T.k=k2; T.x=cx-(cx-pinch.tx)*f+((a.x+b.x)/2-pinch.cx); T.y=cy-(cy-pinch.ty)*f+((a.y+b.y)/2-pinch.cy); moved=true; draw(); return}
+  if(drag){const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3){moved=true; userView=true; cv.classList.add('dragging')} T.x=drag.tx+dx; T.y=drag.ty+dy; if(moved){tip.hidden=true; draw()} return}
+  if(e.pointerType==='mouse'){const id=pick(mx,my); if(id!==S.hover){S.hover=id; draw(); document.querySelectorAll('.row.hl').forEach(x=>x.classList.remove('hl'))} cv.classList.toggle('hovering',id!=null); showTip(id,mx,my)}
+});
+const endPtr=e=>{const r=cv.getBoundingClientRect(); ptrs.delete(e.pointerId); cv.classList.remove('dragging');
+  if(ptrs.size<2) pinch=null;
+  if(drag&&!moved&&e.type==='pointerup'){const id=pick(e.clientX-r.left,e.clientY-r.top); if(id!=null) select(id,false); else if(S.sel!=null) deselect()}
+  if(ptrs.size===0) drag=null; else if(ptrs.size===1){const p=[...ptrs.values()][0]; drag={x:p.x,y:p.y,tx:T.x,ty:T.y}}};
+cv.addEventListener('pointerup',endPtr); cv.addEventListener('pointercancel',endPtr);
+cv.addEventListener('pointerleave',()=>{if(!drag){S.hover=null; tip.hidden=true; draw()}});
+$('#zin').addEventListener('click',()=>zoomAt(1.6,W/2,H/2));
+$('#zout').addEventListener('click',()=>zoomAt(1/1.6,W/2,H/2));
+$('#zfit').addEventListener('click',()=>{userView=false;fitBox(CITYB);draw()});
+cv.tabIndex=0;
+cv.addEventListener('keydown',e=>{const s=60; if(e.key==='ArrowLeft'){T.x+=s;draw()} else if(e.key==='ArrowRight'){T.x-=s;draw()} else if(e.key==='ArrowUp'){T.y+=s;draw()} else if(e.key==='ArrowDown'){T.y-=s;draw()} else if(e.key==='+'||e.key==='='){zoomAt(1.4,W/2,H/2)} else if(e.key==='-'){zoomAt(1/1.4,W/2,H/2)} else if(e.key==='Escape'&&S.sel!=null){deselect()}});
+
+
+/* ---------- Modo técnico: filtros, tabela, CSV ---------- */
+const IK=Object.fromEntries(IND.map(i=>[i.k,i]));
+function passF(l){
+  if(!S.tec||!S.filters.length) return true;
+  return S.filters.every(f=>{const v=IK[f.k].get(l,S.dia,S.faixa); return v!=null&&(f.min==null||v>=f.min)&&(f.max==null||v<=f.max)});
+}
+const diaTxt=()=>['dia útil','sábado','domingo/feriado'][S.dia];
+const COLS=()=>[
+ {k:'nome',t:'Nome',g:l=>l.nome,f:v=>v,txt:1},
+ {k:'modo',t:'Tipo',g:l=>l.modo==='Executivo'?'Frescão':l.modo,f:v=>v,txt:1},
+ {k:'op',t:'Operador',g:l=>l.op,f:v=>v,txt:1},
+ ...IND.map(i=>({k:i.k,t:i.chip+(i.usaFaixa?' ('+FX_LABEL[S.faixa].replace(/ \(.*\)/,'').toLowerCase()+')':(['viagens','horas'].includes(i.k)?' ('+diaTxt()+')':'')),ind:i,g:l=>i.get(l,S.dia,S.faixa),f:v=>v==null?'—':i.short(v)})),
+ {k:'np',t:'Pontos de parada',g:l=>l.np,f:v=>fmt(v)},
+ {k:'mpp',t:'Moradores por ponto',g:l=>l.np?Math.round(l.p4/l.np):null,f:v=>fmt(v)},
+ {k:'tar',t:'Tarifa',g:l=>l.tar,f:v=>v==null?'—':'R$ '+fmt(v,2)},
+];
+const DEF_COLS=['espera','viagens','vel','frota','pop','ppp'];
+function colDefs(){const ks=S.tcols||DEF_COLS; const cur=IND[S.ind].k; const list=ks.includes(cur)?ks:[cur,...ks]; return list.map(k=>COLS().find(c=>c.k===k)).filter(Boolean)}
+function renderTable(){
+  const lv=$('#listView'); document.querySelector('#listView .phead').hidden=true; $('#list').hidden=true;
+  let head=$('#tecHead'); if(!head){head=document.createElement('div'); head.id='tecHead'; head.className='phead'; lv.insertBefore(head,$('#list'))}
+  let box=$('#tblBox'); if(!box){box=document.createElement('div'); box.id='tblBox'; box.className='tbl'; lv.appendChild(box)}
+  const ind=IND[S.ind], cols=colDefs();
+  let rows=D.linhas.filter(l=>inModo(l)&&matches(l)&&passF(l));
+  const sk=S.tsort?S.tsort.k:ind.k, sd=S.tsort?S.tsort.d:(ind.dir==='asc'&&!ind.neutral?1:-1);
+  const sc=COLS().find(c=>c.k===sk)||COLS().find(c=>c.k===ind.k);
+  rows.sort((a,b)=>{const va=sc.g(a),vb=sc.g(b); if(va==null&&vb==null) return 0; if(va==null) return 1; if(vb==null) return -1; return (sc.txt?String(va).localeCompare(String(vb),'pt'):(va-vb))*sd});
+  const fopts=IND.map(i=>`<option value="${i.k}"${i.k===ind.k?' selected':''}>${esc(i.chip)}</option>`).join('');
+  const allc=COLS().map(c=>`<label><input type="checkbox" value="${c.k}"${cols.some(x=>x.k===c.k)?' checked':''}${c.k===ind.k?' disabled':''}> ${esc(c.t)}</label>`).join('');
+  head.innerHTML=`<h2>${esc(ind.titulo)}${ind.usaFaixa?` · ${FX_LABEL[S.faixa].toLowerCase()}, ${diaTxt()}`:''}</h2>
+   <div class="meta">${rows.length} de ${D.linhas.filter(inModo).length} linhas${S.filters.length?' passam nos filtros':''}${S.busca?' (com a busca)':''}</div>
+   <div class="filt"><span>Filtrar</span><select id="fK" aria-label="Indicador do filtro">${fopts}</select><input id="fMin" type="number" step="any" placeholder="mín." aria-label="Valor mínimo"><input id="fMax" type="number" step="any" placeholder="máx." aria-label="Valor máximo"><button class="tbtn" id="fAdd" type="button">Aplicar</button></div>
+   ${S.filters.length?`<div class="fchips">${S.filters.map((f,i)=>`<span class="fchip">${esc(IK[f.k].chip)}: ${f.min!=null?fmt(f.min,f.min%1?1:0):'…'} a ${f.max!=null?fmt(f.max,f.max%1?1:0):'…'}<button type="button" data-i="${i}" aria-label="Remover filtro">×</button></span>`).join('')}<button class="tbtn" id="fClr" type="button">Limpar filtros</button></div>`:''}
+   <div class="tbar"><details class="cols" id="colsDet"><summary class="tbtn">Colunas ▾</summary><div class="colsbox" id="colsBox">${allc}</div></details><button class="tbtn" id="csvBtn" type="button">Baixar CSV</button><button class="tbtn" id="copyBtn" type="button">Copiar tabela</button><span class="tmsg" id="tmsg" role="status"></span></div>`;
+  const th=cols.map(c=>`<th data-k="${c.k}"${c.k===sc.k?` aria-sort="${sd>0?'ascending':'descending'}"`:''} class="${c.k===ind.k?'cur':''}">${esc(c.t)}</th>`).join('');
+  const body=rows.map(l=>`<tr data-id="${l.id}"><td><span class="pill" style="font-size:13px;min-width:38px">${esc(l.n)}</span></td>${cols.map(c=>{const v=c.g(l); const cur=c.k===ind.k; const dot=cur&&c.ind?`<i class="dot" style="background:${palColor(c.ind,classe(c.ind,v))}"></i>`:''; return `<td class="${cur?'cur ':''}${c.txt?'nm':''}"${c.txt?` title="${esc(v)}"`:''}>${dot}${esc(c.f(v))}</td>`}).join('')}</tr>`).join('');
+  box.innerHTML=`<table class="tt"><thead><tr><th data-k="linha">Linha</th>${th}</tr></thead><tbody>${body}</tbody></table>${rows.length?'':'<div class="empty">Nenhuma linha passa nos filtros.</div>'}`;
+  box.querySelectorAll('th').forEach(h=>h.addEventListener('click',()=>{const k=h.dataset.k; if(k==='linha') return; S.tsort={k,d:(S.tsort&&S.tsort.k===k)?-S.tsort.d:(COLS().find(c=>c.k===k).txt?1:-1)}; renderTable()}));
+  box.querySelectorAll('tbody tr').forEach(r=>{const id=+r.dataset.id; r.addEventListener('click',()=>select(id,true)); r.addEventListener('mouseenter',()=>{S.hover=id;draw()}); r.addEventListener('mouseleave',()=>{S.hover=null;draw()})});
+  $('#fAdd').addEventListener('click',()=>{const k=$('#fK').value, mn=$('#fMin').value, mx=$('#fMax').value; if(mn===''&&mx===''){$('#tmsg').textContent='Informe um mínimo, um máximo ou os dois.';return}
+    S.filters=S.filters.filter(f=>f.k!==k); S.filters.push({k,min:mn===''?null:+mn,max:mx===''?null:+mx}); refreshTec()});
+  head.querySelectorAll('.fchip button').forEach(b=>b.addEventListener('click',()=>{S.filters.splice(+b.dataset.i,1); refreshTec()}));
+  $('#fClr')&&$('#fClr').addEventListener('click',()=>{S.filters=[]; refreshTec()});
+  $('#colsBox').querySelectorAll('input').forEach(c=>c.addEventListener('change',()=>{const ks=[...$('#colsBox').querySelectorAll('input:checked')].map(x=>x.value).filter(k=>k!==IND[S.ind].k); S.tcols=ks; save(); renderTable(); $('#colsDet').open=true}));
+  $('#csvBtn').addEventListener('click',()=>exportCSV(rows));
+  $('#copyBtn').addEventListener('click',()=>copyTable(rows,cols));
+}
+function refreshTec(){buildBins(); renderLegend(); renderList(); draw()}
+const csvq=v=>{if(v==null) return ''; const s=String(v); return /[",\n;]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
+function csvText(rows){
+  const fx=['madrugada','pico_manha','meio_do_dia','pico_tarde','noite','dia_todo'], d=['util','sabado','domingo'][S.dia];
+  const H=['linha','nome','tipo','operador','route_id','tarifa_rs',...fx.map(f=>`intervalo_min_${f}_${d}`),'partidas_dia_util','partidas_sabado','partidas_domingo',`horas_funcionamento_${d}`,'velocidade_kmh','extensao_km','moradores_400m_a_pe','moradores_800m_a_pe','pontos_de_parada','paradas','moradores_por_ponto','frota_min_estimada_pico','km_dia_util','tortuosidade','divergencia_ida_volta_pct','moradores_por_partida'];
+  const lines=[H.join(',')];
+  rows.forEach(l=>{const t=l.tec; lines.push([l.n,l.nome,l.modo==='Executivo'?'Frescão':l.modo,l.op,l.r,l.tar,...l.iv[S.dia],l.pt[0][5]||0,l.pt[1][5]||0,l.pt[2][5]||0,l.amp[S.dia],l.vel,l.ext,l.p4,l.p8,l.np,l.st.length,l.np?Math.round(l.p4/l.np):'',t.fr,t.vkm,t.tort,t.div,t.ppp].map(csvq).join(','))});
+  return '﻿'+lines.join('\n');
+}
+async function exportCSV(rows){
+  const msg=$('#tmsg'); msg.textContent='';
+  let dl=null; try{dl=await window.claude?.use?.('downloads')}catch(e){dl=null}
+  if(!dl){msg.textContent='Download indisponível aqui. Use "Copiar tabela".';return}
+  try{await dl.save({filename:`raio-x-onibus-rio_${['dia-util','sabado','domingo'][S.dia]}.csv`,data:csvText(rows)}); msg.textContent='Arquivo salvo.'}
+  catch(e){const c=e&&e.code; msg.textContent=c==='declined'?'Download cancelado.':c==='rate_limited'?'Aguarde um instante e tente de novo.':'Não foi possível baixar aqui. Use "Copiar tabela".'}
+}
+function copyTable(rows,cols){
+  const tsv=[['Linha',...cols.map(c=>c.t)].join('\t'),...rows.map(l=>[l.n,...cols.map(c=>{const v=c.g(l); return v==null?'':(c.txt?v:String(v).replace('.',','))})].join('\t'))].join('\n');
+  const msg=$('#tmsg');
+  navigator.clipboard?.writeText(tsv).then(()=>{msg.textContent=`${rows.length} linhas copiadas. Cole numa planilha.`},()=>{msg.textContent='Não foi possível copiar aqui.'}) ?? (msg.textContent='Não foi possível copiar aqui.');
+}
+function tecFicha(l){
+  const t=l.tec, r=(k,v)=>`<tr><td>${k}</td><td>${v}</td></tr>`;
+  return `<div class="sec tecsec"><h4>Indicadores técnicos</h4><table class="tw num"><tbody>
+   ${r('Frota mínima estimada no pico',t.fr?fmt(t.fr)+' veículos':'—')}
+   ${r('Quilômetros por dia útil',t.vkm?fmt(t.vkm)+' km':'—')}
+   ${r('Partidas: útil · sáb. · dom.',`${fmt(l.pt[0][5]||0)} · ${fmt(l.pt[1][5]||0)} · ${fmt(l.pt[2][5]||0)}`)}
+   ${r('Tortuosidade',t.tort!=null?fmt(t.tort,1):'circular')}
+   ${r('Trajeto só em um sentido',t.div!=null?fmt(t.div)+'%':(t.ns===1?'um sentido só':'—'))}
+   ${r('Moradores por partida (dia útil)',t.ppp!=null?fmt(t.ppp):'—')}
+   ${r('Identificador GTFS',`<code>${esc(l.r)}</code>`)}
+  </tbody></table></div>`;
+}
+
+/* ---------- Ciclo ---------- */
+function update(){
+  S.lim=40; syncControls(); buildBins(); renderLegend(); renderList();
+  if(S.sel!=null&&S.view==='ficha') renderFicha(D.linhas[S.sel]);
+  draw(); save();
+}
+function init(){
+  buildControls(); renderAbout(); readColors(); prepMap();
+  new ResizeObserver(()=>{resize(); if(!userView&&S.sel==null){fitBox(CITYB); draw()}}).observe($('#mapbox'));
+  const mq=window.matchMedia('(prefers-color-scheme: dark)'); const re=()=>{readColors(); renderLegend(); renderList(); draw()};
+  mq.addEventListener?.('change',re); new MutationObserver(re).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  document.fonts?.ready.then(()=>draw());
+  showView('list'); update();
+}
+})();
+</script>

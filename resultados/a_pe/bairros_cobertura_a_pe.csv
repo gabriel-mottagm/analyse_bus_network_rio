@@ -1,0 +1,167 @@
+ap,ra,bairro,populacao,densidade_hab_km2,pct_300m_a_pe,pct_400m_a_pe,pct_500m_a_pe,pct_800m_a_pe,pct_400m_linha_reta,pct_400m_a_pe_10onibus_h,dist_media_a_pe_m,onibus_h_pico_medio,fator_desvio_medio
+Área de Planejamento 1,I Portuária,Caju,24116,4801.0,26.0,47.1,69.4,97.2,84.2,19.4,423.0,18.8,1.65
+Área de Planejamento 1,I Portuária,Gamboa,11416,10266.0,32.6,53.8,80.1,98.9,99.5,26.0,376.0,8.4,1.84
+Área de Planejamento 1,I Portuária,Santo Cristo,9936,6094.0,24.3,33.5,47.6,81.8,92.2,23.9,531.0,11.2,2.05
+Área de Planejamento 1,I Portuária,Saúde,1876,5557.0,81.5,96.2,98.3,99.2,100.0,46.0,215.0,10.9,1.6
+Área de Planejamento 1,II Centro,Centro,23642,4269.0,97.4,99.7,99.8,100.0,100.0,96.7,121.0,113.8,1.47
+Área de Planejamento 1,II Centro,Lapa,9116,26377.0,96.5,100.0,100.0,100.0,100.0,99.8,125.0,79.0,1.52
+Área de Planejamento 1,III Rio Comprido,Catumbi,12201,19342.0,51.1,61.3,78.5,86.4,89.6,61.3,363.0,31.6,2.02
+Área de Planejamento 1,III Rio Comprido,Cidade Nova,4745,5005.0,96.0,98.1,98.6,99.8,100.0,98.1,155.0,145.3,1.5
+Área de Planejamento 1,III Rio Comprido,Estácio,23260,25890.0,29.4,37.2,42.7,77.8,69.4,37.2,535.0,26.7,1.75
+Área de Planejamento 1,III Rio Comprido,Rio Comprido,39890,12154.0,59.4,69.6,79.4,88.7,93.1,52.6,328.0,29.0,2.02
+Área de Planejamento 1,VII São Cristóvão,Benfica,21388,12103.0,69.9,86.0,94.1,99.0,99.6,83.5,242.0,67.7,1.73
+Área de Planejamento 1,VII São Cristóvão,Imperial de São Cristóvão,27788,7258.0,57.9,73.1,84.2,98.1,96.2,71.8,296.0,51.2,1.84
+Área de Planejamento 1,VII São Cristóvão,Mangueira,18370,18860.0,49.1,62.6,79.8,98.6,96.4,62.6,316.0,21.6,1.54
+Área de Planejamento 1,VII São Cristóvão,Vasco da Gama,14576,14037.0,88.3,95.9,99.0,100.0,100.0,94.7,186.0,45.5,1.46
+Área de Planejamento 1,XXI Paquetá,Paquetá,3486,2081.0,0.0,0.0,0.0,0.0,0.0,0.0,5000.0,0.0,1.09
+Área de Planejamento 1,XXIII Santa Teresa,Santa Teresa,36252,7060.0,49.8,67.7,81.1,97.7,99.8,42.6,323.0,14.6,2.04
+Área de Planejamento 2,IV Botafogo,Botafogo,77018,16238.0,69.5,81.4,89.8,96.5,95.5,77.9,278.0,60.5,1.72
+Área de Planejamento 2,IV Botafogo,Catete,22295,33557.0,73.8,79.9,84.6,90.2,96.5,79.9,291.0,22.2,2.14
+Área de Planejamento 2,IV Botafogo,Cosme Velho,6408,6849.0,54.7,62.6,69.9,87.8,94.2,60.4,357.0,18.7,1.86
+Área de Planejamento 2,IV Botafogo,Flamengo,43099,25976.0,91.7,96.1,97.8,100.0,100.0,92.3,167.0,51.9,1.67
+Área de Planejamento 2,IV Botafogo,Glória,7120,6817.0,69.8,84.5,98.1,100.0,100.0,84.4,237.0,38.3,1.47
+Área de Planejamento 2,IV Botafogo,Humaitá,13044,12348.0,79.7,88.5,93.3,99.0,98.6,88.4,205.0,49.5,1.63
+Área de Planejamento 2,IV Botafogo,Laranjeiras,39692,16663.0,63.3,78.0,85.2,95.7,91.5,74.5,296.0,42.2,1.68
+Área de Planejamento 2,IV Botafogo,Urca,5215,2141.0,81.2,90.2,96.4,100.0,97.5,90.2,185.0,22.4,1.51
+Área de Planejamento 2,IX Vila Isabel,Andaraí,34576,15302.0,65.7,77.2,85.5,95.7,86.9,63.7,273.0,43.9,1.46
+Área de Planejamento 2,IX Vila Isabel,Grajaú,32816,5851.0,78.8,87.9,92.3,98.0,93.4,62.2,219.0,57.5,1.5
+Área de Planejamento 2,IX Vila Isabel,Maracanã,23498,14494.0,98.1,99.9,100.0,100.0,100.0,99.6,135.0,143.1,1.58
+Área de Planejamento 2,IX Vila Isabel,Vila Isabel,65790,19636.0,66.7,78.8,86.8,97.3,94.3,78.8,279.0,74.4,1.59
+Área de Planejamento 2,V Copacabana,Copacabana,128919,31221.0,82.0,87.5,90.5,98.9,96.0,87.5,192.0,110.8,1.66
+Área de Planejamento 2,V Copacabana,Leme,12479,12187.0,71.4,77.1,80.0,89.7,96.1,74.7,307.0,41.1,1.85
+Área de Planejamento 2,VI Lagoa,Gávea,14176,5198.0,82.9,89.7,94.2,97.3,97.5,89.6,205.0,43.0,1.6
+Área de Planejamento 2,VI Lagoa,Ipanema,37392,12862.0,75.0,85.0,89.3,94.9,97.6,84.7,254.0,66.7,1.76
+Área de Planejamento 2,VI Lagoa,Jardim Botânico,15871,5661.0,71.9,82.7,87.8,97.8,94.6,81.6,247.0,41.7,1.58
+Área de Planejamento 2,VI Lagoa,Lagoa,18676,3598.0,80.5,86.9,91.8,98.6,99.6,80.5,217.0,35.2,1.91
+Área de Planejamento 2,VI Lagoa,Leblon,37709,18791.0,83.4,88.8,91.6,95.3,96.3,88.2,226.0,61.8,1.69
+Área de Planejamento 2,VI Lagoa,São Conrado,9739,1511.0,85.0,91.4,93.9,96.0,98.8,66.5,231.0,54.7,1.75
+Área de Planejamento 2,VI Lagoa,Vidigal,15112,9345.0,16.1,23.5,30.4,61.6,75.2,23.5,726.0,8.8,2.57
+Área de Planejamento 2,VIII Tijuca,Alto da Boa Vista,9831,313.0,57.7,72.4,80.6,89.6,88.1,69.0,439.0,15.0,1.8
+Área de Planejamento 2,VIII Tijuca,Praça da Bandeira,7215,9873.0,81.7,98.6,99.8,100.0,100.0,98.5,202.0,89.5,1.65
+Área de Planejamento 2,VIII Tijuca,Tijuca,142326,14358.0,78.1,86.0,90.4,96.8,93.9,76.1,226.0,76.0,1.63
+Área de Planejamento 2,XXVII Rocinha,Rocinha,70894,48571.0,53.9,64.0,80.9,98.7,99.9,64.0,317.0,11.3,2.03
+Área de Planejamento 3,X Ramos,Bonsucesso,16872,7458.0,77.9,88.6,94.9,100.0,100.0,88.4,206.0,62.9,1.69
+Área de Planejamento 3,X Ramos,Manguinhos,28855,9914.0,45.3,61.6,71.9,97.6,84.5,31.8,369.0,19.7,1.62
+Área de Planejamento 3,X Ramos,Olaria,51222,13584.0,67.5,86.1,94.4,100.0,96.0,80.6,242.0,32.8,1.49
+Área de Planejamento 3,X Ramos,Ramos,34453,12305.0,65.5,82.1,94.4,100.0,97.2,73.4,246.0,42.9,1.59
+Área de Planejamento 3,XI Penha,Argentino,752,37600.0,98.4,100.0,100.0,100.0,100.0,32.3,152.0,11.5,1.72
+Área de Planejamento 3,XI Penha,Brás de Pina,37766,12944.0,57.3,77.1,91.3,99.9,97.3,53.5,277.0,15.8,1.54
+Área de Planejamento 3,XI Penha,Penha,58516,10329.0,72.2,87.6,95.1,98.6,96.3,65.3,234.0,31.8,1.46
+Área de Planejamento 3,XI Penha,Penha Circular,36725,7795.0,56.6,68.8,76.2,84.3,78.8,63.5,379.0,27.0,1.41
+Área de Planejamento 3,XII Inhaúma,Del Castilho,20597,14912.0,62.8,84.5,93.4,99.4,98.3,74.5,259.0,54.2,1.74
+Área de Planejamento 3,XII Inhaúma,Engenho da Rainha,24188,10520.0,71.9,88.3,95.1,100.0,99.0,88.3,234.0,25.2,1.64
+Área de Planejamento 3,XII Inhaúma,Higienópolis,14227,12260.0,83.6,96.9,100.0,100.0,100.0,88.0,189.0,60.9,1.56
+Área de Planejamento 3,XII Inhaúma,Inhaúma,37233,10873.0,54.5,72.5,82.0,97.3,88.2,56.3,311.0,18.2,1.5
+Área de Planejamento 3,XII Inhaúma,Maria da Graça,7209,8263.0,85.2,97.9,99.5,100.0,100.0,64.6,165.0,28.3,1.46
+Área de Planejamento 3,XII Inhaúma,Tomás Coelho,20343,11454.0,53.8,71.1,81.4,95.2,92.5,58.3,322.0,14.4,1.85
+Área de Planejamento 3,XIII Méier,Abolição,9196,13484.0,76.9,84.9,92.0,100.0,95.8,84.9,213.0,60.1,1.47
+Área de Planejamento 3,XIII Méier,Cachambi,38673,19881.0,78.6,91.0,97.4,100.0,99.9,83.1,200.0,37.3,1.61
+Área de Planejamento 3,XIII Méier,Encantado,12405,12224.0,71.4,88.0,98.6,100.0,100.0,87.9,207.0,40.1,1.61
+Área de Planejamento 3,XIII Méier,Engenho Novo,38492,14629.0,81.5,93.3,99.0,100.0,100.0,91.3,191.0,90.7,1.66
+Área de Planejamento 3,XIII Méier,Engenho de Dentro,43175,10514.0,69.3,82.5,90.4,97.3,96.6,77.7,258.0,51.1,1.72
+Área de Planejamento 3,XIII Méier,Jacaré,8198,9125.0,85.5,96.1,99.1,100.0,99.5,89.3,173.0,27.4,1.51
+Área de Planejamento 3,XIII Méier,Lins de Vasconcelos,31160,10970.0,64.3,76.9,88.2,97.5,97.9,68.0,264.0,36.0,1.81
+Área de Planejamento 3,XIII Méier,Méier,39700,16731.0,90.5,98.2,100.0,100.0,100.0,95.0,146.0,93.6,1.55
+Área de Planejamento 3,XIII Méier,Piedade,38712,9726.0,74.6,84.1,88.7,99.7,92.6,65.7,234.0,34.2,1.52
+Área de Planejamento 3,XIII Méier,Pilares,23518,13623.0,52.0,69.2,85.5,100.0,92.4,68.5,304.0,29.2,1.65
+Área de Planejamento 3,XIII Méier,Riachuelo,10462,10732.0,71.7,85.6,95.2,100.0,98.6,85.6,221.0,46.6,1.55
+Área de Planejamento 3,XIII Méier,Rocha,15900,13037.0,49.3,54.2,67.8,100.0,93.7,53.8,339.0,34.2,1.72
+Área de Planejamento 3,XIII Méier,Sampaio,8884,10287.0,64.8,79.0,93.3,99.7,99.9,77.8,255.0,51.4,1.67
+Área de Planejamento 3,XIII Méier,São Francisco Xavier,6340,9906.0,83.1,94.4,99.3,99.6,100.0,94.4,190.0,73.8,1.9
+Área de Planejamento 3,XIII Méier,Todos os Santos,22593,20989.0,91.3,98.8,100.0,100.0,100.0,95.4,157.0,61.9,1.5
+Área de Planejamento 3,XIII Méier,Água Santa,6419,2640.0,60.8,75.5,86.7,98.8,88.4,75.5,267.0,22.1,1.63
+Área de Planejamento 3,XIV Irajá,Colégio,26840,13313.0,67.2,84.5,94.8,100.0,96.0,78.0,237.0,32.8,1.43
+Área de Planejamento 3,XIV Irajá,Irajá,85906,11144.0,73.6,86.9,94.9,99.8,97.5,83.2,222.0,44.8,1.51
+Área de Planejamento 3,XIV Irajá,Vicente de Carvalho,21300,11556.0,45.6,61.8,78.0,97.7,85.9,50.0,345.0,24.4,1.53
+Área de Planejamento 3,XIV Irajá,Vila Kosmos,14878,10127.0,45.7,61.8,72.2,87.0,77.8,61.8,401.0,21.2,1.38
+Área de Planejamento 3,XIV Irajá,Vila da Penha,23336,14796.0,71.7,87.4,94.5,99.6,99.9,86.5,228.0,33.0,1.54
+Área de Planejamento 3,XIV Irajá,Vista Alegre,16816,13109.0,76.2,90.5,96.9,99.3,100.0,58.0,209.0,26.9,1.65
+Área de Planejamento 3,XV Madureira,Bento Ribeiro,37306,11910.0,64.8,84.8,95.9,100.0,99.4,56.5,242.0,22.2,1.54
+Área de Planejamento 3,XV Madureira,Campinho,8579,10386.0,57.7,77.4,91.0,100.0,99.1,75.9,272.0,40.8,1.75
+Área de Planejamento 3,XV Madureira,Cascadura,26895,8959.0,67.9,77.5,84.0,93.4,89.7,73.6,289.0,69.7,1.57
+Área de Planejamento 3,XV Madureira,Cavalcanti,13799,7522.0,54.4,68.8,80.2,92.6,82.2,58.5,332.0,11.5,1.43
+Área de Planejamento 3,XV Madureira,Engenheiro Leal,5200,7747.0,54.4,64.6,72.6,100.0,80.6,64.3,314.0,23.1,1.36
+Área de Planejamento 3,XV Madureira,Honório Gurgel,18213,14207.0,63.6,83.2,94.0,100.0,100.0,37.6,260.0,10.4,1.6
+Área de Planejamento 3,XV Madureira,Madureira,39712,10554.0,61.0,77.0,88.2,98.1,91.4,77.0,275.0,79.1,1.46
+Área de Planejamento 3,XV Madureira,Marechal Hermes,41507,11092.0,65.4,80.4,90.9,98.3,99.5,62.7,265.0,22.4,1.75
+Área de Planejamento 3,XV Madureira,Osvaldo Cruz,29995,14143.0,55.8,71.4,83.6,99.7,86.2,69.5,298.0,31.3,1.46
+Área de Planejamento 3,XV Madureira,Quintino Bocaiúva,24740,5751.0,67.9,84.7,92.5,99.3,95.8,71.7,243.0,40.9,1.65
+Área de Planejamento 3,XV Madureira,Rocha Miranda,36360,12415.0,62.3,75.3,85.3,98.3,86.9,61.0,270.0,18.4,1.44
+Área de Planejamento 3,XV Madureira,Turiaçú,11613,8900.0,61.3,70.2,79.5,99.6,83.2,58.1,283.0,20.2,1.52
+Área de Planejamento 3,XV Madureira,Vaz Lobo,10995,10463.0,72.6,83.8,91.6,99.5,98.1,71.4,231.0,50.3,1.66
+Área de Planejamento 3,XX Ilha do Governador,Bancários,11062,10983.0,64.0,77.5,86.3,99.9,100.0,68.2,266.0,21.8,1.98
+Área de Planejamento 3,XX Ilha do Governador,Cacuia,10392,4901.0,36.9,50.3,69.1,99.0,92.1,50.3,379.0,15.9,1.91
+Área de Planejamento 3,XX Ilha do Governador,Cidade Universitária,1303,265.0,1.9,2.7,3.6,23.7,4.2,2.5,861.0,0.6,1.56
+Área de Planejamento 3,XX Ilha do Governador,Cocotá,5021,8705.0,77.4,90.3,95.0,98.0,100.0,77.5,213.0,32.3,1.84
+Área de Planejamento 3,XX Ilha do Governador,Freguesia (Ilha),15900,3918.0,35.2,48.5,60.0,84.3,63.6,47.0,453.0,13.0,1.39
+Área de Planejamento 3,XX Ilha do Governador,Galeão,20816,1106.0,24.2,31.9,39.5,67.1,68.9,5.2,661.0,4.2,2.06
+Área de Planejamento 3,XX Ilha do Governador,Jardim Carioca,20374,12840.0,21.9,31.1,43.3,81.8,58.6,31.0,539.0,10.8,1.66
+Área de Planejamento 3,XX Ilha do Governador,Jardim Guanabara,27084,8633.0,41.6,55.3,67.5,91.7,87.0,55.1,395.0,16.5,1.93
+Área de Planejamento 3,XX Ilha do Governador,Moneró,5723,11040.0,95.0,98.4,100.0,100.0,100.0,96.8,143.0,27.0,1.51
+Área de Planejamento 3,XX Ilha do Governador,Pitangueiras,10242,16912.0,45.4,67.0,88.9,100.0,99.0,51.6,320.0,10.9,1.72
+Área de Planejamento 3,XX Ilha do Governador,Portuguesa,19831,16576.0,62.6,81.0,93.6,99.3,99.5,29.9,267.0,13.4,1.68
+Área de Planejamento 3,XX Ilha do Governador,Praia da Bandeira,5153,15865.0,42.1,61.6,78.7,100.0,99.6,16.3,347.0,7.3,2.12
+Área de Planejamento 3,XX Ilha do Governador,Ribeira,3474,4136.0,74.7,79.0,83.0,94.9,84.7,59.7,246.0,13.3,1.39
+Área de Planejamento 3,XX Ilha do Governador,Tauá,26482,16539.0,56.2,75.2,86.3,99.0,91.7,58.2,293.0,27.0,1.59
+Área de Planejamento 3,XX Ilha do Governador,Zumbi,1817,10050.0,100.0,100.0,100.0,100.0,100.0,90.1,119.0,19.1,1.58
+Área de Planejamento 3,XXII Anchieta,Anchieta,52095,12087.0,60.1,76.4,87.1,97.6,90.9,68.5,285.0,13.7,1.46
+Área de Planejamento 3,XXII Anchieta,Guadalupe,41088,10843.0,48.2,63.2,72.1,87.7,79.7,49.8,391.0,28.9,1.57
+Área de Planejamento 3,XXII Anchieta,Parque Anchieta,21833,5514.0,63.4,81.4,95.6,100.0,99.3,44.1,248.0,9.7,1.47
+Área de Planejamento 3,XXII Anchieta,Ricardo de Albuquerque,27704,12224.0,44.0,60.7,79.0,98.7,85.3,35.1,348.0,8.1,1.56
+Área de Planejamento 3,XXIX Complexo do Alemão,Complexo do Alemão,54202,18994.0,24.8,36.8,48.3,75.1,51.7,36.4,564.0,16.3,1.39
+Área de Planejamento 3,XXV Pavuna,Acari,29673,18757.0,29.8,43.2,58.0,94.3,75.3,42.4,454.0,18.5,1.62
+Área de Planejamento 3,XXV Pavuna,Barros Filho,20444,11503.0,58.1,73.5,85.7,99.4,99.0,52.1,288.0,19.4,1.58
+Área de Planejamento 3,XXV Pavuna,Coelho Neto,26780,10755.0,70.6,84.1,94.1,99.9,99.8,79.1,229.0,35.7,1.47
+Área de Planejamento 3,XXV Pavuna,Costa Barros,26272,14372.0,48.2,65.5,82.0,98.5,91.1,37.4,330.0,4.9,1.61
+Área de Planejamento 3,XXV Pavuna,Parque Colúmbia,8222,5413.0,41.7,62.1,79.3,95.1,88.3,3.2,362.0,4.9,1.56
+Área de Planejamento 3,XXV Pavuna,Pavuna,95337,11566.0,42.9,59.2,74.3,93.7,88.4,38.8,375.0,12.6,1.66
+Área de Planejamento 3,XXVIII Jacarezinho,Jacarezinho,35348,35981.0,33.0,53.5,69.6,100.0,100.0,36.3,388.0,13.6,1.7
+Área de Planejamento 3,XXX Maré,Maré,124832,29158.0,15.0,28.7,44.7,86.2,57.0,23.6,541.0,16.4,1.53
+Área de Planejamento 3,XXXI Vigário Geral,Cordovil,32454,9756.0,68.3,83.7,93.0,99.2,99.4,45.6,247.0,12.9,1.54
+Área de Planejamento 3,XXXI Vigário Geral,Jardim América,20687,10520.0,65.6,83.5,91.7,100.0,92.7,79.3,257.0,27.3,1.37
+Área de Planejamento 3,XXXI Vigário Geral,Parada de Lucas,19670,9140.0,62.3,85.9,95.5,100.0,100.0,81.7,260.0,33.1,1.74
+Área de Planejamento 3,XXXI Vigário Geral,Vigário Geral,34202,10078.0,31.2,46.5,61.4,87.6,65.4,46.5,459.0,19.7,1.41
+Área de Planejamento 4,XVI Jacarepaguá,Anil,31895,8385.0,53.0,62.6,67.6,88.8,73.1,38.3,381.0,21.5,1.57
+Área de Planejamento 4,XVI Jacarepaguá,Barra Olímpica,56658,4965.0,27.3,39.9,54.7,88.6,75.7,38.8,482.0,17.2,1.73
+Área de Planejamento 4,XVI Jacarepaguá,Curicica,29038,8678.0,61.9,75.1,84.9,98.9,90.4,49.3,286.0,12.0,1.46
+Área de Planejamento 4,XVI Jacarepaguá,Freguesia (Jacarepaguá),74803,7408.0,56.0,71.4,82.3,93.9,91.2,53.3,316.0,26.6,1.67
+Área de Planejamento 4,XVI Jacarepaguá,Gardênia Azul,20490,20994.0,42.2,59.7,73.3,88.5,78.1,59.2,411.0,44.4,1.62
+Área de Planejamento 4,XVI Jacarepaguá,Jacarepaguá,176014,2578.0,49.8,61.1,69.6,83.4,73.0,48.3,423.0,25.2,1.47
+Área de Planejamento 4,XVI Jacarepaguá,Pechincha,39070,12494.0,76.2,89.3,96.7,100.0,99.5,43.6,204.0,25.2,1.74
+Área de Planejamento 4,XVI Jacarepaguá,Praça Seca,63284,9681.0,39.3,52.4,63.1,85.6,71.0,48.1,460.0,21.2,1.54
+Área de Planejamento 4,XVI Jacarepaguá,Tanque,36839,6366.0,53.8,66.3,75.1,88.8,84.6,46.1,367.0,28.3,1.67
+Área de Planejamento 4,XVI Jacarepaguá,Taquara,107427,8121.0,58.3,73.5,85.4,98.3,94.8,40.3,293.0,20.3,1.64
+Área de Planejamento 4,XVI Jacarepaguá,Vila Valqueire,34024,8266.0,61.6,74.3,81.2,86.6,83.9,71.9,366.0,23.9,1.7
+Área de Planejamento 4,XXIV Barra da Tijuca,Barra da Tijuca,142263,3105.0,32.2,47.9,60.2,80.9,74.1,45.6,570.0,24.4,1.73
+Área de Planejamento 4,XXIV Barra da Tijuca,Camorim,1272,188.0,38.1,40.3,41.5,42.7,41.7,40.3,1047.0,12.1,1.3
+Área de Planejamento 4,XXIV Barra da Tijuca,Grumari,184,19.0,0.0,0.0,0.0,0.0,0.0,0.0,2601.0,0.0,1.7
+Área de Planejamento 4,XXIV Barra da Tijuca,Itanhangá,67969,5159.0,49.3,63.0,73.5,92.7,78.5,61.9,350.0,34.9,1.45
+Área de Planejamento 4,XXIV Barra da Tijuca,Joá,983,577.0,38.9,53.7,62.6,85.9,75.4,0.8,435.0,5.2,1.68
+Área de Planejamento 4,XXIV Barra da Tijuca,Recreio dos Bandeirantes,141316,4614.0,32.1,47.0,60.0,83.8,72.0,37.1,535.0,13.5,1.67
+Área de Planejamento 4,XXIV Barra da Tijuca,Vargem Grande,21350,559.0,36.9,45.1,52.0,69.4,63.7,34.8,602.0,6.3,1.7
+Área de Planejamento 4,XXIV Barra da Tijuca,Vargem Pequena,30428,1964.0,25.7,41.0,56.0,92.4,65.0,40.9,479.0,9.7,1.46
+Área de Planejamento 4,XXXIV Cidade de Deus,Cidade de Deus,30313,21468.0,45.7,60.5,76.9,99.1,88.4,59.4,348.0,34.2,1.66
+Área de Planejamento 5,XIX Santa Cruz,Paciência,104884,3901.0,37.2,50.3,62.1,83.6,67.6,29.1,483.0,7.5,1.42
+Área de Planejamento 5,XIX Santa Cruz,Santa Cruz,249130,1999.0,37.5,51.7,64.7,88.3,75.1,23.8,442.0,8.6,1.56
+Área de Planejamento 5,XIX Santa Cruz,Sepetiba,58738,5075.0,49.8,65.8,79.4,96.3,82.5,59.4,336.0,11.4,1.42
+Área de Planejamento 5,XVII Bangu,Bangu,211912,5823.0,60.0,74.9,84.5,94.6,88.3,38.6,307.0,19.1,1.48
+Área de Planejamento 5,XVII Bangu,Gericinó,20690,9717.0,0.0,0.2,0.6,9.6,1.3,0.0,1430.0,0.0,1.43
+Área de Planejamento 5,XVII Bangu,Jabour,5287,13669.0,54.9,85.4,98.1,100.0,98.9,79.6,278.0,46.0,1.57
+Área de Planejamento 5,XVII Bangu,Padre Miguel,61254,12534.0,70.3,87.3,97.0,99.7,99.6,64.3,233.0,27.3,1.57
+Área de Planejamento 5,XVII Bangu,Senador Camará,101980,6050.0,46.0,61.7,75.4,95.3,84.1,39.1,363.0,17.1,1.54
+Área de Planejamento 5,XVII Bangu,Vila Kennedy,21579,14672.0,29.0,46.1,62.0,88.7,66.9,40.8,455.0,34.3,1.43
+Área de Planejamento 5,XVIII Campo Grande,Campo Grande,352704,3392.0,48.5,64.9,77.6,95.1,84.5,42.3,353.0,14.9,1.51
+Área de Planejamento 5,XVIII Campo Grande,Cosmos,95484,8439.0,44.8,59.3,70.6,88.3,75.8,48.7,408.0,8.1,1.47
+Área de Planejamento 5,XVIII Campo Grande,Inhoaíba,72141,8759.0,33.6,46.4,57.3,80.7,65.5,35.4,525.0,6.8,1.53
+Área de Planejamento 5,XVIII Campo Grande,Santíssimo,48066,5666.0,40.3,57.6,72.0,93.8,86.5,45.8,391.0,16.2,1.67
+Área de Planejamento 5,XVIII Campo Grande,Senador Vasconcelos,32886,5120.0,51.7,64.8,76.3,97.9,84.5,40.0,331.0,22.5,1.49
+Área de Planejamento 5,XXVI Guaratiba,Barra de Guaratiba,4755,496.0,57.8,71.4,83.0,97.0,89.5,5.3,291.0,5.1,1.52
+Área de Planejamento 5,XXVI Guaratiba,Guaratiba,154125,1200.0,37.2,50.0,61.9,86.7,67.7,44.4,473.0,14.7,1.44
+Área de Planejamento 5,XXVI Guaratiba,Ilha de Guaratiba,6099,788.0,41.4,52.6,62.9,86.3,68.0,52.4,423.0,6.9,1.52
+Área de Planejamento 5,XXVI Guaratiba,Pedra de Guaratiba,11950,3449.0,57.1,69.9,81.0,97.5,89.1,60.5,301.0,14.5,1.52
+Área de Planejamento 5,XXXIII Realengo,Campo dos Afonsos,2106,662.0,27.8,43.8,62.3,100.0,100.0,43.8,406.0,9.7,2.62
+Área de Planejamento 5,XXXIII Realengo,Deodoro,10402,2224.0,69.2,79.2,85.7,88.7,88.4,66.9,315.0,64.1,1.66
+Área de Planejamento 5,XXXIII Realengo,Jardim Sulacap,14396,1850.0,51.7,67.0,78.4,96.5,92.7,66.6,351.0,24.6,1.79
+Área de Planejamento 5,XXXIII Realengo,Magalhães Bastos,20938,10409.0,84.7,96.6,99.5,100.0,99.9,61.3,189.0,33.1,1.56
+Área de Planejamento 5,XXXIII Realengo,Realengo,165881,6421.0,61.7,77.4,86.0,96.0,91.8,68.4,297.0,27.1,1.58
+Área de Planejamento 5,XXXIII Realengo,Vila Militar,12956,1234.0,44.9,60.6,71.2,95.7,92.2,56.6,376.0,32.8,1.76

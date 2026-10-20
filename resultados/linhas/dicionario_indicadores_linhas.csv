@@ -1,0 +1,27 @@
+coluna,descricao,unidade,fonte,observacao
+route_id,Identificador da linha no GTFS,,GTFS,
+linha,Número/código da linha,,GTFS routes.route_short_name,
+nome,Nome da linha (origem - destino),,GTFS,
+operador,Consórcio ou operadora,,GTFS agency,
+modo,Ônibus (700) / BRT (702) / Executivo (200),,GTFS route_type,
+tarifa_rs,Tarifa,R$,GTFS fare_rules + fare_attributes,5 linhas sem tarifa no GTFS
+cor_linha,Cor da linha (hex),,GTFS,10 linhas sem cor
+partidas_dia_util / _sabado / _domingo,Partidas no dia somando os dois sentidos,partidas,GTFS expandido (frequencies),vazio = não opera no dia
+intervalo_min_util_<faixa>,"Intervalo médio no dia útil por faixa horária: por sentido, 60 × horas da faixa com ao menos uma partida ÷ partidas; média dos sentidos (método busmadrid.org)",minutos,GTFS,faixas: madrugada 0-5h; pico manhã 6-9h; entrepico 9-16h; pico tarde 16-19h; noite 19-24h. Vazio = sem partidas na faixa
+intervalo_min_dia_todo_sabado / _domingo,Intervalo médio no dia todo,minutos,GTFS,
+primeira_partida_util / ultima_partida_util,Primeira e última partida do dia útil (qualquer sentido),hh:mm,GTFS,horas de madrugada normalizadas (00h-05h)
+amplitude_servico_h_<dia>,"Última − primeira partida, média dos sentidos",horas,GTFS,
+veiculo_km_dia_util,Soma da extensão das partidas do dia útil,km,GTFS (stop_times shape_dist_traveled),
+frota_min_estimada_pico,Ônibus necessários no pico da manhã: Σ sentidos (partidas/h × duração da viagem em h),veículos,GTFS,limite inferior: não inclui tempo de terminal nem reserva
+extensao_km,Extensão média dos sentidos (traçado mais usado de cada sentido),km,GTFS shapes,
+velocidade_comercial_kmh,"Extensão ÷ duração mediana programada, média dos sentidos",km/h,GTFS,programada; não é velocidade medida
+tortuosidade,Extensão ÷ distância em linha reta entre os extremos (média dos sentidos),razão,GTFS shapes,vazio para circulares (extremos a menos de 500 m)
+divergencia_ida_volta_pct,% da extensão total percorrida só por um dos sentidos (tolerância de 40 m),%,GTFS shapes,vazio para linhas de um sentido
+n_sentidos / circular,Número de sentidos e se a linha é circular,,GTFS,
+pop_400m_a_pe / pop_800m_a_pe,Moradores a até 400/800 m de caminhada de alguma parada da linha,habitantes,Censo 2022 (data.rio) + OSM + GTFS,população distribuída ao longo das vias de cada setor
+n_pontos_parada,Pontos de parada da linha: paradas a menos de 100 m umas das outras na mesma linha contam como um ponto,pontos,GTFS stops,ind_pontos_parada.py
+moradores_por_ponto_parada,pop_400m_a_pe ÷ n_pontos_parada,hab/ponto,derivado,ind_pontos_parada.py
+pop_por_partida_util,pop_400m_a_pe ÷ partidas_dia_util,hab/partida,derivado,proxy de pressão potencial (não é demanda)
+pct_pop_30pct_mais_pobres / _ricos,% da população atendida (400 m a pé) que mora nos 30% de setores mais pobres / mais ricos da cidade,%,Censo 2022,referência neutra = 30%
+pct_pretos_pardos,% de pretos e pardos na população atendida (400 m a pé),%,Censo 2022,média da cidade ≈ 54%
+renda_media_area_atendida,Renda média do responsável ponderada pela população atendida (400 m a pé),R$/mês,Censo 2022 (valor_do_r),

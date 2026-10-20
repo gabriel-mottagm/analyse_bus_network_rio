@@ -1,0 +1,13 @@
+# pasta de trabalho do pipeline (insumos e intermediários grandes)
+trabalho/
+*.osm.gz
+*.npz
+setores.geojson
+partidas_expandidas.csv
+passagens_parada_hora.csv
+pontos_mapa.csv.gz
+pontos_setores.csv.gz
+__pycache__/
+node_modules/
+.DS_Store
+painel/_teste.html

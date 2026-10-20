@@ -1,0 +1,495 @@
+route_id,route_short_name,route_long_name,operador,modo,n_paradas,partidas_dia_util,onibus_h_pico_ambos_sentidos,pop_400m,pct_pop_cidade
+E2335AAA0A,2335,Santa Cruz - Castelo,Santa Cruz,Executivo,340,70,3.7,474749,7.64
+E2338AAA0A,2338,Terminal Campo Grande - Castelo,Santa Cruz,Executivo,313,42,2.7,474361,7.64
+O0457AAN0A,SN457,Abolição - Copacabana,Internorte,Ônibus,157,14,0.0,442364,7.12
+E2337AAA0A,2337,Santa Cruz - Castelo,Santa Cruz,Executivo,339,28,2.3,430051,6.92
+O0415AAN0A,SN415,Usina - Leblon,Intersul,Ônibus,143,12,0.0,429545,6.92
+E2334AAA0A,2334,Campo Grande - Castelo,Santa Cruz,Executivo,320,43,2.7,401855,6.47
+O0456AAA0A,LECD132,Norte Shopping - Copacabana,Internorte,Ônibus,113,98,9.0,385739,6.21
+O0426AAA0A,426,Usina - Jardim de Alah,Intersul,Ônibus,129,234,17.7,384935,6.2
+O0639AAA0A,639,Jardim América - Saens Peña,Internorte,Ônibus,217,244,19.3,375143,6.04
+O0639AAN0A,SN639,Jardim América - Saens Peña,Internorte,Ônibus,219,18,0.0,375005,6.04
+O0104AAN0A,SN104,São Conrado - Terminal Gentileza,Intersul,Ônibus,130,15,0.0,370123,5.96
+O0391AAV0A,SV391,Padre Miguel - Praça da República,Santa Cruz,Ônibus,263,37,3.0,369850,5.95
+O0388AAN0A,SN388,Santa Cruz - Candelária,Santa Cruz,Ônibus,270,20,0.0,369804,5.95
+O0104AAA0A,104,São Conrado - Terminal Gentileza,Intersul,Ônibus,129,116,9.7,369739,5.95
+O0474AAN0A,SN474,Méier - Copacabana,Intersul,Ônibus,163,12,0.0,362450,5.84
+O0415AAA0A,415,Usina - Leblon,Intersul,Ônibus,127,235,18.0,358021,5.76
+O0622AAA0A,622,Penha - Saens Peña,Internorte,Ônibus,127,63,3.3,354745,5.71
+O0397AAN0A,SN397,Terminal Campo Grande - Candelária,Santa Cruz,Ônibus,228,20,0.0,351909,5.67
+O0457AAA0A,457,Abolição - Copacabana,Internorte,Ônibus,122,298,27.0,350284,5.64
+O0433AAA0A,LECD150,Grajaú - Metrô Siqueira Campos,Intersul,Ônibus,110,76,3.7,349230,5.62
+O0621AAA0A,621,Penha - Saens Peña,Internorte,Ônibus,120,81,6.0,346509,5.58
+O0483AAN0A,SN483,Penha - General Osório,Internorte,Ônibus,151,24,0.0,344801,5.55
+O0435AAA0A,LECD151,Grajaú - Leblon,Intersul,Ônibus,104,164,10.7,341132,5.49
+O0583AAA0A,583,Cosme Velho - Leblon,Intersul,Ônibus,76,38,2.7,340657,5.48
+O0388AAA0A,388,Santa Cruz - Candelária,Santa Cruz,Ônibus,252,87,4.3,340374,5.48
+O0711AAA0A,711,Rocha Miranda - Rio Comprido,Internorte,Ônibus,183,106,6.3,339367,5.46
+O0353AAN0A,SN353,Gardênia Azul - Terminal Gentileza,Transcarioca,Ônibus,190,12,0.0,334353,5.38
+O0353AAA0A,353,Gardênia Azul - Terminal Gentileza,Transcarioca,Ônibus,190,96,7.7,334351,5.38
+O0410AAN0A,LECD139,Saens Peña - Gávea,Intersul,Ônibus,144,13,0.0,329008,5.3
+O0393AAN0A,SN393,Bangu - Candelária,Santa Cruz,Ônibus,231,13,0.0,327762,5.28
+O0238AAA0A,238,Água Santa - Castelo,Internorte,Ônibus,154,84,6.7,326705,5.26
+O0238AAN0A,SN238,Água Santa - Castelo,Internorte,Ônibus,147,12,0.0,325585,5.24
+O0397AAA0A,397,Terminal Campo Grande - Candelária,Santa Cruz,Ônibus,212,109,7.7,325336,5.24
+O0638AAA0A,638,Marechal Hermes - Saens Peña,Internorte,Ônibus,166,259,24.0,317871,5.12
+O0410AAA0A,410,Saens Peña - Gávea,Intersul,Ônibus,134,189,16.3,316166,5.09
+O0607AAA0A,607,Cascadura - Rio Comprido,Transcarioca,Ônibus,153,123,9.0,313509,5.05
+O0383AAA0A,383,Realengo - Praça da República,Santa Cruz,Ônibus,204,157,10.3,313113,5.04
+O0383AAN0A,SN383,Realengo - Praça da República,Santa Cruz,Ônibus,205,13,0.0,312054,5.02
+O0636AAA0A,636,Merck - Saens Peña,Transcarioca,Ônibus,157,166,13.3,310855,5.0
+O0636AAN0A,SN636,Merck - Saens Peña,Transcarioca,Ônibus,157,13,0.0,310747,5.0
+O0584AAA0A,584,Cosme Velho - Leblon,Intersul,Ônibus,69,40,2.7,308751,4.97
+O0623AAA0A,623,Penha - Saens Peña,Internorte,Ônibus,132,132,9.0,308582,4.97
+O0629AAN0A,SN629,Irajá - Saens Peña,Internorte,Ônibus,179,20,0.0,307496,4.95
+O0629AAA0A,629,Irajá - Saens Peña,Internorte,Ônibus,175,311,24.0,307474,4.95
+O0624AAN0A,SN624,Mariópolis - Praça da República,Internorte,Ônibus,232,16,0.0,307021,4.94
+O0918AAA0A,918,Bangu - Bonsucesso,Santa Cruz,Ônibus,252,185,14.7,306496,4.93
+O0624AAV0A,SV624,Mariópolis - Praça da Bandeira,Internorte,Ônibus,235,101,7.3,303925,4.89
+O0393AAA0A,393,Bangu - Candelária,Santa Cruz,Ônibus,215,56,3.7,303331,4.88
+O0553AAA0A,553,Recreio dos Bandeirantes - Rio Sul,Transcarioca,Ônibus,158,164,13.3,302232,4.87
+O0368AAN0A,SN368,Riocentro - Candelária,Transcarioca,Ônibus,192,13,0.0,300190,4.83
+O0757AAA0A,757,Sepetiba - Coelho Neto,Santa Cruz,Ônibus,295,55,3.3,295254,4.75
+O0298AAN0A,SN298,Acari - Castelo,Internorte,Ônibus,202,17,0.0,294344,4.74
+O0455AAA0A,455,Méier - Copacabana,Internorte,Ônibus,107,146,12.7,290843,4.68
+O0624AAA0A,624,Mariópolis - Praça da Bandeira,Internorte,Ônibus,216,170,11.7,288089,4.64
+O0409AAA0A,409,Saens Peña - Horto,Intersul,Ônibus,121,203,18.0,287343,4.63
+O0298AAA0A,298,Acari - Castelo,Internorte,Ônibus,196,187,15.0,285112,4.59
+O0554AAN0A,SN554,Piabas - Metrô Botafogo,Transcarioca,Ônibus,229,15,0.0,283502,4.56
+O0399AAN0A,SN399,Pavuna - Passeio,Internorte,Ônibus,176,20,0.0,282683,4.55
+O0539AAA0A,539,Rocinha - Leme,Intersul,Ônibus,105,165,12.3,280807,4.52
+O0296AAA0A,296,Irajá - Castelo,Internorte,Ônibus,183,63,4.0,280645,4.52
+O0600AAA0A,600,Taquara - Saens Peña,Transcarioca,Ônibus,144,154,14.0,279987,4.51
+O0600AAN0A,SN600,Taquara - Saens Peña,Transcarioca,Ônibus,144,12,0.0,279289,4.5
+O0665AAVBA,SVB665,Pavuna - Saens Peña,Internorte,Ônibus,146,58,4.0,279269,4.5
+O0483AAA0A,483,Penha - General Osório,Internorte,Ônibus,103,234,12.7,278031,4.48
+E2345AAA0A,2345,Vila Valqueire - Castelo,Transcarioca,Executivo,157,44,3.0,276163,4.45
+O0554AAA0A,554,Piabas - Rio Sul,Transcarioca,Ônibus,223,143,11.7,274836,4.42
+O0368AAA0A,368,Riocentro - Candelária,Transcarioca,Ônibus,179,117,8.3,274785,4.42
+O0422AAN0A,SN422,Grajaú - Cosme Velho,Intersul,Ônibus,145,13,0.0,274716,4.42
+O0384AAA0A,384,Pavuna - Passeio,Internorte,Ônibus,190,63,3.3,271615,4.37
+O0625AAA0A,625,Olaria - Saens Peña,Internorte,Ônibus,132,106,9.0,271077,4.36
+O0601AAA0A,601,Santa Maria - Saens Peña,Transcarioca,Ônibus,161,84,6.7,270484,4.35
+O0557AAA0A,557,Rio das Pedras - Copacabana,Transcarioca,Ônibus,131,222,17.7,270447,4.35
+O0422AAA0A,422,Grajaú - Cosme Velho,Intersul,Ônibus,145,188,15.7,269747,4.34
+O0926AAA0A,926,Senador Camará - Penha,Santa Cruz,Ônibus,200,162,12.0,265690,4.28
+O0362AAA0A,362,Honório Gurgel - Castelo,Internorte,Ônibus,165,67,4.0,265573,4.28
+O0363AAN0A,SN363,Vila Valqueire - Candelária,Transcarioca,Ônibus,181,14,0.0,265133,4.27
+O0917AAV0A,SV917,Padre Miguel - Bonsucesso,Internorte,Ônibus,180,100,5.7,263829,4.25
+O0399AAA0A,399,Pavuna - Passeio,Internorte,Ônibus,179,93,4.3,263755,4.25
+O0753AAA0A,753,Santa Cruz - Metrô Coelho Neto,Santa Cruz,Ônibus,218,110,6.0,263494,4.24
+O0665AAA0A,665,Pavuna - Saens Peña,Internorte,Ônibus,140,258,18.0,259907,4.18
+O0917AAA0A,917,Padre Miguel - Bonsucesso,Internorte,Ônibus,186,286,17.0,259656,4.18
+O0474AAA0A,474,Jacaré - Copacabana,Intersul,Ônibus,103,110,8.7,257801,4.15
+O0669AAA0A,669,Pavuna - Méier,Internorte,Ônibus,189,110,10.3,257235,4.14
+O0737AAA0A,737,Santíssimo - Cascadura,Santa Cruz,Ônibus,195,69,4.0,256820,4.13
+O0634AAA0A,634,Bananal - Saens Peña,MOBI-Rio,Ônibus,168,144,7.3,256771,4.13
+O0606AAV0A,SV606,Engenho de Dentro - Terminal Gentileza,Internorte,Ônibus,127,78,6.7,254531,4.1
+O0157AAA0A,LECD127,Gávea - Rodoviária,Intersul,Ônibus,125,34,1.7,252677,4.07
+O0239AAA0A,239,Água Santa - Passeio,Internorte,Ônibus,130,60,5.7,250140,4.03
+O0696AAN0A,SN696,Méier - Praia do Dendê,Internorte,Ônibus,193,15,0.0,250061,4.03
+O0946AAA0A,946,Pavuna - Engenho da Rainha,Internorte,Ônibus,171,96,6.0,249595,4.02
+O0790AAV0A,SV790,Campo Grande - Cascadura,Santa Cruz,Ônibus,172,37,3.7,248828,4.01
+O0378AAA0A,378,Marechal Hermes - Castelo,Internorte,Ônibus,162,58,3.3,247384,3.98
+O0940AAA0A,940,Ramos (Praia) - Madureira,Transcarioca,Ônibus,160,79,6.0,245792,3.96
+O0390AAA0A,390,Curicica - Candelária,Transcarioca,Ônibus,147,139,11.0,241985,3.9
+O0363AAA0A,363,Vila Valqueire - Candelária,Transcarioca,Ônibus,171,210,20.0,240890,3.88
+O0386AAA0A,386,Anchieta - Candelária,Internorte,Ônibus,159,46,2.3,240199,3.87
+O0669AAV0A,SV669,Pavuna - Méier,Internorte,Ônibus,163,45,3.0,239401,3.85
+O0371AAA0A,371,Praça Seca - Praça Tiradentes,Transcarioca,Ônibus,150,432,28.7,238155,3.83
+O0552AAN0A,LECD149,Terminal Alvorada - Metrô Botafogo,Transcarioca,Ônibus,119,10,0.0,238033,3.83
+O0928AAA0A,928,Marechal Hermes - Bonsucesso,Internorte,Ônibus,168,68,5.0,237051,3.82
+O0696AAA0A,696,Méier - Praia do Dendê,Internorte,Ônibus,164,183,13.7,235379,3.79
+O0277AAA0A,277,Rocha Miranda - Candelária,Internorte,Ônibus,160,13,1.7,233301,3.76
+O0687AAA0A,687,Pavuna - Méier,Internorte,Ônibus,129,80,5.0,232972,3.75
+O0606AAA0A,606,Engenho de Dentro - Terminal Gentileza,Internorte,Ônibus,110,347,27.0,232703,3.75
+O0919AAN0A,SN919,Pavuna - Maré,Internorte,Ônibus,139,13,0.0,232263,3.74
+O0919AAA0A,919,Pavuna - Bonsucesso,Internorte,Ônibus,141,110,8.3,232191,3.74
+O0497AAA0A,497,Penha - Largo do Machado,Internorte,Ônibus,117,186,14.0,231708,3.73
+O0300AAA0A,300,Terminal Sulacap - Candelária,Santa Cruz,Ônibus,154,28,2.3,231022,3.72
+O0497AAN0A,SN497,Penha - Largo do Machado,Internorte,Ônibus,115,14,0.0,230594,3.71
+O0355AAN0A,SN355,Madureira - Praça Tiradentes,Internorte,Ônibus,150,14,0.0,230486,3.71
+O0650AAA0A,650,Marechal Hermes - Engenho Novo,Internorte,Ônibus,154,127,11.0,230346,3.71
+O0265AAA0A,265,Marechal Hermes - Castelo,Internorte,Ônibus,175,81,7.3,228760,3.68
+O0265AAN0A,SN265,Marechal Hermes - Castelo,Internorte,Ônibus,173,12,0.0,228723,3.68
+O0756AAA0A,756,Santa Cruz - Coelho Neto,Santa Cruz,Ônibus,199,170,10.7,227473,3.66
+O0920AAA0A,920,Pavuna - Bonsucesso,Internorte,Ônibus,158,129,9.7,224954,3.62
+O0630AAA0A,630,Penha (IAPI) - Saens Peña,Internorte,Ônibus,117,106,8.7,224938,3.62
+O0790AAN0A,SN790,Campo Grande - Cascadura,Santa Cruz,Ônibus,158,15,0.0,224642,3.62
+O0254AAA0A,254,Madureira - Candelária,Internorte,Ônibus,129,38,2.3,223987,3.61
+O0319AAN0A,SN319,Terminal Alvorada - Terminal Gentileza,Transcarioca,Ônibus,133,47,0.0,223478,3.6
+O0790AAA0A,790,Campo Grande - Cascadura,Santa Cruz,Ônibus,156,128,9.0,221888,3.57
+E2804AAA0A,2804,Bangu - Barra da Tijuca,Santa Cruz,Executivo,228,35,2.3,220240,3.55
+O0483AAV0A,SV483,General Osório - Penha,Internorte,Ônibus,50,51,0.0,219708,3.54
+O0350AAA0A,350,Irajá - Castelo,Internorte,Ônibus,144,66,4.0,219600,3.54
+O0385AAA0A,385,Village Pavuna - Passeio,Internorte,Ônibus,88,3,0.0,219253,3.53
+O0319AAV0A,SV319,Terminal Alvorada - Central do Brasil,Transcarioca,Ônibus,128,171,10.7,218583,3.52
+E2111AAA0A,2111,Praça Seca - Castelo,Transcarioca,Executivo,136,61,3.3,217974,3.51
+O0265AAP0A,SP265,Marechal Hermes - Terminal Gentileza,Internorte,Ônibus,151,141,9.7,217516,3.5
+O0306AAA0A,306,Praça Seca - Castelo,Transcarioca,Ônibus,136,120,10.3,217433,3.5
+O0355AAA0A,355,Madureira - Praça Tiradentes,Internorte,Ônibus,147,118,8.0,216140,3.48
+O0341AAA0A,341,Taquara - Candelária,Transcarioca,Ônibus,129,91,8.0,215820,3.47
+O0550AAA0A,550,Cidade de Deus - Gávea,Transcarioca,Ônibus,131,212,12.7,215778,3.47
+O0550AAN0A,SN550,Cidade de Deus - Gávea,Transcarioca,Ônibus,129,16,0.0,215432,3.47
+O0794AAN0A,SN794,Jabour - Cascadura,Santa Cruz,Ônibus,182,16,0.0,215083,3.46
+O0404AAP0A,SP404,Caju - Leblon,Internorte,Ônibus,33,11,3.3,214845,3.46
+E2803AAA0A,2803,Vila Kennedy - Terminal Alvorada,Santa Cruz,Executivo,222,63,4.3,213079,3.43
+O0688AAA0A,688,Méier - Pavuna,Internorte,Ônibus,125,59,3.3,212959,3.43
+O0363AAV0A,SV363,Vila Valqueire - Candelária,Transcarioca,Ônibus,145,76,6.0,212846,3.43
+O0474AAV0A,SV474,Jacaré - Copacabana,Intersul,Ônibus,67,58,5.7,212029,3.41
+O0498AAA0A,498,Circular da Penha - Largo do Machado,Internorte,Ônibus,103,22,3.0,211933,3.41
+O0685AAVAA,LECD148,Terminal Margaridas - Méier,Internorte,Ônibus,167,11,2.7,211255,3.4
+O0665AAVAA,LECD147,Metrô Pavuna - Saens Peña,Internorte,Ônibus,128,67,4.3,209987,3.38
+O0678AAA0A,678,Méier - Vila Valqueire,Transcarioca,Ônibus,132,50,3.7,209672,3.38
+O0910AAA0A,910,Bananal - Irajá,Internorte,Ônibus,139,69,4.7,209639,3.38
+O0485AAA0A,485,Fundão - General Osório,Internorte,Ônibus,75,70,5.0,208363,3.35
+O0627AAA0A,627,Inhaúma - Saens Peña,Internorte,Ônibus,100,122,9.7,208055,3.35
+O0486AAA0A,486,Fundão - General Osório,Internorte,Ônibus,47,19,0.0,207984,3.35
+O0552AAA0A,552,Terminal Alvorada - Rio Sul,Transcarioca,Ônibus,118,76,6.7,207677,3.34
+O0908AAN0A,SN908,Terminal Deodoro - Bonsucesso,Internorte,Ônibus,150,16,0.0,206001,3.32
+O0906AAA0A,906,Jardim América - Caju,Internorte,Ônibus,134,88,6.0,205255,3.3
+O0908AAA0A,908,Terminal Deodoro - Bonsucesso,Internorte,Ônibus,145,299,19.0,204464,3.29
+O0484AAA0A,484,Olaria - General Osório,Internorte,Ônibus,51,9,2.3,204330,3.29
+O0685AAA0A,LECD140,Terminal Margaridas - Méier,Internorte,Ônibus,160,175,12.0,204230,3.29
+O0536AAA0A,LECD138,Rocinha - Leme,Intersul,Ônibus,90,140,10.3,203750,3.28
+O0685AAVBA,LECD141,Terminal Margaridas - Méier,Internorte,Ônibus,151,51,2.7,202534,3.26
+O0855AAA0A,855,Terminal Magarça - Terminal Deodoro,Santa Cruz,Ônibus,205,187,11.0,202524,3.26
+O0861AAN0A,SN861,Rio das Pedras - Curicica,Transcarioca,Ônibus,120,14,0.0,202399,3.26
+O0861AAA0A,861,Rio das Pedras - Curicica,Transcarioca,Ônibus,121,158,10.3,202378,3.26
+E2307AAA0A,2307,Jardim 7 de Abril - Carioca,Santa Cruz,Executivo,150,44,2.7,201636,3.25
+O0878AAV0A,SV878,Tanque - Barra da Tijuca,Transcarioca,Ônibus,142,63,3.0,200778,3.23
+O0878AAN0A,SN878,Tanque - Barra da Tijuca,Transcarioca,Ônibus,140,16,0.0,200761,3.23
+O0759AAA0A,759,Cesarão - Coelho Neto,Santa Cruz,Ônibus,176,131,6.7,198582,3.2
+O0979AAA0A,979,Terminal Madureira - Terminal Fundão,Internorte,Ônibus,107,88,4.7,198192,3.19
+O0786AAA0A,786,Terminal Campo Grande - Cascadura,Santa Cruz,Ônibus,173,85,6.0,198152,3.19
+O0483AAPBA,SPB483,Parque União - General Osório,Internorte,Ônibus,33,11,2.7,197647,3.18
+O0908AAV0A,SV908,Terminal Deodoro - Bonsucesso,Internorte,Ônibus,77,22,1.7,197237,3.18
+O0109AAA0A,LECD131,São Conrado - Terminal Gentileza,Intersul,Ônibus,96,132,10.7,196836,3.17
+O0393AAR0A,SR393,Bangu - Candelária,Santa Cruz,Ônibus,152,24,2.0,194503,3.13
+O0799AAA0A,799,Metrô Pavuna - Bangu,Internorte,Ônibus,168,130,7.7,194454,3.13
+O0550AAPAA,SPA550,Cidade de Deus - Rocinha,Transcarioca,Ônibus,127,22,0.0,194082,3.12
+E2381AAA0A,2381,Pedra de Guaratiba - Castelo,Santa Cruz,Executivo,213,20,0.7,193811,3.12
+O0731AAN0A,SN731,Campo Grande - Marechal Hermes,Santa Cruz,Ônibus,176,16,0.0,193642,3.12
+O0652AAA0A,652,Cascadura - Méier,Transcarioca,Ônibus,100,27,1.7,192995,3.11
+O0342AAA0A,342,Jardim América - Castelo,Internorte,Ônibus,122,66,3.3,192388,3.1
+O0731AAA0A,731,Campo Grande - Marechal Hermes,Santa Cruz,Ônibus,172,142,9.7,191152,3.08
+O0349AAA0A,349,Rocha Miranda - Castelo,Internorte,Ônibus,85,4,0.7,190679,3.07
+O0343AAA0A,343,Jardim Oceânico - Candelária,Transcarioca,Ônibus,131,147,11.3,189491,3.05
+E2110AAA0A,2110,Gardênia Azul - Castelo,Transcarioca,Executivo,121,12,1.7,188531,3.04
+O0878AAA0A,878,Tanque - Barra da Tijuca,Transcarioca,Ônibus,127,310,18.3,188489,3.03
+O0961AAA0A,961,Rio das Pedras - Recreio dos Bandeirantes,Transcarioca,Ônibus,122,29,3.7,186716,3.01
+O0302AAN0A,SN302,Terminal Gentileza - Terminal Alvorada,Transcarioca,Ônibus,175,16,0.0,186631,3.0
+O0302AAA0A,302,Terminal Gentileza - Terminal Alvorada,Transcarioca,Ônibus,174,198,13.3,186607,3.0
+O0785AAA0A,785,Cascadura - Marechal Hermes,Transcarioca,Ônibus,139,33,1.7,184278,2.97
+E2383AAA0A,2383,Sepetiba - Carioca,Santa Cruz,Executivo,202,6,0.3,183244,2.95
+O0472AAA0A,472,Triagem - Leme,Intersul,Ônibus,111,106,9.0,181987,2.93
+O0794AAA0A,794,Bangu - Cascadura,Santa Cruz,Ônibus,167,152,11.3,181796,2.93
+O0771AAA0A,771,Campo Grande - Metrô Coelho Neto,Santa Cruz,Ônibus,125,113,7.7,181162,2.92
+O0679AAA0A,679,Grotão - Méier,Internorte,Ônibus,125,119,9.7,180394,2.9
+O0313AAA0A,313,Penha (Grotão) - Praça Tiradentes,Internorte,Ônibus,125,116,8.3,180071,2.9
+O0651AAA0A,651,Cascadura - Méier,Transcarioca,Ônibus,81,24,1.3,179646,2.89
+O0777AAV0A,SV777,Padre Miguel - Madureira,Santa Cruz,Ônibus,154,95,7.3,178643,2.88
+O0319AAA0A,319,Terminal Alvorada - Central do Brasil,Transcarioca,Ônibus,91,192,10.7,178542,2.87
+O0301AAA0A,301,Terminal Gentileza - Terminal Alvorada,Transcarioca,Ônibus,149,161,12.7,178496,2.87
+E2309AAA0A,2309,Urucânia - Carioca,Santa Cruz,Executivo,163,36,2.3,175858,2.83
+O0311AAA0A,311,Engenheiro Leal - Candelária,Internorte,Ônibus,130,11,1.0,175135,2.82
+O0883AAA0A,883,Terminal Mato Alto - Terminal Deodoro,Santa Cruz,Ônibus,187,188,12.3,174722,2.81
+O0473AAA0A,473,São Januário - Lido,Intersul,Ônibus,76,110,9.0,174336,2.81
+O0754AAA0A,754,Santa Cruz - Terminal Deodoro,Santa Cruz,Ônibus,153,115,6.7,172635,2.78
+O0746AAA0A,746,Jabour - Cascadura,Santa Cruz,Ônibus,107,278,18.7,172377,2.78
+O0169AAA0A,169,Terminal Gentileza - General Osório,Intersul,Ônibus,51,138,13.3,172362,2.78
+O0232AAN0A,SN232,Lins de Vasconcelos - Castelo,Internorte,Ônibus,89,12,0.0,171032,2.75
+O0232AAA0A,232,Lins de Vasconcelos - Castelo,Internorte,Ônibus,88,438,45.0,170688,2.75
+O0483AAPAA,SPA483,Fiocruz - General Osório,Internorte,Ônibus,23,17,4.7,170558,2.75
+O0100AAA0A,100,General Osório - Central,Intersul,Ônibus,52,269,20.7,169959,2.74
+O0853AAA0A,853,Terminal Mato Alto - Terminal Deodoro,Santa Cruz,Ônibus,157,188,12.7,167587,2.7
+O0328AAN0A,SN328,Bananal - Candelária,Internorte,Ônibus,132,16,0.0,167552,2.7
+E2308AAA0A,2308,Cosmos - Carioca,Santa Cruz,Executivo,130,36,2.0,167283,2.69
+E2114AAA0A,2114,Freguesia - Castelo,Transcarioca,Executivo,96,87,7.7,167216,2.69
+O0312AAN0A,SN312,Penha - Candelária,Internorte,Ônibus,114,13,0.0,166879,2.69
+O0247AAA0A,247,Camarista Méier - Passeio,Internorte,Ônibus,85,204,19.3,166826,2.69
+O0229AAA0A,229,Usina - Castelo,Intersul,Ônibus,68,34,2.3,166501,2.68
+E2802AAA0A,2802,Santa Cruz - Barra da Tijuca,Santa Cruz,Executivo,183,39,2.0,166487,2.68
+O0863AAA0A,863,Rio das Pedras - Barra da Tijuca,Transcarioca,Ônibus,73,116,7.0,165561,2.67
+O0743AAA0A,743,Terminal Sulacap - Bangu,Santa Cruz,Ônibus,84,47,3.3,164195,2.64
+O0905AAA0A,905,Bonsucesso - Irajá,Internorte,Ônibus,118,224,18.7,163896,2.64
+E2303AAA0A,2303,Cesarão - Carioca,Santa Cruz,Executivo,154,76,4.3,163855,2.64
+O0691AAA0A,691,Méier - Terminal Alvorada,Transcarioca,Ônibus,110,87,6.7,163762,2.64
+O0249AAA0A,249,Água Santa - Carioca,Internorte,Ônibus,102,342,28.3,163485,2.63
+O0801AAA0A,801,Bangu - Taquara,Santa Cruz,Ônibus,167,129,9.7,163150,2.63
+O0384AAR0A,SR384,Pavuna - Passeio,Internorte,Ônibus,126,22,1.7,162973,2.62
+O0388AAR0A,SR388,Santa Cruz - Candelária,Santa Cruz,Ônibus,160,64,5.3,162312,2.61
+O0775AAA0A,775,Jardim América - Madureira,Transcarioca,Ônibus,100,114,9.0,158382,2.55
+O0312AAA0A,312,Olaria - Candelária,Internorte,Ônibus,109,222,20.0,158043,2.54
+O0770AAA0A,770,Campo Grande - Metrô Coelho Neto,Santa Cruz,Ônibus,112,111,7.7,157879,2.54
+O0663AAA0A,663,Méier - Fundão,Internorte,Ônibus,90,4,0.7,157664,2.54
+O0361AAA0A,361,Recreio dos Bandeirantes - Castelo,Transcarioca,Ônibus,132,164,9.7,157261,2.53
+O0362AAR0A,SR362,Honório Gurgel - Castelo,Internorte,Ônibus,102,31,2.0,156822,2.52
+O0315AAA0A,315,Central - Recreio dos Bandeirantes,Transcarioca,Ônibus,124,62,5.0,156019,2.51
+O0862AAA0A,862,Rio das Pedras - Barra da Tijuca,Transcarioca,Ônibus,64,143,8.3,155875,2.51
+O0759AAP0A,SP759,Cesarão - Terminal Deodoro,Santa Cruz,Ônibus,146,141,8.7,155507,2.5
+O0741AAA0A,741,Terminal Sulacap - Bangu,Santa Cruz,Ônibus,87,37,2.7,155164,2.5
+O0399AAR0A,SR399,Pavuna - Passeio,Internorte,Ônibus,116,46,4.0,155005,2.5
+O0975AAA0A,975,Madureira - Terminal Fundão,Internorte,Ônibus,99,108,4.7,154007,2.48
+O0853AAN0A,SN853,Terminal Mato Alto - Terminal Deodoro,Santa Cruz,Ônibus,157,6,0.0,153128,2.47
+O0863AAV0A,SV863,Rio das Pedras - Barra da Tijuca,Transcarioca,Ônibus,75,25,2.0,152173,2.45
+O0803AAA0A,803,Jabour - Taquara,Santa Cruz,Ônibus,108,289,27.0,151997,2.45
+O0774AAA0A,774,Madureira - Jardim América,Transcarioca,Ônibus,104,275,21.0,151582,2.44
+O0555AAA0A,555,Rio das Pedras - Gávea,Transcarioca,Ônibus,86,136,11.7,151246,2.44
+O0774AAV0A,LECD142,Madureira - Jardim América,Transcarioca,Ônibus,93,199,16.0,151140,2.43
+O0803AAN0A,SN803,Jabour - Taquara,Santa Cruz,Ônibus,105,15,0.0,149733,2.41
+O0901AAA0A,901,Bonsucesso - Bananal,Internorte,Ônibus,142,32,2.0,148714,2.39
+O0788AAA0A,788,Terminal Campo Grande - Terminal Deodoro,Santa Cruz,Ônibus,135,46,2.3,147934,2.38
+O0745AAA0A,745,Bangu - Cascadura,Santa Cruz,Ônibus,109,100,7.0,147470,2.37
+O0653AAA0A,653,Terminal Deodoro - Méier,Internorte,Ônibus,112,43,2.7,146747,2.36
+O0397AAR0A,SR397,Terminal Campo Grande - Candelária,Santa Cruz,Ônibus,119,70,4.0,146102,2.35
+O0721AAA0A,721,Vila Cruzeiro - Cascadura,Internorte,Ônibus,88,224,21.0,146054,2.35
+O0476AAA0A,476,Méier - Leblon,Intersul,Ônibus,83,109,9.0,145249,2.34
+O0565AAA0A,565,Tanque - Gávea,Transcarioca,Ônibus,100,312,25.7,145212,2.34
+O0565AAN0A,SN565,Tanque - Gávea,Transcarioca,Ônibus,98,15,0.0,145160,2.34
+O0692AAA0A,692,Méier - Terminal Alvorada,Transcarioca,Ônibus,93,159,14.0,144991,2.33
+O0853AAV0A,SV853,Terminal Mato Alto - Terminal Deodoro,Santa Cruz,Ônibus,143,137,9.0,144282,2.32
+O0324AAN0A,SN324,Ribeira - Candelária,Internorte,Ônibus,127,20,0.0,144116,2.32
+O0348AAA0A,348,Riocentro - Candelária,Transcarioca,Ônibus,96,79,4.7,143952,2.32
+O0328AAA0A,328,Bananal - Candelária,Internorte,Ônibus,119,174,13.3,143372,2.31
+O0217AAA0A,217,Andaraí - Carioca,Intersul,Ônibus,63,111,9.0,143352,2.31
+O0355AAR0A,SR355,Madureira - Praça Tiradentes,Internorte,Ônibus,108,78,8.0,142704,2.3
+O0780AAA0A,780,Metrô Pavuna - Terminal Madureira,Internorte,Ônibus,124,100,6.0,142290,2.29
+O0954AAA0A,954,Terminal Taquara - Recreio dos Bandeirantes,Transcarioca,Ônibus,112,174,15.0,142239,2.29
+O0635AAA0A,635,Bananal - Saens Peña,Internorte,Ônibus,120,14,1.7,142238,2.29
+O0766AAA0A,766,Madureira - Freguesia,Transcarioca,Ônibus,102,224,16.0,141213,2.27
+O0954AAN0A,SN954,Terminal Taquara - Recreio dos Bandeirantes,Transcarioca,Ônibus,110,14,0.0,141132,2.27
+O0864AAA0A,864,Terminal Campo Grande - Terminal Sulacap,Santa Cruz,Ônibus,105,314,22.0,141046,2.27
+O0220AAA0A,220,Usina - Candelária,Intersul,Ônibus,66,201,19.7,140088,2.26
+O0416AAA0A,416,Saens Peña - Horto,Intersul,Ônibus,74,42,4.3,139813,2.25
+O0111AAA0A,LECD134,Central do Brasil - Leblon,Intersul,Ônibus,72,96,8.0,139314,2.24
+O0378AAR0A,SR378,Marechal Hermes - Castelo,Internorte,Ônibus,101,31,2.3,138663,2.23
+E2339AAA0A,2339,Campo Grande - Castelo,Santa Cruz,Executivo,104,44,2.3,136324,2.19
+O0898AAN0A,SN898,Sepetiba - Campo Grande,Santa Cruz,Ônibus,182,14,0.0,136258,2.19
+O0898AAA0A,898,Sepetiba - Campo Grande,Santa Cruz,Ônibus,183,103,8.3,136258,2.19
+O0380AAA0A,380,Curicica - Candelária,Transcarioca,Ônibus,99,5,0.3,136115,2.19
+O0798AAA0A,798,Campo Grande - Terminal Deodoro,Santa Cruz,Ônibus,97,114,8.0,133991,2.16
+O0326AAA0A,326,Bancários - Candelária,Internorte,Ônibus,105,137,9.7,132586,2.13
+O0275AAA0A,275,Méier - Candelária,Intersul,Ônibus,99,36,2.0,132057,2.13
+O0386AAR0A,SR386,Anchieta - Candelária,Internorte,Ônibus,98,15,1.3,131448,2.12
+O0987AAA0A,987,Gardênia Azul - Pechincha,Transcarioca,Ônibus,97,18,1.0,131433,2.12
+O0779AAN0A,SN779,Metrô Pavuna - Terminal Madureira,Internorte,Ônibus,114,12,0.0,131331,2.11
+O0519AAA0A,519,Urca - Copacabana,Intersul,Ônibus,35,13,1.0,129323,2.08
+O0779AAA0A,779,Metrô Pavuna - Terminal Madureira,Internorte,Ônibus,109,152,10.3,129322,2.08
+O0585AAA0A,585,Largo do Machado - Jardim de Alah,Intersul,Ônibus,57,21,1.7,127101,2.05
+O0778AAA0A,778,Pavuna - Cascadura,Internorte,Ônibus,85,79,5.3,126944,2.04
+O0611AAA0A,611,Camorim - Del Castilho,Transcarioca,Ônibus,88,79,6.7,126896,2.04
+O0518AAA0A,518,Urca - Botafogo,Intersul,Ônibus,40,13,0.7,124691,2.01
+O0840AAA0A,840,São Fernando - Campo Grande,Santa Cruz,Ônibus,120,101,7.3,124464,2.0
+E2336AAA0A,2336,Campo Grande - Castelo,Santa Cruz,Executivo,99,126,7.3,124413,2.0
+O0840AAN0A,SN840,São Fernando - Campo Grande,Santa Cruz,Ônibus,119,14,0.0,124247,2.0
+O0343AAP0A,SP343,Rio das Pedras - Candelária,Transcarioca,Ônibus,40,20,3.0,123528,1.99
+E2310AAA0A,2310,Bangu - Candelária,Santa Cruz,Executivo,98,82,4.3,122788,1.98
+O0300AAR0A,SR300,Terminal Sulacap - Candelária,Santa Cruz,Ônibus,95,8,0.7,122704,1.98
+O0329AAA0A,329,Bancários - Candelária,Internorte,Ônibus,106,132,9.7,121529,1.96
+O0389AAP0A,SP389,Vila Aliança - Terminal Deodoro,Santa Cruz,Ônibus,79,6,0.3,120233,1.94
+O0324AAA0A,324,Ribeira - Candelária,Internorte,Ônibus,115,176,16.3,120197,1.94
+O0292AAN0A,SN292,Engenho da Rainha - Castelo,Internorte,Ônibus,104,13,0.0,119228,1.92
+O0292AAA0A,292,Engenho da Rainha - Castelo,Internorte,Ônibus,102,161,14.0,118664,1.91
+O0801AAP0A,SP801,Bangu - Terminal Sulacap,Santa Cruz,Ônibus,124,13,0.0,116597,1.88
+O0133AAN0A,SN133,Largo do Machado - Terminal Gentileza,Intersul,Ônibus,46,15,0.0,115766,1.86
+O0133AAA0A,133,Largo do Machado - Terminal Gentileza,Intersul,Ônibus,47,156,11.7,115766,1.86
+O0918AAP0A,SP918,Jardim Violeta - Terminal Deodoro,Santa Cruz,Ônibus,106,142,9.7,115159,1.85
+O0645AAA0A,645,Terminal Alvorada - Saens Peña,Transcarioca,Ônibus,125,66,6.3,115140,1.85
+O0338AAA0A,338,Taquara - Candelária,Transcarioca,Ônibus,81,16,1.3,113703,1.83
+O0825AAA0A,825,Campo Grande - Jesuítas,Santa Cruz,Ônibus,111,64,5.3,112050,1.8
+O0825AAN0A,SN825,Campo Grande - Jesuítas,Santa Cruz,Ônibus,111,14,0.0,112050,1.8
+O0164AAA0A,LECD136,Terminal Gentileza - Leme,Intersul,Ônibus,35,96,8.3,112002,1.8
+O0804AAA0A,804,Terminal Curral Falso - Campo Grande,Santa Cruz,Ônibus,127,82,5.7,111730,1.8
+O0352AAA0A,352,Riocentro - Candelária,Transcarioca,Ônibus,73,7,1.0,110427,1.78
+O0796AAA0A,796,Campo Grande - Terminal Deodoro,Santa Cruz,Ônibus,81,114,8.0,109831,1.77
+O0342AAR0A,SR342,Jardim América - Castelo,Internorte,Ônibus,69,22,1.0,108921,1.75
+O0849AAA0A,849,Base Aérea de Santa Cruz - Campo Grande,Santa Cruz,Ônibus,104,69,5.0,108819,1.75
+O0328AAR0A,SR328,Bananal - Candelária,Internorte,Ônibus,97,6,0.7,108259,1.74
+O0628AAA0A,628,Penha - Nova América,Internorte,Ônibus,53,192,9.3,107874,1.74
+E2305AAA0A,2305,Jardim América - Castelo,Internorte,Executivo,67,50,3.0,107673,1.73
+O0323AAA0A,323,Bananal - Castelo,Internorte,Ônibus,101,147,11.0,107631,1.73
+O0803AAP0A,SP803,Jabour - Terminal Sulacap,Santa Cruz,Ônibus,64,36,0.0,106156,1.71
+O0852AAA0A,852,Terminal Campo Grande - Pedra de Guaratiba,Santa Cruz,Ônibus,117,57,4.0,105773,1.7
+O0766AAP0A,SP766,Três Rios - Madureira,Transcarioca,Ônibus,41,1,0.0,105496,1.7
+O0608AAA0A,608,Grajaú - Saens Peña,Intersul,Ônibus,38,291,33.0,104932,1.69
+20000421110,42,Galeão - Madureira,MOBI-Rio,BRT,39,408,20.0,104899,1.69
+O0932AAA0A,932,Gardênia Azul - Tanque,Transcarioca,Ônibus,70,49,4.3,104741,1.69
+O0793AAA0A,793,Pavuna - Terminal Sulacap,Internorte,Ônibus,106,130,9.3,104385,1.68
+O0866AAA0A,866,Terminal Campo Grande - Pedra de Guaratiba,Santa Cruz,Ônibus,108,43,2.7,103781,1.67
+O0795AAP0A,SP795,Pavuna - Terminal Deodoro,Internorte,Ônibus,99,61,4.7,103250,1.66
+O0810AAN0A,SN810,Terminal Taquara - Pontal,Transcarioca,Ônibus,137,13,0.0,102373,1.65
+O0492AAA0A,492,Bancários - Prado Júnior,Internorte,Ônibus,60,68,5.7,102043,1.64
+O0810AAA0A,810,Terminal Taquara - Pontal,Transcarioca,Ônibus,138,133,10.0,101322,1.63
+20000351110,35,Terminal Madureira - Terminal Alvorada,MOBI-Rio,BRT,55,334,18.0,100727,1.62
+O0901AAVBA,SVB901,Bonsucesso - Bananal,Internorte,Ônibus,85,30,2.0,99836,1.61
+O0167AAA0A,167,Terminal Gentileza - Urca,Intersul,Ônibus,66,168,23.0,98922,1.59
+O0900AAA0A,900,Taquara - Downtown,Transcarioca,Ônibus,67,139,14.7,98640,1.59
+O0880AAN0A,SN880,Rio das Pedras - Terminal Alvorada,Transcarioca,Ônibus,58,21,0.0,98627,1.59
+O0880AAA0A,880,Rio das Pedras - Terminal Alvorada,Transcarioca,Ônibus,58,250,22.3,98627,1.59
+O0802AAA0A,802,Terminal Campo Grande - Bangu,Santa Cruz,Ônibus,83,167,12.0,98268,1.58
+O0881AAA0A,881,Taquara - Terminal Alvorada,Transcarioca,Ônibus,89,68,5.7,97839,1.58
+O0692AAV0A,SV692,Méier - Terminal Alvorada,Transcarioca,Ônibus,67,20,3.0,97800,1.57
+20000601110,60,Terminal Deodoro - Terminal Gentileza,MOBI-Rio,BRT,38,607,35.0,97749,1.57
+O0321AAA0A,321,Bancários - Castelo,Internorte,Ônibus,89,174,12.3,97107,1.56
+O0712AAA0A,712,Cascadura - Irajá,Transcarioca,Ônibus,65,195,14.0,96618,1.56
+O0107AAA0A,107,Central - Urca,Intersul,Ônibus,67,131,12.0,96510,1.55
+O0810AAP0A,SP810,Terminal Taquara - Vargem Grande,Transcarioca,Ônibus,106,76,5.7,96430,1.55
+O0884AAA0A,884,Sepetiba - Terminal Campo Grande,Santa Cruz,Ônibus,152,123,8.3,95113,1.53
+O0884AAN0A,SN884,Sepetiba - Terminal Campo Grande,Santa Cruz,Ônibus,151,14,0.0,95089,1.53
+O0791AAA0A,791,Padre Miguel - Terminal Deodoro,Santa Cruz,Ônibus,72,66,4.0,93494,1.51
+20000671130,67,Terminal Campo Grande - Terminal Deodoro,MOBI-Rio,Ônibus,40,280,16.7,92716,1.49
+O0613AAA0A,613,Vargem Grande - Del Castilho,Transcarioca,Ônibus,98,180,15.7,91640,1.48
+O0990AAA0A,990,Merck - Joatinga,Transcarioca,Ônibus,63,67,6.7,91487,1.47
+20000171110,17,Campo Grande - Santa Cruz,MOBI-Rio,BRT,46,450,26.7,89016,1.43
+O0765AAA0A,765,Mendanha - Terminal Deodoro,Santa Cruz,Ônibus,59,49,2.7,85537,1.38
+O0201AAA0A,201,Santa Alexandrina - Castelo,Intersul,Ônibus,49,62,6.0,84274,1.36
+O0950AAA0A,LECD144,Metrô Vicente de Carvalho - Terminal Margaridas,Internorte,Ônibus,55,96,5.0,84076,1.35
+O0693AAA0A,693,Méier - Terminal Alvorada,Transcarioca,Ônibus,61,44,6.7,83974,1.35
+O0868AAA0A,868,Urucânia - Campo Grande,Santa Cruz,Ônibus,72,74,6.0,83520,1.34
+O0857AAN0A,SN857,Terminal Campo Grande - Terminal Pingo D'Água,Santa Cruz,Ônibus,133,17,0.0,82271,1.32
+E2112AAA0A,2112,Taquara - Castelo,Transcarioca,Executivo,52,47,3.0,81474,1.31
+O0649AAA0A,LECD126,Méier - Parque Piedade,Internorte,Ônibus,57,0,0.0,81437,1.31
+O0951AAA0A,LECD145,Metrô Vicente de Carvalho - Terminal Margaridas,Internorte,Ônibus,46,49,4.0,80683,1.3
+O0857AAA0A,857,Terminal Campo Grande - Terminal Pingo d'Água,Santa Cruz,Ônibus,144,124,9.0,79817,1.29
+O0327AAA0A,327,Ribeira - Castelo,Internorte,Ônibus,94,52,3.0,79524,1.28
+O0871AAA0A,871,Terminal Pingo d'Água - Cesarão,Santa Cruz,Ônibus,112,155,9.7,79459,1.28
+O0866AAV0A,SV866,Terminal Campo Grande - Terminal Pingo d'Água,Santa Cruz,Ônibus,104,100,6.3,78956,1.27
+O0626AAA0A,626,Saens Peña - Muda,Intersul,Ônibus,26,24,2.0,78547,1.26
+O0842AAA0A,842,Paciência - Campo Grande,Santa Cruz,Ônibus,67,50,3.0,77556,1.25
+O0959AAA0A,LECD146,Metrô Vicente de Carvalho - Terminal Margaridas,Internorte,Ônibus,57,41,3.3,77408,1.25
+20000111110,11,Santa Cruz - Terminal Alvorada,MOBI-Rio,BRT,69,67,0.0,77370,1.25
+O0764AAA0A,764,Catiri - Terminal Deodoro,Santa Cruz,Ônibus,51,120,8.7,77123,1.24
+O0635AAP0A,SP635,Terminal Fundão - Saens Peña,Internorte,Ônibus,49,24,1.3,76870,1.24
+O0325AAA0A,325,Ribeira - Castelo,Internorte,Ônibus,97,71,4.7,76196,1.23
+E2342AAA0A,2342,Bananal - Castelo,Internorte,Executivo,90,51,3.0,76134,1.23
+O0864AAP0A,SP864,Terminal Campo Grande - Bangu,Santa Cruz,Ônibus,62,572,30.0,75999,1.22
+O0369AAA0A,369,Bangu - Candelária,Santa Cruz,Ônibus,55,61,3.3,75475,1.22
+O0925AAA0A,925,Bancários - Aeroporto Internacional do RJ,Internorte,Ônibus,91,40,2.3,74812,1.2
+O0812AAA0A,812,Carobinha - Bangu,Santa Cruz,Ônibus,60,118,7.3,74213,1.19
+O0783AAA0A,783,Terminal Deodoro - Praça Seca,Transcarioca,Ônibus,73,128,10.0,73691,1.19
+O0202AAA0A,202,Rio Comprido - Castelo,Intersul,Ônibus,56,230,16.0,73273,1.18
+O0841AAA0A,841,Campo Grande - Inhoaíba,Santa Cruz,Ônibus,59,71,6.7,72199,1.16
+O0007AAN0A,SN007,Silvestre - Central,Intersul,Ônibus,74,12,0.0,71968,1.16
+O0893AAA0A,893,Jardim Palmares - Campo Grande,Santa Cruz,Ônibus,60,50,4.3,70259,1.13
+O0893AAN0A,SN893,Jardim Palmares - Campo Grande,Santa Cruz,Ônibus,60,13,0.0,70259,1.13
+O0819AAA0A,819,Jardim Bangu - Bangu,Santa Cruz,Ônibus,64,66,5.7,69606,1.12
+O0833AAA0A,833,Conjunto Manguariba - Campo Grande,Santa Cruz,Ônibus,65,42,2.0,69288,1.12
+O0603AAA0A,603,Usina - Saens Peña,Intersul,Ônibus,34,27,1.7,68927,1.11
+20000701110,70,Terminal Margaridas - Terminal Gentileza,MOBI-Rio,BRT,29,354,21.3,68776,1.11
+O0209AAN0A,SN209,Candelária - Caju,Intersul,Ônibus,67,21,0.0,67827,1.09
+O0821AAN0A,SN821,Campo Grande - Corcundinha,Santa Cruz,Ônibus,44,8,0.0,67700,1.09
+O0821AAA0A,821,Campo Grande - Corcundinha,Santa Cruz,Ônibus,44,70,5.7,67700,1.09
+O0921AAV0A,SV921,Bancários - Ribeira,Internorte,Ônibus,61,17,2.7,67581,1.09
+O0822AAA0A,822,Campo Grande - Corcundinha,Santa Cruz,Ônibus,43,49,3.3,67405,1.09
+O0921AAA0A,921,Bancários - Ribeira,Internorte,Ônibus,63,48,3.7,67328,1.08
+O0885AAN0A,SN885,Terminal Mato Alto - Santa Cruz,Santa Cruz,Ônibus,113,13,0.0,66035,1.06
+O0885AAA0A,885,Terminal Mato Alto - Santa Cruz,Santa Cruz,Ônibus,110,90,8.7,65944,1.06
+O0838AAA0A,838,Terminal Campo Grande - Terminal Magarça,Santa Cruz,Ônibus,85,403,28.7,65534,1.06
+O0613AAPAA,SPA613,Riocentro - Del Castilho,Transcarioca,Ônibus,40,31,2.3,65379,1.05
+O0328AAP0A,SP328,Bananal - Terminal Fundão,Internorte,Ônibus,69,68,5.3,65205,1.05
+O0209AAA0A,209,Candelária - Caju,Intersul,Ônibus,55,92,8.3,65182,1.05
+O0550AAPBA,SPB550,Tijuquinha - Gávea,Transcarioca,Ônibus,45,10,2.3,64978,1.05
+E2613AAA0A,2613,Riocentro - Metrô Del Castilho,Transcarioca,Executivo,39,20,2.0,64845,1.04
+O0007AAA0A,007,Silvestre - Central do Brasil,Intersul,Ônibus,62,152,12.3,61123,0.98
+E2344AAA0A,2344,Bancários - Castelo,Internorte,Executivo,71,56,3.7,60841,0.98
+20000521110,52,Terminal Deodoro - Terminal Alvorada,MOBI-Rio,BRT,42,310,30.0,60758,0.98
+O0507AAA0A,507,Silvestre - Largo do Machado,Intersul,Ônibus,35,118,9.7,60564,0.98
+O0851AAA0A,851,Campo Grande - Escola Amazonas,Santa Cruz,Ônibus,49,57,3.7,59880,0.96
+O0856AAA0A,856,Capoeira Grande - Terminal Campo Grande,Santa Cruz,Ônibus,111,149,11.0,59691,0.96
+20000251130,25,Terminal Mato Alto - Terminal Alvorada,MOBI-Rio,BRT,51,271,20.0,59198,0.95
+O0870AAA0A,870,Sepetiba - Santa Cruz,Santa Cruz,Ônibus,96,124,6.3,58967,0.95
+20000511110,51,Terminal Deodoro - Terminal Recreio,MOBI-Rio,BRT,39,343,23.0,58403,0.94
+20000681130,68,Bangu - Terminal Deodoro,MOBI-Rio,Ônibus,22,202,12.0,57870,0.93
+O0610AAA0A,610,Del Castilho - Tanque,Transcarioca,Ônibus,42,95,8.7,57853,0.93
+O0915AAA0A,915,Bonsucesso - Aeroporto Internacional do RJ,Internorte,Ônibus,40,37,2.0,57830,0.93
+O0461AAA0A,461,São Cristóvão - Ipanema,Intersul,Ônibus,27,84,8.3,57517,0.93
+O0872AAA0A,872,Praia de Sepetiba - Terminal Mato Alto,Santa Cruz,Ônibus,106,65,4.3,56746,0.91
+O0014AAA0A,LECD135,Paula Matos - Central do Brasil,Intersul,Ônibus,50,74,4.7,56140,0.9
+20000731130,73,Terminal Margaridas - Terminal Gentileza,MOBI-Rio,BRT,19,214,30.0,56095,0.9
+20000281130,28,Terminal Pingo d'Água - Terminal Curral Falso,MOBI-Rio,Ônibus,36,194,10.0,56026,0.9
+O0335AAA0A,335,Cordovil - Tiradentes,Internorte,Ônibus,39,84,8.7,55847,0.9
+O0897AAN0A,SN897,Santa Cruz - Terminal Pingo d'Água,Santa Cruz,Ônibus,63,13,0.0,55402,0.89
+O0869AAA0A,869,Santa Margarida - Campo Grande,Santa Cruz,Ônibus,53,56,3.7,54935,0.88
+O0475AAA0A,LECD133,Metrô São Cristóvão - Leblon,Intersul,Ônibus,27,87,8.7,53956,0.87
+O0899AAA0A,899,Barra de Guaratiba - Terminal Recreio,Santa Cruz,Ônibus,93,3,0.0,53816,0.87
+O0899AAV0A,SV899,Barra de Guaratiba - Terminal Recreio,Santa Cruz,Ônibus,99,3,0.3,53771,0.87
+20000461130,46,Penha - Terminal Alvorada,MOBI-Rio,BRT,21,339,21.7,53634,0.86
+O0326AAPBA,SPB326,Bancários - Terminal Fundão,Internorte,Ônibus,55,38,2.0,53607,0.86
+O0867AAA0A,867,Barra de Guaratiba - Terminal Campo Grande,Santa Cruz,Ônibus,183,188,13.0,53518,0.86
+O0867AAN0A,SN867,Barra de Guaratiba - Terminal Campo Grande,Santa Cruz,Ônibus,175,11,0.0,53367,0.86
+E2343AAA0A,2343,Ribeira - Castelo,Internorte,Executivo,89,59,4.0,53004,0.85
+20000431130,43,Terminal Fundão - Santa Efigênia,MOBI-Rio,BRT,21,100,12.0,52905,0.85
+O0854AAAAA,854,Terminal Campo Grande - Ilha de Guaratiba,Santa Cruz,Ônibus,141,71,5.7,51736,0.83
+O0006AAA0A,006,Silvestre - Castelo,Intersul,Ônibus,62,44,3.0,51079,0.82
+20000181130,18,Pontal - Terminal Jardim Oceânico,MOBI-Rio,BRT,28,208,23.0,50655,0.82
+O0820AAA0A,820,Rio da Prata - Terminal Mato Alto,Santa Cruz,Ônibus,90,132,7.0,50332,0.81
+O0895AAN0A,SN895,Serrinha - Campo Grande,Santa Cruz,Ônibus,47,7,0.0,48527,0.78
+O0161AAA0A,161,Terminal Gentileza - Ipanema,Intersul,Ônibus,26,83,8.7,48248,0.78
+O0913AAA0A,913,Del Castilho - Fundão,Internorte,Ônibus,32,61,4.0,48092,0.77
+O0616AAA0A,616,Del Castilho - Fundão,Internorte,Ônibus,31,90,6.3,48028,0.77
+20000801110,80,Penha - Terminal Gentileza,MOBI-Rio,BRT,24,408,24.0,47396,0.76
+O0160AAA0A,160,Terminal Gentileza - Leblon,Intersul,Ônibus,26,83,8.0,47339,0.76
+20000411130,41,Terminal Madureira - Terminal Recreio,MOBI-Rio,BRT,20,196,16.3,46704,0.75
+O0826AAA0A,826,Carobinha - Campo Grande,Santa Cruz,Ônibus,39,72,4.7,46175,0.74
+O0829AAA0A,829,Gardênia Azul - Freguesia,Transcarioca,Ônibus,20,45,3.3,45350,0.73
+O0805AAN0A,SN805,Terminal Alvorada - Jardim Oceânico,Transcarioca,Ônibus,53,14,0.0,45271,0.73
+O0805AAA0A,805,Terminal Alvorada - Jardim Oceânico,Transcarioca,Ônibus,53,46,3.0,45248,0.73
+O0162AAA0A,162,Terminal Gentileza - Alto Gávea,Intersul,Ônibus,37,132,11.7,44489,0.72
+O0010AAA0A,010,Bairro de Fátima - Central do Brasil,Intersul,Ônibus,35,12,1.0,44071,0.71
+O0845AAA0A,845,Cantagalo - Terminal Campo Grande,Santa Cruz,Ônibus,52,108,6.0,43763,0.7
+O0944AAA0A,LECD143,Metrô Pavuna - Terminal Margaridas,Internorte,Ônibus,34,100,5.3,43690,0.7
+20000141130,14,Santa Eugênia - Terminal Recreio,MOBI-Rio,BRT,24,264,28.7,43677,0.7
+O0817AAA0A,817,Piabas - Vargem Grande,Transcarioca,Ônibus,81,45,3.3,43402,0.7
+O0210AAA0A,210,Caju - Candelária,Intersul,Ônibus,37,51,3.7,43313,0.7
+O0329AAP0A,SP329,Bancários - Terminal Fundão,Internorte,Ônibus,56,38,2.0,42248,0.68
+O0324AAP0A,SP324,Ribeira - Terminal Fundão,Internorte,Ônibus,70,38,2.0,42123,0.68
+O0834AAA0A,834,Terminal Campo Grande - Cabuçu de Baixo,Santa Cruz,Ônibus,51,106,6.3,41825,0.67
+O0895AAA0A,895,Serrinha - Campo Grande,Santa Cruz,Ônibus,60,61,4.3,40875,0.66
+O0808AAA0A,808,Salim - Campo Grande,Santa Cruz,Ônibus,33,28,1.7,40795,0.66
+O0165AAA0A,165,Terminal Gentileza - Cosme Velho,Intersul,Ônibus,23,105,10.0,39622,0.64
+20000501110,50,Terminal Jardim Oceânico - Terminal Centro Olímpico,MOBI-Rio,BRT,34,272,15.0,38823,0.63
+O0831AAV0A,SV831,Colônia - Terminal Taquara,Transcarioca,Ônibus,33,37,2.0,38742,0.62
+20000611130,61,Terminal Deodoro - Terminal Gentileza,MOBI-Rio,BRT,14,324,44.0,38410,0.62
+O0805AAP0A,SP805,Terminal Alvorada - Passarela da Barra,Transcarioca,Ônibus,44,115,13.3,38363,0.62
+O0117AAA0A,117,Central - Cosme Velho,Intersul,Ônibus,19,188,22.3,38193,0.61
+O0892AAA0A,892,São Benedito - Santa Cruz,Santa Cruz,Ônibus,38,47,2.7,37655,0.61
+O0865AAA0A,865,Pau da Fome - Terminal Taquara,Transcarioca,Ônibus,52,54,3.0,37451,0.6
+O0831AAA0A,831,Colônia - Terminal Taquara,Transcarioca,Ônibus,36,54,5.7,37034,0.6
+O0836AAA0A,836,Rio da Prata - Terminal Campo Grande,Santa Cruz,Ônibus,54,82,6.0,35952,0.58
+O0835AAA0A,835,Largo do Correia - Terminal Campo Grande,Santa Cruz,Ônibus,52,168,13.7,35437,0.57
+O0843AAA0A,843,Boa Esperança - Campo Grande,Santa Cruz,Ônibus,31,56,4.0,34916,0.56
+20000401130,40,Terminal Madureira - Terminal Alvorada,MOBI-Rio,BRT,17,258,28.0,34808,0.56
+20000101130,10,Santa Cruz - Terminal Alvorada,MOBI-Rio,BRT,25,389,27.3,34157,0.55
+20000201130,20,Santa Cruz - Salvador Allende,MOBI-Rio,BRT,24,114,0.0,33826,0.54
+O0850AAA0A,850,Mendanha - Campo Grande,Santa Cruz,Ônibus,47,101,6.3,33100,0.53
+O0807AAA0A,807,Jesuítas - Terminal Curral Falso,Santa Cruz,Ônibus,39,61,4.3,30362,0.49
+O0830AAA0A,830,Pedregoso - Campo Grande,Santa Cruz,Ônibus,32,117,9.0,29171,0.47
+20000901110,90,Terminal Fundão - Terminal Gentileza,MOBI-Rio,BRT,17,298,16.7,28124,0.45
+O0513AAA0A,513,Urca - Botafogo,Intersul,Ônibus,22,36,3.7,27933,0.45
+O0848AAN0A,SN848,Terminal Campo Grande - Monte Santo,Santa Cruz,Ônibus,16,7,0.0,27444,0.44
+O0848AAA0A,848,Terminal Campo Grande - Monte Santo,Santa Cruz,Ônibus,16,122,8.0,27444,0.44
+O0448AAA0A,448,Furnas - São Conrado,Intersul,Ônibus,47,41,3.7,27102,0.44
+O0847AAA0A,847,Rio da Prata - Terminal Campo Grande,Santa Cruz,Ônibus,44,96,8.0,26691,0.43
+O0846AAN0A,SN846,Rio da Prata - Terminal Campo Grande,Santa Cruz,Ônibus,43,17,0.0,26598,0.43
+O0846AAA0A,846,Rio da Prata - Terminal Campo Grande,Santa Cruz,Ônibus,44,158,12.0,26598,0.43
+O0897AAA0A,897,Paciência - Terminal Pingo d'Água,Santa Cruz,Ônibus,31,258,17.7,26354,0.42
+O0837AAA0A,837,Terminal Campo Grande - Conjunto da Marinha,Santa Cruz,Ônibus,32,110,7.0,25809,0.42
+O0922AAV0A,SV922,Tubiacanga - Fundão,Internorte,Ônibus,34,41,2.3,25364,0.41
+20000151130,15,Terminal Curral Falso - Terminal Alvorada,MOBI-Rio,BRT,18,148,15.3,25010,0.4
+20000221110,22,Terminal Alvorada - Terminal Jardim Oceânico,MOBI-Rio,BRT,17,886,66.7,24553,0.4
+O0809AAA0A,809,Sagrado Coração - Santa Cruz,Santa Cruz,Ônibus,25,48,2.7,23164,0.37
+O0922AAA0A,922,Tubiacanga - Terminal Fundão,Internorte,Ônibus,14,32,1.7,22539,0.36
+20000121130,12,Terminal Pingo d'Água - Terminal Alvorada,MOBI-Rio,BRT,13,314,21.3,18074,0.29
+O0894AAA0A,894,Terminal Campo Grande - Jardim Moriçaba,Santa Cruz,Ônibus,14,32,2.0,17737,0.29
+20000131130,13,Terminal Mato Alto - Terminal Alvorada,MOBI-Rio,BRT,11,257,21.0,17690,0.28
+20000161130,16,Magarça - Terminal Alvorada,MOBI-Rio,BRT,12,21,5.7,17594,0.28
+20000191130,19,Terminal Pingo d'Água - Salvador Allende,MOBI-Rio,BRT,12,88,4.7,17529,0.28
+O0859AAA0A,859,Covanca - Largo do Tanque,Transcarioca,Ônibus,13,125,11.0,16972,0.27
+O0844AAA0A,844,Jardim Oceânico - Barrinha,Transcarioca,Ônibus,13,12,0.0,14029,0.23
+O0614AAA0A,614,Del Castilho - Terminal Alvorada,Transcarioca,Ônibus,23,75,6.7,13105,0.21
+E2614AAA0A,2614,Terminal Alvorada - Metrô Del Castilho,Transcarioca,Executivo,22,22,2.0,12571,0.2
+20000311140,31,Vicente de Carvalho - Terminal Alvorada,MOBI-Rio,BRT,5,108,14.7,10397,0.17
+20000531130,53,Terminal Sulacap - Terminal Alvorada,MOBI-Rio,BRT,12,353,26.7,9849,0.16
+O0485AAP0A,SP485,Cidade Nova - Fundão,Internorte,Ônibus,23,3,1.0,1764,0.03
+20000EXEC1110,ESP01,Galeão - Terminal Gentileza,MOBI-Rio,Executivo,3,127,8.0,432,0.01
