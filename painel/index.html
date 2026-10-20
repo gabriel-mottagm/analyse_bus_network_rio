@@ -709,8 +709,13 @@ function prepMap(){
     const cx0=Math.floor(Math.min(ax,bx)/GS),cx1=Math.floor(Math.max(ax,bx)/GS),cy0=Math.floor(Math.min(ay,by)/GS),cy1=Math.floor(Math.max(ay,by)/GS);
     for(let cx=cx0;cx<=cx1;cx++)for(let cy=cy0;cy<=cy1;cy++){const key=cx+','+cy; let a=grid.get(key); if(!a){a=[];grid.set(key,a)} a.push(l.id,ax,ay,bx,by)}}}));
 }
-function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); try{BASE.map&&BASE.map.resize()}catch(e){} if(BASE.pendente) setTimeout(iniciarFundo,0); draw()}
+function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR);
+  if(W>0&&H>0){if(FIT_PEND) fitBox(...FIT_PEND); else if(!(T.k>0)&&CITYB) fitBox(CITYB)}
+  try{BASE.map&&BASE.map.resize()}catch(e){} if(BASE.pendente) setTimeout(iniciarFundo,0); draw()}
+let FIT_PEND=null;   // enquadramento pedido com o mapa sem tamanho (aba oculta): aplica no próximo resize
 function fitBox(b,pad=0.06){
+  if(!(W>0&&H>0)){FIT_PEND=[b,pad]; return}
+  FIT_PEND=null;
   const bw=Math.max(800,b[2]-b[0]), bh=Math.max(800,b[3]-b[1]);
   const lg=$('#legend'), narrow=W<700; const lb=narrow? (lg.offsetHeight+16):0;   // no celular, desconta a legenda embaixo
   const Hu=Math.max(120,H-lb);
