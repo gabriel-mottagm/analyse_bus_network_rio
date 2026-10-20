@@ -48,7 +48,7 @@ Versões: v1 (19/10/2026) núcleo · v2 (20/10/2026) moradores por ponto de para
 - Fonte: API de geolocalização da frota da SMTR (`its.mobilidade.rio`, beta, CC BY 4.0). Atraso de 1 a 2 min; cerca de 10 ônibus e 20 KB por minuto na linha 474. `route_id` no mesmo formato do GTFS.
 - Sem CORS na API: intermediário Cloudflare Worker (`cloudflare/worker.js`) com cache de 30 s; o painel consulta a cada 30 s só a linha aberta e para ao fechar a ficha ou com a aba oculta.
 - Compara com as partidas programadas para a hora atual (tipo de dia pela data no fuso do Rio, sem feriados).
-- Desligado dentro do Claude e enquanto `AOVIVO_URL` estiver vazio.
+- Worker publicado em https://rio-onibus-aovivo.gabrielmgmaciel.workers.dev (conta Cloudflare do usuário). Desligado dentro do Claude e se `AOVIVO_URL` estiver vazio.
 
 ## Arquitetura técnica
 - Página HTML única, mapa em Canvas com código próprio (câmera, linhas, hover, clique, paradas).

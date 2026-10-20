@@ -638,7 +638,7 @@ function atribuicao(){
 }
 
 /* ---------- Ônibus ao vivo: GPS da SMTR via intermediário na Cloudflare (cloudflare/worker.js) ---------- */
-const AOVIVO_URL='';   // endereço do Worker; vazio = recurso desligado
+const AOVIVO_URL='https://rio-onibus-aovivo.gabrielmgmaciel.workers.dev';   // endereço do Worker; vazio = recurso desligado
 const AOVIVO_ON=!!AOVIVO_URL&&!/claude/i.test(location.hostname);
 const AO={linha:null,dados:null,erro:false,timer:null,pedido:0};
 const projLL=(lon,lat)=>[RT*(lon-PJ.lon0)*RAD*PJ.c0, RT*(mercY(lat)-PJ.m0)*PJ.c0];
