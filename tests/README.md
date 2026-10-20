@@ -14,3 +14,5 @@ node tests/teste_tec2.js
 ```
 
 `window.claude` é simulado nos testes para o botão "Baixar CSV".
+
+`teste_fundo.js` confere o mapa de fundo com o site montado por `scripts/05_painel/montar_site.sh` e servido em `http://localhost:8790/`. Ele troca o estilo do OpenFreeMap por um estilo de teste com as paradas em lon/lat do GTFS e compara a posição de cada parada no canvas e no MapLibre. O resultado esperado é um erro de cerca de 0,1 px. Também testa o fundo próprio quando o OpenFreeMap está inacessível.

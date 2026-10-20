@@ -22,6 +22,7 @@ EOF
   grep -v 'name="claude:' "$RAIZ/painel/index.html"
 } > "$D/index.html"
 cp "$RAIZ"/painel/data/linhas.json "$RAIZ"/painel/data/contexto.json "$D/data/"
+cp -r "$RAIZ/painel/vendor" "$D/vendor"
 cp "$RAIZ/docs/imagens/painel.png" "$D/og.png"
 touch "$D/.nojekyll"
 echo "Site montado em $D"

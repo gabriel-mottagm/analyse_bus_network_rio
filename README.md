@@ -43,6 +43,8 @@ Modo técnico:
 - tabela com colunas configuráveis e filtros por faixa de valor;
 - exportação em CSV.
 
+O mapa de fundo é o [OpenFreeMap](https://openfreemap.org) (estilos Positron e Dark, dados do OpenStreetMap), desenhado pelo MapLibre GL JS 4.7.1, que vai em `painel/vendor/` (licença BSD-3). As linhas continuam num canvas próprio por cima. Quando o fundo não carrega, aparece um fundo simplificado feito com os setores do Censo e as vias do OSM.
+
 Para abrir localmente, sirva a pasta por HTTP (a página carrega os JSON com `fetch`):
 
 ```bash

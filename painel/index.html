@@ -71,6 +71,10 @@ select.sel:disabled{opacity:.45}
 main.app{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:14px;min-height:0;padding-bottom:max(14px,env(safe-area-inset-bottom,0px))}
 .mapbox{position:relative;border-radius:14px;overflow:hidden;background:var(--map-out);border:1px solid var(--rule);min-height:360px}
 #map{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;display:block}
+#basemap{position:absolute;inset:0;pointer-events:none}
+.attrib{position:absolute;right:8px;bottom:6px;z-index:2;font-size:10.5px;line-height:1.4;color:var(--muted);background:color-mix(in srgb,var(--surface) 82%,transparent);padding:1px 6px;border-radius:6px;max-width:calc(100% - 16px)}
+.attrib a{color:inherit}
+@media (max-width:700px){.attrib{bottom:auto;top:8px;left:8px;right:auto;max-width:calc(100% - 70px)}}
 #map.dragging{cursor:grabbing}
 #map.hovering{cursor:pointer}
 .zoom{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
@@ -251,6 +255,8 @@ table.tt{border-collapse:separate;border-spacing:0;font-size:13px;min-width:100%
 
 <main class="app">
   <div class="mapbox" id="mapbox">
+    <div id="basemap" aria-hidden="true"></div>
+    <div class="attrib" id="attrib"></div>
     <canvas id="map" aria-label="Mapa das linhas de ônibus do Rio de Janeiro, coloridas pelo indicador escolhido. A mesma informação está na lista ao lado."></canvas>
     <div class="zoom">
       <button id="zin" type="button" aria-label="Aproximar">+</button>
@@ -363,7 +369,7 @@ if(!S.tec&&IND[S.ind]&&IND[S.ind].tec) S.ind=0; if(!IND[S.ind]) S.ind=0;
 const save=()=>{try{localStorage.setItem('rxo-estado',JSON.stringify({ind:S.ind,dia:S.dia,faixa:S.faixa,modo:S.modo}));localStorage.setItem('rxo-tec',JSON.stringify({tec:S.tec,cols:S.tcols}))}catch(e){}};
 
 let D=null,CTX=null;
-Promise.all([fetch('data/linhas.json').then(r=>r.json()),fetch('data/contexto.json').then(r=>r.json())]).then(([d,c])=>{D=d;CTX=c;init()}).catch(err=>{
+Promise.all([fetch('data/linhas.json').then(r=>r.json()),fetch('data/contexto.json').then(r=>r.json())]).then(([d,c])=>{D=d;CTX=c;projetar();init()}).catch(err=>{
   $('#list').innerHTML='<div class="empty">Não foi possível carregar os dados do mapa. Recarregue a página.</div>';console.error(err)});
 
 /* ---------- Controles ---------- */
@@ -522,12 +528,65 @@ function renderAbout(){
    <li><b>CSV:</b> separador vírgula, decimal com ponto, codificação UTF-8. Traz todas as colunas para as linhas que passam nos filtros, com o tempo de espera de todos os períodos do dia escolhido.</li>
   </ul>
   <h3>Mapa</h3>
-  <p>O fundo foi desenhado a partir dos setores do Censo 2022 (limites de bairro aproximados) e das vias e trilhos do OpenStreetMap.</p>`;
+  <p>O mapa de fundo é do <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>, com dados do OpenStreetMap. Quando ele não carrega (por exemplo, sem internet ou dentro do Claude), aparece um fundo simplificado, desenhado a partir dos setores do Censo 2022 (limites de bairro aproximados) e das vias e trilhos do OpenStreetMap.</p>`;
+}
+
+/* ---------- Projeção ----------
+   Os JSON vêm em metros locais (equirretangular em torno de origem). Na carga, tudo vira Web Mercator
+   (em metros, escalado por cos(lat0) para manter a ordem de grandeza), para casar com o mapa de fundo. */
+const RT=6378137, RAD=Math.PI/180; let PJ=null;
+const mercY=lat=>Math.log(Math.tan(Math.PI/4+lat*RAD/2));
+function projetar(){
+  const [lon0,lat0,kx,ky]=CTX.origem, c0=Math.cos(lat0*RAD), m0=mercY(lat0); PJ={lon0,lat0,c0,m0};
+  const f=a=>{for(let i=0;i+1<a.length;i+=2){const lon=a[i]/kx+lon0, lat=a[i+1]/ky+lat0; a[i]=RT*(lon-lon0)*RAD*c0; a[i+1]=RT*(mercY(lat)-m0)*c0}};
+  CTX.cidade.forEach(f); CTX.bairros.forEach(f); Object.values(CTX.vias).forEach(v=>v.forEach(f));
+  const f2=(o,i)=>{const a=[o[i],o[i+1]]; f(a); o[i]=a[0]; o[i+1]=a[1]};
+  CTX.rotulos.forEach(r=>f2(r,1)); D.paradas.forEach(p=>f2(p,0));
+  D.linhas.forEach(l=>{let x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity;
+    l.g.forEach(g=>{f(g); for(let i=0;i<g.length;i+=2){x0=Math.min(x0,g[i]);x1=Math.max(x1,g[i]);y0=Math.min(y0,g[i+1]);y1=Math.max(y1,g[i+1])}}); l.bb=[x0,y0,x1,y1]});
+}
+function lonLat(X,Y){const {lon0,c0,m0}=PJ; return [X/(RT*c0)/RAD+lon0, (2*Math.atan(Math.exp(Y/(RT*c0)+m0))-Math.PI/2)/RAD]}
+
+/* ---------- Mapa de fundo: OpenFreeMap (vetorial) desenhado pelo MapLibre embaixo do canvas ----------
+   O canvas continua dono da câmera e das interações; o MapLibre só acompanha. Se o fundo não carregar
+   (páginas do Claude bloqueiam mapas externos, sem WebGL, sem rede), fica o fundo próprio do canvas. */
+const BASE={map:null,ok:false,tema:null};
+const ESTILOS={claro:'https://tiles.openfreemap.org/styles/positron',escuro:'https://tiles.openfreemap.org/styles/dark'};
+const ML_DIR='vendor/maplibre-gl-4.7.1/';
+const temaEscuro=()=>{const t=document.documentElement.getAttribute('data-theme'); return t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches};
+const centroML=()=>lonLat((W/2-T.x)/T.k,-(H/2-T.y)/T.k);
+const zoomML=()=>Math.log2(T.k*PJ.c0*2*Math.PI*RT/512);
+function carregarFundo(){
+  if(/claude/i.test(location.hostname)) return;
+  try{const t=document.createElement('canvas'); if(!(t.getContext('webgl2')||t.getContext('webgl'))) return}catch(e){return}
+  const css=document.createElement('link'); css.rel='stylesheet'; css.href=ML_DIR+'maplibre-gl.css'; document.head.appendChild(css);
+  const s=document.createElement('script'); s.src=ML_DIR+'maplibre-gl.js'; s.onload=iniciarFundo; document.head.appendChild(s);
+}
+function iniciarFundo(){
+  if(!window.maplibregl||!W) return;
+  try{
+    BASE.tema=temaEscuro()?'escuro':'claro'; let carregados=0, erros=0;
+    const m=new maplibregl.Map({container:$('#basemap'),style:ESTILOS[BASE.tema],interactive:false,attributionControl:false,
+      fadeDuration:0,center:centroML(),zoom:zoomML(),minZoom:0,maxZoom:22,trackResize:false,pitchWithRotate:false});
+    BASE.map=m;
+    const desiste=setTimeout(()=>{if(!BASE.ok) desligarFundo()},12000);
+    m.on('error',()=>{erros++});
+    m.on('sourcedata',e=>{if(e.tile) carregados++});
+    m.on('idle',()=>{if(BASE.ok||!BASE.map) return;
+      if(m.isStyleLoaded()&&(carregados>0||erros===0)){clearTimeout(desiste); BASE.ok=true; $('#mapbox').classList.add('comfundo'); atribuicao(); draw()}});
+  }catch(e){desligarFundo()}
+}
+function desligarFundo(){try{BASE.map&&BASE.map.remove()}catch(e){} BASE.map=null; BASE.ok=false; $('#mapbox').classList.remove('comfundo'); atribuicao(); draw()}
+function temaFundo(){if(!BASE.map) return; const t=temaEscuro()?'escuro':'claro'; if(t!==BASE.tema){BASE.tema=t; try{BASE.map.setStyle(ESTILOS[t])}catch(e){}}}
+function atribuicao(){
+  $('#attrib').innerHTML=BASE.ok
+    ?'<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>'
+    :'Fundo: Censo 2022 (IBGE) e <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>';
 }
 
 /* ---------- Mapa (canvas) ---------- */
 const cv=$('#map'), ctx=cv.getContext('2d'); let W=0,H=0,DPR=1;
-const T={k:1,x:0,y:0};    // tela = mundo*k + (x,y); mundo: metros, y para cima
+const T={k:1,x:0,y:0};    // tela = mundo*k + (x,y); mundo: Web Mercator × cos(lat0) (≈ metros), y para cima
 let CITYB=null, linePaths=[], ctxPaths={}, grid=null, GS=500;
 function toPath(flat,closed){const p=new Path2D(); p.moveTo(flat[0],-flat[1]); for(let i=2;i<flat.length;i+=2) p.lineTo(flat[i],-flat[i+1]); if(closed) p.closePath(); return p}
 function prepMap(){
@@ -543,7 +602,7 @@ function prepMap(){
     const cx0=Math.floor(Math.min(ax,bx)/GS),cx1=Math.floor(Math.max(ax,bx)/GS),cy0=Math.floor(Math.min(ay,by)/GS),cy1=Math.floor(Math.max(ay,by)/GS);
     for(let cx=cx0;cx<=cx1;cx++)for(let cy=cy0;cy<=cy1;cy++){const key=cx+','+cy; let a=grid.get(key); if(!a){a=[];grid.set(key,a)} a.push(l.id,ax,ay,bx,by)}}}));
 }
-function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); draw()}
+function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); try{BASE.map&&BASE.map.resize()}catch(e){} draw()}
 function fitBox(b,pad=0.06){
   const bw=Math.max(800,b[2]-b[0]), bh=Math.max(800,b[3]-b[1]);
   const lg=$('#legend'), narrow=W<700; const lb=narrow? (lg.offsetHeight+16):0;   // no celular, desconta a legenda embaixo
@@ -560,17 +619,21 @@ function buildBins(){
 }
 let raf=0; function draw(){if(!raf) raf=requestAnimationFrame(()=>{raf=0;render()})}
 function render(){
-  if(!D) return; const C=colorsCache, ind=IND[S.ind];
-  ctx.setTransform(DPR,0,0,DPR,0,0); ctx.fillStyle=C['--map-out']; ctx.fillRect(0,0,W,H);
+  if(!D) return; const C=colorsCache, ind=IND[S.ind], fundo=BASE.ok;
+  if(BASE.map){try{BASE.map.jumpTo({center:centroML(),zoom:zoomML()}); if(fundo) BASE.map.redraw()}catch(e){}}
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  if(fundo) ctx.clearRect(0,0,W,H); else {ctx.fillStyle=C['--map-out']; ctx.fillRect(0,0,W,H)}
   const k=T.k; ctx.setTransform(DPR*k,0,0,DPR*k,DPR*T.x,DPR*T.y);
   ctx.lineJoin='round'; ctx.lineCap='round';
-  ctx.fillStyle=C['--map-city']; ctx.fill(ctxPaths.city,'evenodd');
   const px=1/k;
-  ctx.strokeStyle=C['--map-bairro']; ctx.lineWidth=1*px; ctx.stroke(ctxPaths.bairros);
-  if(k>0.02){ctx.strokeStyle=C['--map-road3']; ctx.lineWidth=1*px; ctx.stroke(ctxPaths.r3)}
-  ctx.strokeStyle=C['--map-road2']; ctx.lineWidth=(k>0.02?1.6:1)*px; ctx.stroke(ctxPaths.r2);
-  ctx.strokeStyle=C['--map-road1']; ctx.lineWidth=(k>0.02?2.4:1.5)*px; ctx.stroke(ctxPaths.r1);
-  ctx.setLineDash([4*px,3*px]); ctx.strokeStyle=C['--map-rail']; ctx.lineWidth=1.2*px; ctx.stroke(ctxPaths.rail); ctx.setLineDash([]);
+  if(!fundo){   // fundo próprio (quando o mapa de fundo externo não está disponível)
+    ctx.fillStyle=C['--map-city']; ctx.fill(ctxPaths.city,'evenodd');
+    ctx.strokeStyle=C['--map-bairro']; ctx.lineWidth=1*px; ctx.stroke(ctxPaths.bairros);
+    if(k>0.02){ctx.strokeStyle=C['--map-road3']; ctx.lineWidth=1*px; ctx.stroke(ctxPaths.r3)}
+    ctx.strokeStyle=C['--map-road2']; ctx.lineWidth=(k>0.02?1.6:1)*px; ctx.stroke(ctxPaths.r2);
+    ctx.strokeStyle=C['--map-road1']; ctx.lineWidth=(k>0.02?2.4:1.5)*px; ctx.stroke(ctxPaths.r1);
+    ctx.setLineDash([4*px,3*px]); ctx.strokeStyle=C['--map-rail']; ctx.lineWidth=1.2*px; ctx.stroke(ctxPaths.rail); ctx.setLineDash([]);
+  }
   const lw=Math.min(4,1.3+Math.max(0,Math.log2(k/0.012))*0.55);
   const dim=S.sel!=null;
   ctx.globalAlpha=dim?0.18:1;
@@ -586,8 +649,9 @@ function render(){
     const l=D.linhas[S.sel], r=Math.max(2.2,Math.min(4,lw))*px; ctx.fillStyle=C['--surface']; ctx.strokeStyle=C['--ink']; ctx.lineWidth=1.3*px;
     l.st.forEach(si=>{const s=D.paradas[si]; ctx.beginPath(); ctx.arc(s[0],-s[1],r,0,Math.PI*2); ctx.fill(); ctx.stroke()});
   }
-  // rótulos de bairro (tela)
+  // rótulos de bairro (tela) — o mapa de fundo já traz os seus
   ctx.setTransform(DPR,0,0,DPR,0,0);
+  if(fundo) return;
   const nmax=k<0.012?10:k<0.02?22:k<0.04?50:k<0.08?110:170;
   ctx.font=`500 ${k<0.02?11:12}px ${getComputedStyle(document.body).getPropertyValue('--font-ui')||'sans-serif'}`; ctx.textAlign='center'; ctx.textBaseline='middle';
   const boxes=[]; let shown=0;
@@ -739,10 +803,11 @@ function update(){
 function init(){
   buildControls(); renderAbout(); readColors(); prepMap();
   new ResizeObserver(()=>{resize(); if(!userView&&S.sel==null){fitBox(CITYB); draw()}}).observe($('#mapbox'));
-  const mq=window.matchMedia('(prefers-color-scheme: dark)'); const re=()=>{readColors(); renderLegend(); renderList(); draw()};
+  const mq=window.matchMedia('(prefers-color-scheme: dark)'); const re=()=>{readColors(); renderLegend(); renderList(); temaFundo(); draw()};
   mq.addEventListener?.('change',re); new MutationObserver(re).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   document.fonts?.ready.then(()=>draw());
-  showView('list'); update();
+  showView('list'); update(); atribuicao(); carregarFundo();
+  if(/[?&]teste\b/.test(location.search)) window.__rxo={T,BASE,D,lonLat,centroML,zoomML,get W(){return W},get H(){return H}};
 }
 })();
 </script>

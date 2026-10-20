@@ -44,8 +44,9 @@ Versões: v1 (19/10/2026) núcleo · v2 (20/10/2026) moradores por ponto de para
 - Técnica das camadas: grade de 100 m codificada em PNG e colorida na página com as cores do tema; índice de bairro por quadrícula.
 
 ## Arquitetura técnica
-- Página HTML única, mapa em Canvas com código próprio (a página publicada não pode carregar mapas de fundo nem bibliotecas de mapa testáveis daqui).
-- Fundo: contorno da cidade e limites aproximados dos bairros (setores do Censo), vias e trilhos (OSM), rótulos de bairro.
+- Página HTML única, mapa em Canvas com código próprio (câmera, linhas, hover, clique, paradas).
+- Mapa de fundo (20/10/2026): OpenFreeMap (Positron no tema claro, Dark no escuro; grátis, sem chave, uso comercial permitido), desenhado pelo MapLibre GL JS 4.7.1 (cópia em `painel/vendor/`) embaixo do canvas. O canvas continua dono da câmera; o MapLibre só acompanha (erro de alinhamento medido ≈ 0,1 px). Os dados são convertidos para Web Mercator na carga da página. Crédito no canto do mapa: OpenFreeMap © OpenMapTiles © OpenStreetMap.
+- Fundo próprio (quando o OpenFreeMap não carrega: dentro do Claude, sem WebGL ou sem rede; desiste após 12 s): contorno da cidade e limites aproximados dos bairros (setores do Censo), vias e trilhos (OSM), rótulos de bairro. Na página do Claude o fundo externo nem é tentado.
 - Dados publicados: `data/linhas.json` (~2,1 MB; bloco `tec` por linha com fr, vkm, tort, div, ns, ppp) e `data/contexto.json` (~550 KB). Capability declarada: `downloads`.
 - Scripts: `scripts/05_painel/painel_contexto.py`, `scripts/05_painel/painel_linhas.py`.
 
