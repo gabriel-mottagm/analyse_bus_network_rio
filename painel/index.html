@@ -550,7 +550,7 @@ function lonLat(X,Y){const {lon0,c0,m0}=PJ; return [X/(RT*c0)/RAD+lon0, (2*Math.
 /* ---------- Mapa de fundo: OpenFreeMap (vetorial) desenhado pelo MapLibre embaixo do canvas ----------
    O canvas continua dono da câmera e das interações; o MapLibre só acompanha. Se o fundo não carregar
    (páginas do Claude bloqueiam mapas externos, sem WebGL, sem rede), fica o fundo próprio do canvas. */
-const BASE={map:null,ok:false,tema:null};
+const BASE={map:null,ok:false,tema:null,pendente:false};
 const ESTILOS={claro:'https://tiles.openfreemap.org/styles/positron',escuro:'https://tiles.openfreemap.org/styles/dark'};
 const ML_DIR='vendor/maplibre-gl-4.7.1/';
 const temaEscuro=()=>{const t=document.documentElement.getAttribute('data-theme'); return t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches};
@@ -563,18 +563,20 @@ function carregarFundo(){
   const s=document.createElement('script'); s.src=ML_DIR+'maplibre-gl.js'; s.onload=iniciarFundo; document.head.appendChild(s);
 }
 function iniciarFundo(){
-  if(!window.maplibregl||!W) return;
+  if(!window.maplibregl||BASE.map) return;
+  if(!W||!H){BASE.pendente=true; return}   // mapa ainda sem tamanho (aba oculta etc.): tenta de novo no próximo resize
+  BASE.pendente=false;
   try{
     BASE.tema=temaEscuro()?'escuro':'claro'; let carregados=0, erros=0;
     const m=new maplibregl.Map({container:$('#basemap'),style:ESTILOS[BASE.tema],interactive:false,attributionControl:false,
       fadeDuration:0,center:centroML(),zoom:zoomML(),minZoom:0,maxZoom:22,trackResize:false,pitchWithRotate:false});
     BASE.map=m;
-    const desiste=setTimeout(()=>{if(!BASE.ok) desligarFundo()},12000);
+    const desiste=setTimeout(()=>{if(!BASE.ok){console.warn('Mapa de fundo não carregou a tempo; usando o fundo próprio.'); desligarFundo()}},12000);
     m.on('error',()=>{erros++});
     m.on('sourcedata',e=>{if(e.tile) carregados++});
     m.on('idle',()=>{if(BASE.ok||!BASE.map) return;
       if(m.isStyleLoaded()&&(carregados>0||erros===0)){clearTimeout(desiste); BASE.ok=true; $('#mapbox').classList.add('comfundo'); atribuicao(); draw()}});
-  }catch(e){desligarFundo()}
+  }catch(e){console.warn('Mapa de fundo indisponível:',e); desligarFundo()}
 }
 function desligarFundo(){try{BASE.map&&BASE.map.remove()}catch(e){} BASE.map=null; BASE.ok=false; $('#mapbox').classList.remove('comfundo'); atribuicao(); draw()}
 function temaFundo(){if(!BASE.map) return; const t=temaEscuro()?'escuro':'claro'; if(t!==BASE.tema){BASE.tema=t; try{BASE.map.setStyle(ESTILOS[t])}catch(e){}}}
@@ -602,7 +604,7 @@ function prepMap(){
     const cx0=Math.floor(Math.min(ax,bx)/GS),cx1=Math.floor(Math.max(ax,bx)/GS),cy0=Math.floor(Math.min(ay,by)/GS),cy1=Math.floor(Math.max(ay,by)/GS);
     for(let cx=cx0;cx<=cx1;cx++)for(let cy=cy0;cy<=cy1;cy++){const key=cx+','+cy; let a=grid.get(key); if(!a){a=[];grid.set(key,a)} a.push(l.id,ax,ay,bx,by)}}}));
 }
-function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); try{BASE.map&&BASE.map.resize()}catch(e){} draw()}
+function resize(){const r=cv.getBoundingClientRect(); DPR=Math.min(2,window.devicePixelRatio||1); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR); try{BASE.map&&BASE.map.resize()}catch(e){} if(BASE.pendente) iniciarFundo(); draw()}
 function fitBox(b,pad=0.06){
   const bw=Math.max(800,b[2]-b[0]), bh=Math.max(800,b[3]-b[1]);
   const lg=$('#legend'), narrow=W<700; const lb=narrow? (lg.offsetHeight+16):0;   // no celular, desconta a legenda embaixo
