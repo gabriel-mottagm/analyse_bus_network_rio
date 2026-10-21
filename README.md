@@ -4,6 +4,8 @@ Análise da rede de ônibus do município do Rio de Janeiro a partir do GTFS da 
 
 **Painel online: https://gabriel-mottagm.github.io/diagnostico_onibus_rio/**
 
+**Acesso ao ônibus por bairro (camadas, bairros, perfil das linhas e recortes):** https://gabriel-mottagm.github.io/painel-acessibilidade-por-bairros/ · [repositório](https://github.com/gabriel-mottagm/painel-acessibilidade-por-bairros)
+
 ![Painel](docs/imagens/painel.png)
 
 ## O que tem aqui
@@ -90,7 +92,11 @@ Scripts de exploração (`01_gtfs/perfil_tabelas.py`, `metricas_viagens.py`, `ex
 - **Distância a pé**: Dijkstra com várias origens na rede de caminhada do OSM (19,8 mil km de vias); cada parada é ligada ao nó mais próximo da rede.
 - **Ônibus por hora no pico**: partidas de dia útil entre 6h e 9h ÷ 3. Somam-se as linhas com parada a até 400 m a pé, contando o sentido mais frequente de cada uma.
 
-## Seção territorial (reservada)
+## Seção territorial
+
+A seção territorial virou um painel próprio: [painel-acessibilidade-por-bairros](https://github.com/gabriel-mottagm/painel-acessibilidade-por-bairros). A pasta abaixo guarda a versão de trabalho anterior.
+
+### Versão reservada (histórico)
 
 As camadas de mapa estão em `reserva_secao_territorial/`, com a página v3 e a v5. Foram tiradas do produto por enquanto porque punham muita informação num mapa só:
 - ônibus perto de casa;
