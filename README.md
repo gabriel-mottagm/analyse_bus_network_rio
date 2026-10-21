@@ -2,7 +2,7 @@
 
 Análise da rede de ônibus do município do Rio de Janeiro a partir do GTFS da SMTR (programação de junho de 2026), cruzada com a população do Censo 2022 e a rede de ruas do OpenStreetMap, e um painel interativo para consultar as 494 linhas.
 
-**Painel online: https://gabriel-mottagm.github.io/analyse_bus_network_rio/**
+**Painel online: https://gabriel-mottagm.github.io/diagnostico_onibus_rio/**
 
 ![Painel](docs/imagens/painel.png)
 

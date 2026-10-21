@@ -2,9 +2,9 @@
 
 Página privada no Claude (artifact "Raio-X dos Ônibus do Rio", https://claude.ai/artifact/KWYFt3icqX8qboCqxQSLLE). Para outras pessoas abrirem, é preciso compartilhar pelo menu Share da página.
 
-Painel público no GitHub Pages (20/10/2026): https://gabriel-mottagm.github.io/analyse_bus_network_rio/ — publicado automaticamente da branch `gh-pages` pelo workflow `.github/workflows/pages.yml` a cada mudança em `painel/` no main; fora do Claude, "Baixar CSV" usa o download comum do navegador.
+Painel público no GitHub Pages (20/10/2026): https://gabriel-mottagm.github.io/diagnostico_onibus_rio/ — publicado automaticamente da branch `gh-pages` pelo workflow `.github/workflows/pages.yml` a cada mudança em `painel/` no main; fora do Claude, "Baixar CSV" usa o download comum do navegador.
 
-Repositório no GitHub (20/10/2026): https://github.com/gabriel-mottagm/analyse_bus_network_rio — scripts do pipeline (`pipeline.sh` reproduz todas as saídas), resultados, painel, seção territorial reservada e documentação.
+Repositório no GitHub (20/10/2026; renomeado em 21/10/2026): https://github.com/gabriel-mottagm/diagnostico_onibus_rio (antes analyse_bus_network_rio) — scripts do pipeline (`pipeline.sh` reproduz todas as saídas), resultados, painel, seção territorial reservada e documentação.
 
 Versões: v1 (19/10/2026) núcleo · v2 (20/10/2026) moradores por ponto de parada na ficha · v3 (20/10/2026) camadas territoriais e aba Bairros · v4 (20/10/2026) = v2 de novo, camadas e Bairros retirados a pedido do usuário · v5 (20/10/2026) modo técnico · **v6 (20/10/2026) modo técnico sem indicadores territoriais** (versão em produção).
 
