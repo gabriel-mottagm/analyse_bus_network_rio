@@ -27,8 +27,8 @@ Tudo é **serviço programado** (não há demanda, GPS nem cumprimento de viagen
 - 494 linhas (436 ônibus, 30 BRT, 28 executivos), 7.694 paradas; 104.014 partidas expandidas a partir de `frequencies.txt` (50.310 em dia útil).
 - **68,0% dos moradores estão a até 400 m a pé de uma parada** (85,8% se medido em linha reta). O caminho real é, na mediana, 1,44 vez a linha reta.
 - 55% têm 10 ou mais ônibus por hora no pico a até 400 m a pé; 32% não têm parada a essa distância.
-- Renda: no décimo mais pobre, 40,9% estão a 400 m a pé de uma parada; no 9º décimo, 85,1%.
-- **1,19 milhão de pessoas** estão nos 30% mais pobres e têm pouca oferta (sem parada a 400 m a pé ou menos de 10 ônibus/h no pico). Os maiores contingentes estão em Santa Cruz, Maré, Bangu, Jacarepaguá e Senador Camará.
+- Renda: no décimo de renda mais baixa, 40,9% estão a 400 m a pé de uma parada; no 9º décimo, 85,1%.
+- **1,19 milhão de pessoas** estão nos 30% de renda mais baixa e têm pouca oferta (sem parada a 400 m a pé ou menos de 10 ônibus/h no pico). Os maiores contingentes estão em Santa Cruz, Maré, Bangu, Jacarepaguá e Senador Camará.
 - Intervalo mediano no pico da manhã: 16,5 min por linha; frota mínima estimada no pico: ~4,1 mil ônibus.
 
 Detalhes e ressalvas: [docs/plano-e-metodo.md](docs/plano-e-metodo.md).
@@ -104,7 +104,7 @@ As camadas de mapa estão em `reserva_secao_territorial/`, com a página v3 e a 
 - onde falta ônibus;
 - caminho até o ponto.
 
-Também estão lá a aba Bairros (166 bairros) e o perfil da área atendida por linha: % de moradores nos 30% mais pobres e nos 30% mais ricos, % de pretos e pardos e renda média. A ideia é voltar com tudo isso numa seção própria, com mapa separado. Os valores do perfil continuam em `resultados/linhas/indicadores_linhas.csv`.
+Também estão lá a aba Bairros (166 bairros) e o perfil da área atendida por linha: % de moradores nos 30% de renda mais baixa e nos 30% de renda mais alta, % de pretos e pardos e renda média. A ideia é voltar com tudo isso numa seção própria, com mapa separado. Os valores do perfil continuam em `resultados/linhas/indicadores_linhas.csv`.
 
 ## Limitações
 

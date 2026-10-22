@@ -22,6 +22,6 @@ pop_400m_a_pe / pop_800m_a_pe,Moradores a até 400/800 m de caminhada de alguma 
 n_pontos_parada,Pontos de parada da linha: paradas a menos de 100 m umas das outras na mesma linha contam como um ponto,pontos,GTFS stops,ind_pontos_parada.py
 moradores_por_ponto_parada,pop_400m_a_pe ÷ n_pontos_parada,hab/ponto,derivado,ind_pontos_parada.py
 pop_por_partida_util,pop_400m_a_pe ÷ partidas_dia_util,hab/partida,derivado,proxy de pressão potencial (não é demanda)
-pct_pop_30pct_mais_pobres / _ricos,% da população atendida (400 m a pé) que mora nos 30% de setores mais pobres / mais ricos da cidade,%,Censo 2022,referência neutra = 30%
+pct_pop_30pct_renda_mais_baixa / _ricos,% da população atendida (400 m a pé) que mora nos 30% de setores de renda mais baixa / mais alta da cidade,%,Censo 2022,referência neutra = 30%
 pct_pretos_pardos,% de pretos e pardos na população atendida (400 m a pé),%,Censo 2022,média da cidade ≈ 54%
 renda_media_area_atendida,Renda média do responsável ponderada pela população atendida (400 m a pé),R$/mês,Censo 2022 (valor_do_r),

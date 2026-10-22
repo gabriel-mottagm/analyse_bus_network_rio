@@ -9,7 +9,7 @@ const { chromium } = require('/opt/npm-tools/node_modules/playwright');
   console.log('técnico: chips técnicos =',await p.locator('#tecChips .chip').count(), '| linhas na tabela =', await p.locator('#tblBox tbody tr').count());
   await p.click('#ind-frota'); await p.waitForTimeout(400); await p.screenshot({path:`${out}/tec_2_frota.png`});
   console.log('1ª linha frota (maior primeiro):', (await p.locator('#tblBox tbody tr').first().innerText()).replace(/\t|\n/g,' | '));
-  // filtro: espera no pico entre 0 e 10 e % mais pobres >= 30
+  // filtro: espera no pico entre 0 e 10 e % de renda mais baixa >= 30
   await p.selectOption('#fK','espera'); await p.fill('#fMin','0'); await p.fill('#fMax','10'); await p.click('#fAdd'); await p.waitForTimeout(300);
   await p.selectOption('#fK','pob'); await p.fill('#fMin','30'); await p.click('#fAdd'); await p.waitForTimeout(400);
   console.log('após filtros:', await p.locator('#tecHead .meta').innerText(), '| chips filtro:', await p.locator('.fchip').count());

@@ -24,7 +24,7 @@ cols=['route_id','route_short_name','route_long_name','operador','modo','tarifa_
  'primeira_partida_util','ultima_partida_util','amplitude_servico_h_util','amplitude_servico_h_sabado','amplitude_servico_h_domingo',
  'veiculo_km_dia_util','frota_min_estimada_pico_util',
  'extensao_km','velocidade_comercial_kmh','tortuosidade','divergencia_ida_volta_pct','n_sentidos','circular',
- 'pop_400m_a_pe','pop_800m_a_pe','pop_por_partida_util','pct_pop_30pct_mais_pobres','pct_pop_30pct_mais_ricos','pct_pretos_pardos','renda_media_area_atendida']
+ 'pop_400m_a_pe','pop_800m_a_pe','pop_por_partida_util','pct_pop_30pct_renda_mais_baixa','pct_pop_30pct_renda_mais_alta','pct_pretos_pardos','renda_media_area_atendida']
 X=X[cols].rename(columns={'route_short_name':'linha','route_long_name':'nome','route_color':'cor_linha','primeira_partida_util':'primeira_partida_util','frota_min_estimada_pico_util':'frota_min_estimada_pico'})
 X.sort_values(['modo','linha']).to_csv(os.path.join(DST,'indicadores_linhas.csv'),index=False)
 print(X.shape); print(X.isna().sum()[X.isna().sum()>0].to_dict())

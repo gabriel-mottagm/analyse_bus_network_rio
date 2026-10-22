@@ -58,8 +58,8 @@ fig.text(lx,ly-0.03,'menor renda  →',fontsize=11); fig.text(lx-0.018,ly,'menos
 fig.text(lx,ly+3*s+0.06,'Renda × oferta no pico',fontsize=12.5); fig.text(lx,ly+3*s+0.025,'tercis de renda × ônibus/h a até 400 m a pé',fontsize=10.5,color='#5f5e5a')
 fig.text(lx+3*s*0.505+0.008,ly+2*s+0.012,'baixa renda +\npouco ônibus',fontsize=10,color='#574249',va='bottom')
 fig.text(lx+3*s*0.505+0.008,ly+0.005,'baixa renda +\nmuito ônibus',fontsize=10,color='#985356',va='bottom')
-fig.text(0.748,0.30,(f"Renda: 30% mais pobres · 40% do meio · 30% mais ricos.\nOferta: pouco = sem parada a 400 m a pé ou <10 ônibus/h;\nmédio = 10–30; muito = 30+ (6h–9h em dia útil).\n\n"
-  f"Têm pouco ônibus: {sh.loc[0,0]:.0f}% dos 30% mais pobres,\n{sh.loc[0,1]:.0f}% do meio e {sh.loc[0,2]:.0f}% dos 30% mais ricos.\n\nCinza bem claro: <1.000 hab/km²."),fontsize=10,color='#5f5e5a',va='top',linespacing=1.4)
+fig.text(0.748,0.30,(f"Renda: 30% mais baixa · 40% do meio · 30% mais alta.\nOferta: pouco = sem parada a 400 m a pé ou <10 ônibus/h;\nmédio = 10–30; muito = 30+ (6h–9h em dia útil).\n\n"
+  f"Têm pouco ônibus: {sh.loc[0,0]:.0f}% dos 30% de renda mais baixa,\n{sh.loc[0,1]:.0f}% do meio e {sh.loc[0,2]:.0f}% dos 30% de renda mais alta.\n\nCinza bem claro: <1.000 hab/km²."),fontsize=10,color='#5f5e5a',va='top',linespacing=1.4)
 plt.savefig(os.path.join(OUTP,'mapa_a_pe_2_renda_x_oferta.png'),facecolor='white'); plt.close(fig)
 print('bivariado:\n',sh.round(1))
 # --- 3) prioridade
@@ -73,16 +73,16 @@ B=pd.DataFrame({'b':bai[pri],'x':((px[M.p.values[pri]]-x0)/AGM)*M['pop'].values[
 B['x']/=B.w; B['y']/=B.w
 totp=M['pop'].values[pri].sum(); lowtot=M['pop'].values[(dec>=1)&(dec<=3)].sum()
 fig,ax=fig_(f'Rio de Janeiro: {totp/1e6:.2f} milhão de pessoas de baixa renda com pouca oferta de ônibus a pé'.replace('.',','),
-   'Moradores dos 30% de setores mais pobres sem parada a até 400 m de caminhada ou com menos de 10 ônibus/h no pico da manhã')
+   'Moradores dos 30% de setores de renda mais baixa sem parada a até 400 m de caminhada ou com menos de 10 ônibus/h no pico da manhã')
 ax.imshow(rgb.reshape(NY,NX,3),origin='lower',interpolation='nearest')
 OFF={'Santa Cruz':(-40,-45),'Maré':(70,-45),'Bangu':(0,45),'Jacarepaguá':(0,-45),'Senador Camará':(60,-40),'Guaratiba':(0,-45),'Campo Grande':(-20,40),'Paciência':(-40,45),'Complexo do Alemão':(-60,45),'Inhoaíba':(75,-60)}
 for b in PB.head(10).index:
     off=OFF.get(b,(0,40))
     ax.annotate(f"{b}\n{int(PB.loc[b,'pop_prioritaria']/1000)} mil",(B.loc[b,'x'],B.loc[b,'y']),xytext=off,textcoords='offset points',fontsize=10,ha='center',va='center',
        bbox=dict(boxstyle='round,pad=0.25',fc='white',ec='#c9c6bf',lw=0.5,alpha=0.92),arrowprops=dict(arrowstyle='-',color='#5f5e5a',lw=0.7))
-h=[Patch(color='#c0392b',label='30% mais pobres sem parada a 400 m a pé\nou com menos de 10 ônibus/h'),Patch(color='#c9c6bf',label='Demais moradores'),Patch(facecolor=LAND,edgecolor='#c9c6bf',label='Sem moradores')]
+h=[Patch(color='#c0392b',label='30% de renda mais baixa\nsem parada a 400 m a pé\nou com menos de 10 ônibus/h'),Patch(color='#c9c6bf',label='Demais moradores'),Patch(facecolor=LAND,edgecolor='#c9c6bf',label='Sem moradores')]
 fig.legend(handles=h,loc='upper left',bbox_to_anchor=(0.745,0.82),frameon=False,fontsize=11.5,labelspacing=1.0,title='Áreas prioritárias',title_fontsize=12,alignment='left')
-fig.text(0.748,0.30,f'Intensidade do vermelho: densidade\ndessa população.\n\nRótulos: os 10 bairros com mais\nmoradores nessa situação.\n\nSão {100*totp/lowtot:.0f}% dos 30% mais pobres\n(eram 41% com a distância em linha reta).',fontsize=10,color='#5f5e5a',va='top',linespacing=1.4)
+fig.text(0.748,0.30,f'Intensidade do vermelho: densidade\ndessa população.\n\nRótulos: os 10 bairros com mais\nmoradores nessa situação.\n\nSão {100*totp/lowtot:.0f}% dos 30% de renda mais baixa\n(eram 41% com a distância em linha reta).',fontsize=10,color='#5f5e5a',va='top',linespacing=1.4)
 plt.savefig(os.path.join(OUTP,'mapa_a_pe_3_prioridade.png'),facecolor='white'); plt.close(fig)
 # --- 4) fator de desvio (caminhada ÷ linha reta até a parada mais próxima)
 ddw=dw[M.p.values]; dde=de[M.p.values]; ok=(dde>100)&np.isfinite(ddw)&(ddw<5000)

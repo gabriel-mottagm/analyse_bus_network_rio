@@ -128,7 +128,7 @@ R("  <h3>Mapa</h3>",
   "  <ul>\n"
   "   <li><b>Ônibus perto de casa:</b> para cada quadra (quadrícula de 100 m), a classe da maioria dos moradores: sem parada a até 400 m de caminhada, ou quantos ônibus por hora passam a até 400 m no pico da manhã de dia útil (somando as linhas, no sentido mais frequente de cada uma).</li>\n"
   "   <li><b>Renda e ônibus:</b> cruza a renda média do responsável pelo domicílio (Censo 2022, em três faixas com o mesmo número de pessoas) com a oferta de ônibus a pé no pico.</li>\n"
-  "   <li><b>Onde falta ônibus:</b> moradores dos 30% de setores mais pobres que não têm parada a até 400 m a pé ou têm menos de 10 ônibus por hora no pico.</li>\n"
+  "   <li><b>Onde falta ônibus:</b> moradores dos 30% de setores de renda mais baixa que não têm parada a até 400 m a pé ou têm menos de 10 ônibus por hora no pico.</li>\n"
   "   <li><b>Caminho até o ponto:</b> quanto a caminhada pelas ruas até a parada mais próxima é mais longa que a linha reta. Valores altos indicam morros, vias expressas, linhas de trem e condomínios fechados.</li>\n"
   "   <li>A população de cada setor do Censo foi distribuída ao longo das ruas onde as pessoas moram. Os limites de bairro são aproximados. Gericinó concentra o complexo penitenciário, e Paquetá não tem linhas de ônibus.</li>\n"
   "  </ul>\n"
@@ -207,7 +207,7 @@ function renderLayerLegend(){
     g+='<span></span><span style="text-align:center">baixa</span><span style="text-align:center">média</span><span style="text-align:center">alta</span></div>';
     h+=`<div class="sub">Ônibus por hora a até 400 m a pé (pico) × renda do bairro</div><div class="bivwrap">${g}<div class="bivnotes"><span>Tons escuros: baixa renda e poucos ônibus.</span><span>Ônibus: poucos = sem parada ou menos de 10/h; muitos = 30 ou mais/h.</span></div></div>`;
   } else if(S.cam===3){
-    h+=`<div class="sub">Pico da manhã, dia útil</div><ul><li><span class="sw" style="background:${cssv('--pri')};height:10px"></span><span>30% mais pobres sem parada a 5 min a pé ou com menos de 10 ônibus/h</span><span class="ct num">${fmt(L.pri/1e6,2)} mi</span></li><li><span class="sw" style="background:${cssv('--res')};height:10px"></span><span>Demais moradores</span><span></span></li></ul><div class="note">Vermelho mais forte: mais gente nessa situação.</div>`;
+    h+=`<div class="sub">Pico da manhã, dia útil</div><ul><li><span class="sw" style="background:${cssv('--pri')};height:10px"></span><span>30% de renda mais baixa sem parada a 5 min a pé ou com menos de 10 ônibus/h</span><span class="ct num">${fmt(L.pri/1e6,2)} mi</span></li><li><span class="sw" style="background:${cssv('--res')};height:10px"></span><span>Demais moradores</span><span></span></li></ul><div class="note">Vermelho mais forte: mais gente nessa situação.</div>`;
   }
   h+=`<div class="note">Linhas de ônibus em cinza. Escolha "Nenhuma" para colorir as linhas.</div>`;
   lg.innerHTML=h;

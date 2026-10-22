@@ -12,7 +12,7 @@ Versões: v1 (19/10/2026) núcleo · v2 (20/10/2026) moradores por ponto de para
 - Primeiro a versão para a população em geral; depois um modo "análise técnica" (feito).
 - Moradores por parada: só na ficha da linha, não como indicador de cor do mapa no modo geral (20/10/2026). No modo técnico aparece como coluna da tabela e do CSV, não como cor do mapa.
 - Camadas territoriais e aba Bairros: **fora do produto por enquanto** (20/10/2026). Motivo: muita informação num mapa só. Ideia para depois: um mapa separado, numa outra seção da página, junto com Bairros — formato ainda não decidido.
-- Indicadores de perfil da área atendida (% atendidos nos 30% mais pobres e nos 30% mais ricos, % pretos e pardos, renda média da área atendida): **retirados do modo técnico** (20/10/2026) por serem do território e não da linha; reservados para a futura seção territorial com camadas e Bairros.
+- Indicadores de perfil da área atendida (% atendidos nos 30% de renda mais baixa e nos 30% de renda mais alta, % pretos e pardos, renda média da área atendida): **retirados do modo técnico** (20/10/2026) por serem do território e não da linha; reservados para a futura seção territorial com camadas e Bairros.
 
 ## Modo geral (público)
 - Indicadores das linhas: Tempo de espera (por dia e horário), Ônibus por dia, Velocidade, Horário de funcionamento, Moradores perto (400 m a pé), Tamanho do trajeto.
@@ -39,7 +39,7 @@ Versões: v1 (19/10/2026) núcleo · v2 (20/10/2026) moradores por ponto de para
 
 ## Reservado para a futura seção territorial (camadas + Bairros + perfil da área atendida)
 - Camadas (v3): Ônibus perto de casa, Renda e ônibus, Onde falta ônibus, Caminho até o ponto. Aba Bairros: 166 bairros, ficha com cobertura, nível de serviço, caminhada média, renda, pessoas onde falta ônibus e linhas que param.
-- Perfil da área atendida por linha (retirado do modo técnico na v6): % atendidos nos 30% mais pobres (neutro = 30%; média das linhas 19%) e nos 30% mais ricos (média 42%), % pretos e pardos (cidade = 54%), renda média da área atendida. Os valores estão em `indicadores_linhas.csv` (colunas pct_pop_30pct_mais_pobres, pct_pop_30pct_mais_ricos, pct_pretos_pardos, renda_media_area_atendida).
+- Perfil da área atendida por linha (retirado do modo técnico na v6): % atendidos nos 30% de renda mais baixa (neutro = 30%; média das linhas 19%) e nos 30% de renda mais alta (média 42%), % pretos e pardos (cidade = 54%), renda média da área atendida. Os valores estão em `indicadores_linhas.csv` (colunas pct_pop_30pct_renda_mais_baixa, pct_pop_30pct_renda_mais_alta, pct_pretos_pardos, renda_media_area_atendida).
 - Arquivos em `reserva_secao_territorial/`: página v3 (camadas + Bairros), página v5 (com os indicadores de perfil), territorio.json, PNGs das camadas, painel_territorio.py (gera esses dados: `python3 painel_territorio.py censo osm ape <destino>`) e patch_v3.py.
 - Técnica das camadas: grade de 100 m codificada em PNG e colorida na página com as cores do tema; índice de bairro por quadrícula.
 

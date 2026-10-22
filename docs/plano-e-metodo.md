@@ -21,14 +21,14 @@ Arquivo principal: `indicadores_linhas.csv` (494 linhas × 37 colunas) + `linhas
 Indicadores (todos de serviço programado):
 - Oferta: partidas/dia (útil, sábado, domingo); intervalo médio por faixa horária no dia útil (madrugada 0–5h, pico manhã 6–9h, entrepico 9–16h, pico tarde 16–19h, noite 19–24h) e no dia todo de sábado/domingo, pelo método do busmadrid (por sentido, 60 × horas com partida ÷ partidas; média dos sentidos); primeira/última partida; amplitude de serviço; veículo-km/dia; frota mínima estimada no pico (Σ sentidos de partidas/h × duração em h, sem tempo de terminal).
 - Traçado: extensão, velocidade comercial programada (extensão do traçado mais usado ÷ duração mediana), tortuosidade (vazia nas 41 circulares), divergência ida/volta (tolerância de 40 m; vazia nas 53 de um sentido).
-- Território: população a 400 m e a 800 m a pé, população por partida, % da população atendida nos 30% mais pobres e nos 30% mais ricos, % de pretos e pardos, renda média da área atendida; tarifa.
+- Território: população a 400 m e a 800 m a pé, população por partida, % da população atendida nos 30% de renda mais baixa e nos 30% de renda mais alta, % de pretos e pardos, renda média da área atendida; tarifa.
 
 Achados:
 - Intervalo no pico da manhã (dia útil): mediana de 16,5 min; 79 linhas não operam no pico (noturnas SN, executivas etc.). Menores intervalos: BRT 22 (1,8 min), BRT 61 e linha 232 (2,7 min).
 - Velocidade programada: mediana de 23 km/h (ônibus), 29 km/h (BRT); de 11 km/h (851, 859) a 50 km/h (614, via Linha Amarela).
 - Frota mínima estimada no pico: ~4,1 mil veículos no total (Internorte 1.229, Santa Cruz 922, Transcarioca 898, MOBI-Rio 542, Intersul 475).
 - Divergência ida/volta média de 38% (muitos binários de mão única).
-- As linhas atendem áreas mais ricas que a média: em média 19% da população atendida está nos 30% mais pobres e 42% nos 30% mais ricos (referência neutra: 30%/30%). Entre as linhas comuns, o quartil que atende as áreas mais pobres tem intervalo mediano no pico de 20 min, contra 13 min no quartil mais rico (correlação de Spearman fraca, −0,17).
+- As linhas atendem áreas de renda mais alta que a média: em média 19% da população atendida está nos 30% de renda mais baixa e 42% nos 30% de renda mais alta (referência neutra: 30%/30%). Entre as linhas comuns, o quartil que atende as áreas de renda mais baixa tem intervalo mediano no pico de 20 min, contra 13 min no quartil mais rico (correlação de Spearman fraca, −0,17).
 - BRT: mediana de 16 mil pessoas a 400 m a pé e 73 mil a 800 m (estações espaçadas; 800 m é a referência usual).
 
 ## Fase 2: cobertura populacional — VERSÃO ATUAL: distância a pé (19/10/2026)
@@ -59,8 +59,8 @@ Resultados:
 - Por AP (% a 400 m a pé): AP1 68,3% · AP2 82,4% · AP3 71,7% · AP4 59,1% · AP5 62,2%. Na AP1 a queda vem dos morros (Santo Cristo 34%, Estácio 37%, Gamboa 54%, Santa Teresa 68%); Centro 99,7%, Lapa 100%.
 - Renda: decil 1 = 40,9% a 400 m a pé (68,1% em linha reta), distância média de 519 m; decil 9 = 85,1%, 235 m; decil 10 = 72,0% (Barra e condomínios).
 - Cor/raça: 72,9% dos brancos contra 64,0–64,4% dos pretos e pardos a 400 m a pé; com 10+ ônibus/h, 61,5% contra 49–50%.
-- Renda × oferta (tercis): têm pouca oferta (sem parada a 400 m a pé ou <10 ônibus/h) 64% dos 30% mais pobres, 43% do meio e 28% dos 30% mais ricos.
-- **Área prioritária: 1,19 milhão de pessoas** nos 30% mais pobres com pouca oferta (eram 752 mil em linha reta). Bairros: Santa Cruz 113 mil, Maré 87 mil (70% do bairro; 82 mil sem parada a 400 m a pé), Bangu 52 mil, Jacarepaguá 52 mil, Senador Camará 48 mil, Guaratiba 45 mil, Campo Grande 43 mil, Paciência 42 mil, Complexo do Alemão 34 mil (63% do bairro), Inhoaíba 26 mil.
+- Renda × oferta (tercis): têm pouca oferta (sem parada a 400 m a pé ou <10 ônibus/h) 64% dos 30% de renda mais baixa, 43% do meio e 28% dos 30% de renda mais alta.
+- **Área prioritária: 1,19 milhão de pessoas** nos 30% de renda mais baixa com pouca oferta (eram 752 mil em linha reta). Bairros: Santa Cruz 113 mil, Maré 87 mil (70% do bairro; 82 mil sem parada a 400 m a pé), Bangu 52 mil, Jacarepaguá 52 mil, Senador Camará 48 mil, Guaratiba 45 mil, Campo Grande 43 mil, Paciência 42 mil, Complexo do Alemão 34 mil (63% do bairro), Inhoaíba 26 mil.
 - População por linha cai em média 39% em relação à linha reta (de 20% a 82%).
 
 Saídas: cobertura_rede_a_pe, nivel_servico_a_pe, ap/ra/bairros_cobertura_a_pe, setores_cobertura_a_pe (com as duas versões), linhas_populacao_a_pe, paradas_populacao_a_pe, equidade_renda_a_pe, equidade_cor_raca_a_pe, prioridade_bairros_a_pe (CSV); mapas mapa_a_pe_1_nivel_servico, mapa_a_pe_2_renda_x_oferta, mapa_a_pe_3_prioridade, mapa_a_pe_4_desvio (PNG).
@@ -79,7 +79,7 @@ Método: população uniforme no setor em grade de 20 m (`raster.py` → `cobert
 - 400 m: 85,3% (300 m 74,6%; 500 m 91,3%; 800 m 97,9%); BRT a 400 m 8,6%.
 - Nível de serviço: 14,7% sem parada; 74% com 10+ ônibus/h.
 - Decil 1 de renda: 65% a 400 m; decil 9: 95%.
-- Área prioritária: 752 mil pessoas (41% dos 30% mais pobres).
+- Área prioritária: 752 mil pessoas (41% dos 30% de renda mais baixa).
 - Mapas: mapa_nivel_servico.png, mapa_1_renda.png, mapa_2_renda_x_oferta.png, mapa_3_prioridade.png.
 
 ## Como o OSM foi obtido

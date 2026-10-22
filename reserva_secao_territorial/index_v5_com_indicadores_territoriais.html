@@ -341,10 +341,10 @@ const IND=[
   desc:'Moradores a até 400 m a pé divididos pelas partidas de dia útil. Mede pressão potencial, não demanda.',
   get:l=>l.tec.ppp, cuts:[500,1000,2000,4000,8000], dir:'desc', pal:NEUT,
   labels:['menos de 500','500 a 1.000','1.000 a 2.000','2.000 a 4.000','4.000 a 8.000','8.000 ou mais'], show:v=>`${fmt(v)} moradores por partida`, short:v=>fmt(v), nd:'não roda em dia útil'},
- {k:'pob',tec:1,chip:'% mais pobres atendidos',titulo:'Parte da área atendida nos 30% mais pobres',unid:'%',usaFaixa:false,neutral:true,
+ {k:'pob',tec:1,chip:'% de renda mais baixa atendidos',titulo:'Parte da área atendida nos 30% de renda mais baixa',unid:'%',usaFaixa:false,neutral:true,
   desc:'Dos moradores a até 400 m a pé, quantos moram nos 30% de setores censitários de menor renda da cidade (referência neutra: 30%).',
   get:l=>l.tec.pob, cuts:[5,10,20,30,45], dir:'desc', pal:NEUT,
-  labels:['menos de 5%','5% a 10%','10% a 20%','20% a 30%','30% a 45%','45% ou mais'], show:v=>`${fmt(v)}% dos atendidos nos 30% mais pobres`, short:v=>`${fmt(v)}%`, nd:'sem dado'},
+  labels:['menos de 5%','5% a 10%','10% a 20%','20% a 30%','30% a 45%','45% ou mais'], show:v=>`${fmt(v)}% dos atendidos nos 30% de renda mais baixa`, short:v=>`${fmt(v)}%`, nd:'sem dado'},
  {k:'ppn',tec:1,chip:'% pretos e pardos',titulo:'Pretos e pardos na área atendida',unid:'%',usaFaixa:false,neutral:true,
   desc:'Parcela de pretos e pardos entre os moradores a até 400 m a pé (na cidade: 54%).',
   get:l=>l.tec.ppn, cuts:[35,45,52,58,63], dir:'desc', pal:NEUT,
@@ -671,7 +671,7 @@ const COLS=()=>[
  ...IND.map(i=>({k:i.k,t:i.chip+(i.usaFaixa?' ('+FX_LABEL[S.faixa].replace(/ \(.*\)/,'').toLowerCase()+')':(['viagens','horas'].includes(i.k)?' ('+diaTxt()+')':'')),ind:i,g:l=>i.get(l,S.dia,S.faixa),f:v=>v==null?'—':i.short(v)})),
  {k:'np',t:'Pontos de parada',g:l=>l.np,f:v=>fmt(v)},
  {k:'mpp',t:'Moradores por ponto',g:l=>l.np?Math.round(l.p4/l.np):null,f:v=>fmt(v)},
- {k:'ric',t:'% mais ricos atendidos',g:l=>l.tec.ric,f:v=>v==null?'—':fmt(v)+'%'},
+ {k:'ric',t:'% de renda mais alta atendidos',g:l=>l.tec.ric,f:v=>v==null?'—':fmt(v)+'%'},
  {k:'tar',t:'Tarifa',g:l=>l.tar,f:v=>v==null?'—':'R$ '+fmt(v,2)},
 ];
 const DEF_COLS=['espera','viagens','vel','frota','pop','pob'];
@@ -709,7 +709,7 @@ function refreshTec(){buildBins(); renderLegend(); renderList(); draw()}
 const csvq=v=>{if(v==null) return ''; const s=String(v); return /[",\n;]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
 function csvText(rows){
   const fx=['madrugada','pico_manha','meio_do_dia','pico_tarde','noite','dia_todo'], d=['util','sabado','domingo'][S.dia];
-  const H=['linha','nome','tipo','operador','route_id','tarifa_rs',...fx.map(f=>`intervalo_min_${f}_${d}`),'partidas_dia_util','partidas_sabado','partidas_domingo',`horas_funcionamento_${d}`,'velocidade_kmh','extensao_km','moradores_400m_a_pe','moradores_800m_a_pe','pontos_de_parada','paradas','moradores_por_ponto','frota_min_estimada_pico','km_dia_util','tortuosidade','divergencia_ida_volta_pct','moradores_por_partida','pct_atendidos_30pct_mais_pobres','pct_atendidos_30pct_mais_ricos','pct_pretos_pardos','renda_media_area_atendida'];
+  const H=['linha','nome','tipo','operador','route_id','tarifa_rs',...fx.map(f=>`intervalo_min_${f}_${d}`),'partidas_dia_util','partidas_sabado','partidas_domingo',`horas_funcionamento_${d}`,'velocidade_kmh','extensao_km','moradores_400m_a_pe','moradores_800m_a_pe','pontos_de_parada','paradas','moradores_por_ponto','frota_min_estimada_pico','km_dia_util','tortuosidade','divergencia_ida_volta_pct','moradores_por_partida','pct_atendidos_30pct_renda_mais_baixa','pct_atendidos_30pct_renda_mais_alta','pct_pretos_pardos','renda_media_area_atendida'];
   const lines=[H.join(',')];
   rows.forEach(l=>{const t=l.tec; lines.push([l.n,l.nome,l.modo==='Executivo'?'Frescão':l.modo,l.op,l.r,l.tar,...l.iv[S.dia],l.pt[0][5]||0,l.pt[1][5]||0,l.pt[2][5]||0,l.amp[S.dia],l.vel,l.ext,l.p4,l.p8,l.np,l.st.length,l.np?Math.round(l.p4/l.np):'',t.fr,t.vkm,t.tort,t.div,t.ppp,t.pob,t.ric,t.ppn,t.ren].map(csvq).join(','))});
   return '﻿'+lines.join('\n');
@@ -735,8 +735,8 @@ function tecFicha(l){
    ${r('Tortuosidade',t.tort!=null?fmt(t.tort,1):'circular')}
    ${r('Trajeto só em um sentido',t.div!=null?fmt(t.div)+'%':(t.ns===1?'um sentido só':'—'))}
    ${r('Moradores por partida (dia útil)',t.ppp!=null?fmt(t.ppp):'—')}
-   ${r('Atendidos nos 30% mais pobres',t.pob!=null?fmt(t.pob)+'% <span style="color:var(--muted)">(neutro: 30%)</span>':'—')}
-   ${r('Atendidos nos 30% mais ricos',t.ric!=null?fmt(t.ric)+'%':'—')}
+   ${r('Atendidos nos 30% de renda mais baixa',t.pob!=null?fmt(t.pob)+'% <span style="color:var(--muted)">(neutro: 30%)</span>':'—')}
+   ${r('Atendidos nos 30% de renda mais alta',t.ric!=null?fmt(t.ric)+'%':'—')}
    ${r('Pretos e pardos na área atendida',t.ppn!=null?fmt(t.ppn)+'% <span style="color:var(--muted)">(cidade: 54%)</span>':'—')}
    ${r('Renda média da área atendida',t.ren?'R$ '+fmt(t.ren):'—')}
    ${r('Identificador GTFS',`<code>${esc(l.r)}</code>`)}

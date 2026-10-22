@@ -44,13 +44,13 @@ domq,accq=dominant(q,5); has=(accq.sum(0)>0)
 ramp=['#fde3cf','#f9b98a','#ef8a4c','#c75d22','#8a3a10']
 rgb=base(); rgb[has&~lowmask]=np.array([to_rgb(c) for c in ramp])[domq[has&~lowmask]]; rgb[lowmask]=to_rgb(LOWC)
 qlab=[f"{int(lim.loc[2*i+1,'min']):,}".replace(',','.')+' a '+f"{int(lim.loc[2*i+2,'max']):,}".replace(',','.') for i in range(5)]
-names=['20% mais pobres','2º quinto','3º quinto','4º quinto','20% mais ricos']
+names=['20% de renda mais baixa','2º quinto','3º quinto','4º quinto','20% de renda mais alta']
 h=[Patch(color=ramp[i],label=f'{names[i]}\nR$ {qlab[i]}') for i in range(5)]+[Patch(color=LOWC,label=f'Baixa densidade (<{LOW:,} hab/km²)'.replace(',','.')),Patch(facecolor=BG,edgecolor='#c9c6bf',label='Sem moradores')]
-show(rgb,'Rio de Janeiro: renda média do responsável pelo domicílio','Quintos da população, do setor censitário mais pobre ao mais rico',
+show(rgb,'Rio de Janeiro: renda média do responsável pelo domicílio','Quintos da população, do setor censitário de renda mais baixa ao de renda mais alta',
      'mapa_1_renda.png',h,'Renda média mensal do responsável',f'Cada quinto reúne ~1,24 milhão de\npessoas. Quadrículas de 100 m com\nmenos de {LOW:,} hab/km² em cinza\n({str(round(pctlow,1)).replace(".",",")}% da população).'.replace('1,000','1.000'))
 # ---- Mapa 2: bivariado renda (tercis) x oferta (3 classes)
-t=np.where(dcell>0,np.select([dcell<=3,dcell<=7],[0,1],2),-1)    # 0 = 30% mais pobres, 1 = meio (40%), 2 = 30% mais ricos
-xr=2-t                                                            # x: 0 rico ... 2 pobre
+t=np.where(dcell>0,np.select([dcell<=3,dcell<=7],[0,1],2),-1)    # 0 = 30% de renda mais baixa, 1 = meio (40%), 2 = 30% de renda mais alta
+xr=2-t                                                            # x: 0 renda alta ... 2 renda baixa
 ys=2-serv                                                         # y: 0 oferta alta ... 2 baixa
 lbl=np.where(t>=0,ys*3+xr,-1)
 domb,accb=dominant(lbl,9); has=(accb.sum(0)>0)
@@ -73,14 +73,14 @@ def legend_bi(fig,ax):
     fig.text(lx+3*s*0.505+0.008,ly+0.005,'baixa renda +\nmuito ônibus',fontsize=10,color='#985356',va='bottom')
     fig.text(lx-0.005,ly+3*s+0.0,'',fontsize=1)
 sp=share
-note=(f"Renda: 30% mais pobres · 40% do meio · 30% mais ricos.\n"
+note=(f"Renda: 30% mais baixa · 40% do meio · 30% mais alta.\n"
       f"Oferta: pouco = sem parada ou <10 ônibus/h; médio = 10–30;\nmuito = 30+ (6h–9h em dia útil).\n\n"
-      f"Têm pouco ônibus: {sp.loc[0,0]:.0f}% dos 30% mais pobres,\n{sp.loc[0,1]:.0f}% do meio e {sp.loc[0,2]:.0f}% dos 30% mais ricos.\n\n"
+      f"Têm pouco ônibus: {sp.loc[0,0]:.0f}% dos 30% de renda mais baixa,\n{sp.loc[0,1]:.0f}% do meio e {sp.loc[0,2]:.0f}% dos 30% de renda mais alta.\n\n"
       f"Cinza bem claro: <{LOW:,} hab/km².").replace(',','.')
 fig_note=note
 show(rgb,'Rio de Janeiro: renda e oferta de ônibus no pico da manhã','Tons escuros: onde baixa renda e pouca oferta de ônibus coincidem',
      'mapa_2_renda_x_oferta.png',None,None,fig_note,legend_bi)
-# ---- Mapa 3: prioridade (30% mais pobres E pouca oferta)
+# ---- Mapa 3: prioridade (30% de renda mais baixa E pouca oferta)
 pri=(dcell>=1)&(dcell<=3)&(serv==0)
 pp=np.bincount(k[pri],weights=cp[pri],minlength=NX*NY)
 rgb=base(); pop_any=pt>0
@@ -108,8 +108,8 @@ def labels(fig,ax):
         ax.annotate(f"{b}\n{int(PB.loc[b,'pop_prioritaria']/1000)} mil",(B.loc[b,'x']/AG,B.loc[b,'y']/AG),xytext=off,textcoords='offset points',
             fontsize=10,ha='center',va='center',color='#1a1a19',bbox=dict(boxstyle='round,pad=0.25',fc='white',ec='#c9c6bf',lw=0.5,alpha=0.92),
             arrowprops=dict(arrowstyle='-',color='#5f5e5a',lw=0.7) if off!=(0,0) else None)
-h=[Patch(color='#c0392b',label='30% mais pobres sem parada a 400 m\nou com menos de 10 ônibus/h'),Patch(color='#c9c6bf',label='Demais moradores'),Patch(facecolor=BG,edgecolor='#c9c6bf',label='Sem moradores')]
+h=[Patch(color='#c0392b',label='30% de renda mais baixa\nsem parada a 400 m\nou com menos de 10 ônibus/h'),Patch(color='#c9c6bf',label='Demais moradores'),Patch(facecolor=BG,edgecolor='#c9c6bf',label='Sem moradores')]
 show(rgb,f'Rio de Janeiro: {round(totp/1000)} mil pessoas de baixa renda com pouca oferta de ônibus',
-     'Moradores dos 30% de setores mais pobres sem parada a até 400 m ou com menos de 10 ônibus/h no pico da manhã',
+     'Moradores dos 30% de setores de renda mais baixa sem parada a até 400 m ou com menos de 10 ônibus/h no pico da manhã',
      'mapa_3_prioridade.png',h,'Áreas prioritárias',
-     f'Intensidade do vermelho: densidade\ndessa população.\n\nRótulos: os 10 bairros com mais\nmoradores nessa situação.\n\nSão {100*totp/cp[(dcell>=1)&(dcell<=3)].sum():.0f}% dos 30% mais pobres\n(contra {100*cp[(dcell>=8)&(serv==0)].sum()/cp[dcell>=8].sum():.0f}% dos 30% mais ricos).',labels)
+     f'Intensidade do vermelho: densidade\ndessa população.\n\nRótulos: os 10 bairros com mais\nmoradores nessa situação.\n\nSão {100*totp/cp[(dcell>=1)&(dcell<=3)].sum():.0f}% dos 30% de renda mais baixa\n(contra {100*cp[(dcell>=8)&(serv==0)].sum()/cp[dcell>=8].sum():.0f}% dos 30% de renda mais alta).',labels)

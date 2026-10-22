@@ -48,7 +48,7 @@ for c in ['branca','preta','parda']:
     rows.append({'cor_raca':c,'populacao':int(w.sum()),'pct_400m_a_pe':round(100*(w*sh('cob')).sum()/w.sum(),1),'pct_400m_a_pe_10onibus_h':round(100*(w*sh('bom')).sum()/w.sum(),1),
                  'dist_media_a_pe_m':round((w*(S.wd/S['pop']).fillna(0)).sum()/w.sum(),0)})
 E2=pd.DataFrame(rows); print(E2.to_string(index=False)); E2.to_csv(os.path.join(OUTP,'equidade_cor_raca_a_pe.csv'),index=False)
-# prioridade: 30% mais pobres e (sem parada a 400 m a pé ou <10 ônibus/h)
+# prioridade: 30% de renda mais baixa e (sem parada a 400 m a pé ou <10 ônibus/h)
 dec=pd.Series(-1,index=S.index); dec[Sp.index]=Sp.decil_renda
 ps['dec']=dec.reindex(ps.s.values).values
 pri=(ps.dec>=1)&(ps.dec<=3)&((ps.dw>R)|(ps.f<10))
@@ -57,7 +57,7 @@ PB=ps.groupby(S.bairro.values[ps.s.values])[['pri','pri_sem']].sum().rename(colu
 PB['pop_bairro']=S.groupby('bairro').populacao.sum().reindex(PB.index); PB['pct_bairro']=(100*PB.pop_prioritaria/PB.pop_bairro).round(1)
 PB=PB.sort_values('pop_prioritaria',ascending=False); PB.rename_axis('bairro').reset_index().to_csv(os.path.join(OUTP,'prioridade_bairros_a_pe.csv'),index=False)
 low=ps[(ps.dec>=1)&(ps.dec<=3)]['pop'].sum(); hi=ps[ps.dec>=8]
-print(f"pop prioritária: {ps.pri.sum():,.0f} = {100*ps.pri.sum()/low:.0f}% dos 30% mais pobres; entre os 30% mais ricos: {100*hi[(hi.dw>R)|(hi.f<10)]['pop'].sum()/hi['pop'].sum():.0f}%")
+print(f"pop prioritária: {ps.pri.sum():,.0f} = {100*ps.pri.sum()/low:.0f}% dos 30% de renda mais baixa; entre os 30% de renda mais alta: {100*hi[(hi.dw>R)|(hi.f<10)]['pop'].sum()/hi['pop'].sum():.0f}%")
 print(PB.head(12).to_string())
 # células para os mapas: salva por ponto a classe e o decil dominante
 ps[['p','s','pop','dec','cls']].to_csv(os.path.join(OUTP,'pontos_mapa.csv.gz'),index=False)
